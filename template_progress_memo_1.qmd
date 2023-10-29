@@ -3,7 +3,7 @@ title: "Progress Memo 1"
 subtitle: |
   | Final Project 
   | Data Science 1 with R (STAT 301-1)
-author: "YOUR NAME"
+author: "Celena Kim"
 date: today
 
 format:
@@ -18,38 +18,52 @@ execute:
 from: markdown+emoji 
 ---
 
-::: {.callout-important}
-## Memo format
-
-Like all other submissions for this course, we expect the memo to be neat and well organized.
-
-You should make this document your own. This is a template. To help with this we have added a date to the yaml above (good whenever writing memos). You should remove this block when making this document your own.
-
-:::
-
-::: {.callout-tip icon=false}
-
+::: {.callout-tip icon="false"}
 ## Github Repo Link
 
-To link to your github **repo**sitory, appropriately edit the example link below. Meaning replace `https://your-github-repo-url` with your github repo url. Suggest verifying the link works before submitting.
-
-[https://your-github-repo-url](https://your-github-repo-url)
-
+<https://github.com/stat301-1-2023-fall/final-project-1-celenakim>
 :::
 
-::: {.callout-warning}
+::: callout-warning
 GitHub (free account) cannot store large files. If you try to commit and push a large dataset you will have an ERROR! Any file over 100 MB (100,000 KB) needs to be added to the `.gitignore` file BEFORE committing.
 
 **We may need to do that for files in your final project!**
 :::
 
 ## Data source
+```{r}
+library(tidyverse)
+data1 <- read.csv("data/The Hollywood Inider - all data - 2007.csv")
+data2 <- read.csv("data/The Hollywood Inider - all data - 2008.csv")
+data3 <- read.csv("data/The Hollywood Inider - all data - 2009.csv")
+data4 <- read.csv("data/The Hollywood Inider - all data - 2010.csv")
+data5 <- read.csv("data/The Hollywood Inider - all data - 2011.csv")
+data6 <- read.csv("data/The Hollywood Inider - all data - 2012.csv")
+data7 <- read.csv("data/The Hollywood Inider - all data - 2013.csv")
+data8 <- read.csv("data/The Hollywood Inider - all data - 2014.csv")
+data9 <- read.csv("data/The Hollywood Inider - all data - 2015.csv")
+data10 <- read.csv("data/The Hollywood Inider - all data - 2016.csv")
+data11 <- read.csv("data/The Hollywood Inider - all data - 2017.csv")
+data12 <- read.csv("data/The Hollywood Inider - all data - 2018.csv")
+data13 <- read.csv("data/The Hollywood Inider - all data - 2019.csv")
+data14 <- read.csv("data/The Hollywood Inider - all data - 2020.csv")
+data15 <- read.csv("data/The Hollywood Inider - all data - 2021.csv")
+data16 <- read.csv("data/The Hollywood Inider - all data - 2022.csv")
 
-Blah blah blah^[where blah blah came from, an example of footnote]
+movie_data <- rbind(data5, data6, data7, data8, data9, data10, data11, data12).  #2011-2018
+write.csv(movie_data, "movie_data.csv", row.names = FALSE)
+```
+
+
+Blah blah blah[^1]
+
+[^1]: where blah blah came from, an example of footnote
 
 ## Why this data
 
-Blah blah blah^[another footnote]
+Blah blah blah[^2]
+
+[^2]: another footnote
 
 ## Data quality & complexity check
 
