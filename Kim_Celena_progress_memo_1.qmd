@@ -63,3 +63,10 @@ When joining my data sets, it is not going to be a simple and straightforward co
 
 I plan to use line graphs and density plots to visualize data comparisons and changes over time over the course of 2007-2023, and visualizations within each specific year will be represented by other graph types such as bar graphs to show the distribution of genres for that year (or facet by year). I also will make use of summary statistics and correlations to calculate significant values regarding success rate.
 
+
+
+
+## References
+Kaggle (2023). Hollywood Hits and Flops data set
+<https://www.kaggle.com/datasets/sujaykapadnis/hollywood-hits-and-flops-2007-2023>
+
