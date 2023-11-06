@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Celena Kim">
-<meta name="dcterms.date" content="2023-10-11">
+<meta name="dcterms.date" content="2023-10-29">
 
 <title>Progress Memo 1</title>
 <style>
@@ -2567,7 +2567,7 @@ Data Science 1 with R (STAT 301-1)</p><p></p>
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 11, 2023</p>
+      <p class="date">October 29, 2023</p>
     </div>
   </div>
     
@@ -2586,52 +2586,34 @@ Github Repo Link
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><a href="https://github.com/stat301-1-2023-fall/final-project-1-celenakim">https://github.com/stat301-1-2023-fall/final-project-1-celenakim</a></p>
-</div>
-</div>
-<div class="callout-warning callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>GitHub (free account) cannot store large files. If you try to commit and push a large dataset you will have an ERROR! Any file over 100 MB (100,000 KB) needs to be added to the <code>.gitignore</code> file BEFORE committing.</p>
-<p><strong>We may need to do that for files in your final project!</strong></p>
+<p><a href="https://github.com/stat301-1-2023-fall/final-project-1-celenakim" class="uri">https://github.com/stat301-1-2023-fall/final-project-1-celenakim</a></p>
 </div>
 </div>
 <section id="data-source" class="level2">
 <h2 class="anchored" data-anchor-id="data-source">Data source</h2>
-<p>Blah blah blah<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<div class="cell">
+
+</div>
+<p>The data source that I chose for my project is called “Hollywood Hits and Flops [2007 - 2023]” (https://www.kaggle.com/datasets/sujaykapadnis/hollywood-hits-and-flops-2007-2023/). This contains numerous details pertaining to the success rate of hundreds of movies from 2007-2023, such as the Rotten Tomatoes score, audience size, genre, opening weekend revenue, oscar wins, etc. All of the movies range in popularity and success rate, and there are numerous genres and script types represented. There are 16 different csv files as each corresponds to a year from 2007-2023, so joining datasets is necessary. However, the data sets for 2007-2010 have 33 variables, 2011-2018 have 34 variables, and 2019-2022 have 35 variables, so I will have to do some work to ensure that all the data sets have the same number of variables. Additionally, there are some slight differentiations in column names between some data sets, so that will need some cleaning before I combine everything into one single data set.</p>
 </section>
 <section id="why-this-data" class="level2">
 <h2 class="anchored" data-anchor-id="why-this-data">Why this data</h2>
-<p>Blah blah blah<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>As an avid movie enthusiast, I chose this dataset because I think it would be very interesting to analyze and compare how various factors can contribute to a movie’s success or flop rate. With over 30 variables in the data set, this presents the opportunity to make a wide range of complex multivariate analyses to better understand my data and bring about insights that I may not have considered before regarding movies and their success. Some questions of interest that I have for my analysis include discovering what the most/least popular movie genres are and how that compares across the years 2007-2023, how the critic ratings relate to revenue, how the audience numbers relate to Oscar wins, and more. I am also interested in devising a formula to calculate concrete numbers for the success rate of each movie based on a combination of the variables included.</p>
 </section>
 <section id="data-quality-complexity-check" class="level2">
 <h2 class="anchored" data-anchor-id="data-quality-complexity-check">Data quality &amp; complexity check</h2>
-<p>Blah blah blah</p>
+<p>As stated previously, there are 16 separate data sets for each of the years between 2007 and 2023. The data sets for 2007-2010 have 33 variables, 2011-2018 have 34 variables, and 2019-2022 have 35 variables, and the number of observations ranges from 66-160. After combining all of the separate data sets into one, there should be about 2,000 observations and 33 variables (I will remove the extra variables for the years where there are more than 33 variables). There are 12 categorical and 21 numerical variables. For all of the data sets, there appears to be NAs in all of the observations for the variables “financial source, if not the numbers” and “film list here…”, so those variables are most likely going to be removed. Additionally, there is a column called “None” with NAs for everything observation, and that is most likely going to be removed as well as I am not sure what the purpose of that variable is. Finally, some years do not have information for “distributor”, “IMDb rating”, and “IMDb vs RT disparity”, while others do have that information present.</p>
 </section>
 <section id="potential-data-issues" class="level2">
 <h2 class="anchored" data-anchor-id="potential-data-issues">Potential data issues</h2>
-<p>Blah blah blah</p>
+<p>When joining my data sets, it is not going to be a simple and straightforward combining– the data sets have different numbers of variables from 33-35, so I will have to do some cleaning to ensure that all the data sets have the same number of variables. Additionally, there are some minute differences in column names between some data sets (eg. “Genre” vs. “Genres”), so I will also need to clean the names and rename so that all the data sets have the same variable names before combining. Finally, variables where percentages are included are classified as character variables, so I may need to drop the percent signs from these observations and convert those values into numerical types in order to be able to make calculations and analyses.</p>
 </section>
 <section id="misc" class="level2">
 <h2 class="anchored" data-anchor-id="misc">Misc</h2>
-<p>Blah Blah</p>
+<p>I plan to use line graphs and density plots to visualize data comparisons and changes over time over the course of 2007-2023, and visualizations within each specific year will be represented by other graph types such as bar graphs to show the distribution of genres for that year (or facet by year). I also will make use of summary statistics and correlations to calculate significant values regarding success rate.</p>
 </section>
 
-
-<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>where blah blah came from, an example of footnote<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>another footnote<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section></div></main>
+</main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
