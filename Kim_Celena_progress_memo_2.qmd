@@ -10,10 +10,55 @@ format:
   html:
     toc: true
     embed-resources: true
+    code-fold: show
+    link-external-newwindow: true
     
 execute:
-  echo: false
   warning: false
 
 from: markdown+emoji 
 ---
+
+
+::: {.callout-tip icon="false"}
+## Github Repo Link
+
+[https://github.com/stat301-1-2023-fall/final-project-1-celenakim](https://github.com/stat301-1-2023-fall/final-project-1-celenakim)
+:::
+
+## Overview
+
+Students are expected to demonstrate that significant progress has been made on their final project since the submission of progress memo 1. Students should have their data cleaned and the EDA should be started.
+
+Demonstrating significant progress means students should have some univariate and bivariate analyses complete for several of their variables.  They should share a few graphics and/or tables with a description of what they have found thus far to demonstrate they progress. Students should should clearly state what they are exploring and why in these demonstrations. That is, they should share the guiding curiosity or research question that accompanies the particular graphics and/or tables they choose to share. 
+
+What else should be in the memo
+Students should summarize their progress, where they are at, and what their next steps will be. Self assessment of progress would also be appropriate. When thinking or describing next steps students should share any guiding curiosities or research questions they plan to explore.
+
+## Packages & Datasets
+
+```{r}
+#| label: load-pkgs-data
+
+# Loading packages and data
+library(tidyverse)
+data_2007 <- read.csv("data/The Hollywood Inider - all data - 2007.csv")
+data_2008 <- read.csv("data/The Hollywood Inider - all data - 2008.csv")
+data_2009 <- read.csv("data/The Hollywood Inider - all data - 2009.csv")
+data_2010 <- read.csv("data/The Hollywood Inider - all data - 2010.csv")
+data_2011 <- read.csv("data/The Hollywood Inider - all data - 2011.csv")
+data_2012 <- read.csv("data/The Hollywood Inider - all data - 2012.csv")
+data_2013 <- read.csv("data/The Hollywood Inider - all data - 2013.csv")
+data_2014 <- read.csv("data/The Hollywood Inider - all data - 2014.csv")
+data_2015 <- read.csv("data/The Hollywood Inider - all data - 2015.csv")
+data_2016 <- read.csv("data/The Hollywood Inider - all data - 2016.csv")
+data_2017 <- read.csv("data/The Hollywood Inider - all data - 2017.csv")
+data_2018 <- read.csv("data/The Hollywood Inider - all data - 2018.csv")
+data_2019 <- read.csv("data/The Hollywood Inider - all data - 2019.csv")
+data_2020 <- read.csv("data/The Hollywood Inider - all data - 2020.csv")
+data_2021 <- read.csv("data/The Hollywood Inider - all data - 2021.csv")
+data_2022 <- read.csv("data/The Hollywood Inider - all data - 2022.csv")
+```
+
+
+

@@ -22,6 +22,69 @@ width: 0.8em;
 margin: 0 0.8em 0.2em -1.6em;
 vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 
 
@@ -2593,7 +2656,23 @@ Github Repo Link
 <section id="data-source" class="level2">
 <h2 class="anchored" data-anchor-id="data-source">Data source</h2>
 <div class="cell">
-
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/The Hollywood Inider - all data - 2007.csv&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data2 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/The Hollywood Inider - all data - 2008.csv&quot;</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>data3 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/The Hollywood Inider - all data - 2009.csv&quot;</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>data4 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/The Hollywood Inider - all data - 2010.csv&quot;</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>data5 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/The Hollywood Inider - all data - 2011.csv&quot;</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>data6 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/The Hollywood Inider - all data - 2012.csv&quot;</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>data7 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/The Hollywood Inider - all data - 2013.csv&quot;</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>data8 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/The Hollywood Inider - all data - 2014.csv&quot;</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>data9 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/The Hollywood Inider - all data - 2015.csv&quot;</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>data10 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/The Hollywood Inider - all data - 2016.csv&quot;</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>data11 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/The Hollywood Inider - all data - 2017.csv&quot;</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>data12 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/The Hollywood Inider - all data - 2018.csv&quot;</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>data13 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/The Hollywood Inider - all data - 2019.csv&quot;</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>data14 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/The Hollywood Inider - all data - 2020.csv&quot;</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>data15 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/The Hollywood Inider - all data - 2021.csv&quot;</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>data16 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/The Hollywood Inider - all data - 2022.csv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The data source that I chose for my project is called <a href="https://www.kaggle.com/datasets/sujaykapadnis/hollywood-hits-and-flops-2007-2023/">Hollywood Hits and Flops (2007 - 2023)</a> found on <a href="https://www.kaggle.com">Kaggle</a>. This contains numerous details pertaining to the success rate of hundreds of movies from 2007-2023, such as the Rotten Tomatoes score, audience size, genre, opening weekend revenue, oscar wins, etc. All of the movies range in popularity and success rate, and there are numerous genres and script types represented. There are 16 different csv files as each corresponds to a year from 2007-2023, so joining datasets is necessary. However, the data sets for 2007-2010 have 33 variables, 2011-2018 have 34 variables, and 2019-2022 have 35 variables, so I will have to do some work to ensure that all the data sets have the same number of variables. Additionally, there are some slight differentiations in column names between some data sets, so that will need some cleaning before I combine everything into one single data set.</p>
 </section>
