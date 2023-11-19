@@ -145,7 +145,8 @@ genre_opening_success <- movie_data |>
   group_by(genre) |> 
   summarize(mean_opening_success = mean(opening_weekend)) |> 
   arrange(desc(mean_opening_success)) |> 
-  slice_head(n = 3)
+  slice_head(n = 3) |> 
+  DT::datatable()
 genre_opening_success
 ```
 
@@ -160,7 +161,9 @@ scripttype_opening_success <- movie_data |>
   group_by(script_type) |> 
   summarize(mean_opening_success = mean(opening_weekend)) |> 
   arrange(desc(mean_opening_success)) |> 
-  slice_head(n = 3)
+  slice_head(n = 3) |> 
+  DT::datatable()
+
 scripttype_opening_success
 ```
 
@@ -169,13 +172,16 @@ scripttype_opening_success
 ```{r}
 year_opening_success <- movie_data |> 
   group_by(year) |> 
-  summarize(mean_opening_success = mean(opening_weekend_million, na.rm = TRUE)) 
-year_opening_success
+  summarize(mean_opening_success = mean(opening_weekend_million, na.rm = TRUE))  |> 
+  arrange(desc(mean_opening_success)) 
+
+year_opening_success |> 
+  DT::datatable()
 
 ggplot(year_opening_success, aes(x = year, y = mean_opening_success)) +
   geom_line() +
   geom_point() +
-  labs(x = "Year", y = "Mean Opening Weekend Amount (in millions)", title = "Average Opening Weekend Amount in Millions from 2007-2022") +
+  labs(x = "Year", y = "Mean Opening Weekend Earnings (in millions)", title = "Average Opening Weekend Earnings for Hollywood Movies from 2007-2022") +
   ylim(0, 28)
 ```
-
+These visualizations represent the change in the mean opening weekend earnings (in millions) for Hollywood movies from 2007-2008. As can be seen by the graph, the years with the most successful opening weekends in terms of mean earnings are the years 2012 and 2014, closely tied with an average earning of 27 million dollars. The lowest point on the graph corresponds to 2020, with that year earning the least during opening weekend: 8 million dollars. This data definitely reflects the times/economy of the country during this year, as 2020 was the year that America was under quarantine and movie theaters were shut down.
