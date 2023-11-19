@@ -2601,6 +2601,7 @@ vertical-align: -.125em;
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#packages-datasets" id="toc-packages-datasets" class="nav-link" data-scroll-target="#packages-datasets">Packages &amp; Datasets</a></li>
+  <li><a href="#combining-data" id="toc-combining-data" class="nav-link" data-scroll-target="#combining-data">Combining Data</a></li>
   </ul>
 </nav>
 </div>
@@ -2681,6 +2682,75 @@ Github Repo Link
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/The Hollywood Inider - all data - 2022.csv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+</section>
+<section id="combining-data" class="level2">
+<h2 class="anchored" data-anchor-id="combining-data">Combining Data</h2>
+<div class="cell">
+<details open>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data_2019 &lt;- data_2019 |&gt; </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   rename(Genre = Genres, Opening.Weekend = Opening.Weekend...., of.Gross.earned.abroad = X..of.Gross.earned.abroad)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># data_2019 &lt;- data_2019[, -ncol(data_2019)]</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># data_2020 &lt;- data_2020 |&gt; </span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   rename(Genre = Genres, Opening.Weekend = Opening.Weekend...., of.Gross.earned.abroad = X..of.Gross.earned.abroad) </span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># data_2020 &lt;- data_2020[, -ncol(data_2020)]</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># data_2021 &lt;- data_2021 |&gt; </span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   rename(Genre = Genres, Opening.Weekend = Opening.Weekend...., of.Gross.earned.abroad = X..of.Gross.earned.abroad) </span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># data_2021 &lt;- data_2021[, -ncol(data_2021)]</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># data_2022 &lt;- data_2022 |&gt; </span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#   rename(Genre = Genres, Opening.Weekend = Opening.Weekend...., of.Gross.earned.abroad = X..of.Gross.earned.abroad) </span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># data_2022 &lt;- data_2022[, -ncol(data_2022)]</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># movie_data &lt;- rbind(data_2011, data_2012, data_2013, data_2014, data_2015, data_2016, data_2017, data_2018, data_2019, data_2020, data_2021, data_2022) #2011-2022</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(movie_data, &quot;movie_data.csv&quot;, row.names = FALSE)</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># movie_data &lt;- movie_data[, -ncol(movie_data)]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data_2011 <span class="ot">&lt;-</span> data_2011[, <span class="sc">-</span><span class="fu">ncol</span>(data_2011)]</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>data_2012 <span class="ot">&lt;-</span> data_2012[, <span class="sc">-</span><span class="fu">ncol</span>(data_2012)]</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>data_2013 <span class="ot">&lt;-</span> data_2013[, <span class="sc">-</span><span class="fu">ncol</span>(data_2013)]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>data_2014 <span class="ot">&lt;-</span> data_2014[, <span class="sc">-</span><span class="fu">ncol</span>(data_2014)]</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>data_2015 <span class="ot">&lt;-</span> data_2015[, <span class="sc">-</span><span class="fu">ncol</span>(data_2015)]</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>data_2016 <span class="ot">&lt;-</span> data_2016[, <span class="sc">-</span><span class="fu">ncol</span>(data_2016)]</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>data_2017 <span class="ot">&lt;-</span> data_2017[, <span class="sc">-</span><span class="fu">ncol</span>(data_2017)]</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>data_2018 <span class="ot">&lt;-</span> data_2018[, <span class="sc">-</span><span class="fu">ncol</span>(data_2018)]</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>data_2019 <span class="ot">&lt;-</span> data_2019 <span class="sc">|&gt;</span> </span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Genre =</span> Genres, <span class="at">Opening.Weekend =</span> Opening.Weekend...., <span class="at">of.Gross.earned.abroad =</span> X..of.Gross.earned.abroad)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>data_2019 <span class="ot">&lt;-</span> data_2019[, <span class="sc">-</span><span class="fu">c</span>((<span class="fu">ncol</span>(data_2019) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">:</span><span class="fu">ncol</span>(data_2019))]</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>data_2020 <span class="ot">&lt;-</span> data_2020 <span class="sc">|&gt;</span> </span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Genre =</span> Genres, <span class="at">Opening.Weekend =</span> Opening.Weekend...., <span class="at">of.Gross.earned.abroad =</span> X..of.Gross.earned.abroad) </span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>data_2020 <span class="ot">&lt;-</span> data_2020[, <span class="sc">-</span><span class="fu">c</span>((<span class="fu">ncol</span>(data_2020) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">:</span><span class="fu">ncol</span>(data_2020))]</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>data_2021 <span class="ot">&lt;-</span> data_2021 <span class="sc">|&gt;</span> </span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Genre =</span> Genres, <span class="at">Opening.Weekend =</span> Opening.Weekend...., <span class="at">of.Gross.earned.abroad =</span> X..of.Gross.earned.abroad) </span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>data_2021 <span class="ot">&lt;-</span> data_2021[, <span class="sc">-</span><span class="fu">c</span>((<span class="fu">ncol</span>(data_2021) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">:</span><span class="fu">ncol</span>(data_2021))]</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="ot">&lt;-</span> data_2022 <span class="sc">|&gt;</span> </span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Genre =</span> Genres, <span class="at">Opening.Weekend =</span> Opening.Weekend...., <span class="at">of.Gross.earned.abroad =</span> X..of.Gross.earned.abroad) </span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="ot">&lt;-</span> data_2022[, <span class="sc">-</span><span class="fu">c</span>((<span class="fu">ncol</span>(data_2022) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">:</span><span class="fu">ncol</span>(data_2022))]</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>movie_data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(data_2007, data_2008, data_2009, data_2010, data_2011, data_2012, data_2013, data_2014, data_2015, data_2016, data_2017, data_2018, data_2019, data_2020, data_2021, data_2022) <span class="co">#2011-2022</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(movie_data, <span class="st">&quot;movie_data.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>primary genre and genre NA</p>
 </section>
 
 </main>
