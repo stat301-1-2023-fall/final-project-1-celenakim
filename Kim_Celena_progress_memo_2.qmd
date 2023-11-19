@@ -36,6 +36,7 @@ What else should be in the memo
 Students should summarize their progress, where they are at, and what their next steps will be. Self assessment of progress would also be appropriate. When thinking or describing next steps students should share any guiding curiosities or research questions they plan to explore.
 
 ## Packages & Datasets
+The data used in this project is called [Hollywood Hits and Flops (2007 - 2023)](https://www.kaggle.com/datasets/sujaykapadnis/hollywood-hits-and-flops-2007-2023/) found on [Kaggle](https://www.kaggle.com). 
 
 ```{r}
 #| label: load-pkgs-data
