@@ -41,8 +41,8 @@ The data used in this project is called [Hollywood Hits and Flops (2007 - 2023)]
 ```{r}
 #| label: load-pkgs-data
 
-# Loading packages and data
 library(tidyverse)
+library(janitor)
 data_2007 <- read.csv("data/The Hollywood Inider - all data - 2007.csv")
 data_2008 <- read.csv("data/The Hollywood Inider - all data - 2008.csv")
 data_2009 <- read.csv("data/The Hollywood Inider - all data - 2009.csv")
@@ -61,30 +61,7 @@ data_2021 <- read.csv("data/The Hollywood Inider - all data - 2021.csv")
 data_2022 <- read.csv("data/The Hollywood Inider - all data - 2022.csv")
 ```
 
-## Combining Data
-```{r}
-# data_2019 <- data_2019 |> 
-#   rename(Genre = Genres, Opening.Weekend = Opening.Weekend...., of.Gross.earned.abroad = X..of.Gross.earned.abroad)
-# data_2019 <- data_2019[, -ncol(data_2019)]
-# 
-# data_2020 <- data_2020 |> 
-#   rename(Genre = Genres, Opening.Weekend = Opening.Weekend...., of.Gross.earned.abroad = X..of.Gross.earned.abroad) 
-# data_2020 <- data_2020[, -ncol(data_2020)]
-# 
-# data_2021 <- data_2021 |> 
-#   rename(Genre = Genres, Opening.Weekend = Opening.Weekend...., of.Gross.earned.abroad = X..of.Gross.earned.abroad) 
-# data_2021 <- data_2021[, -ncol(data_2021)]
-# 
-# data_2022 <- data_2022 |> 
-#   rename(Genre = Genres, Opening.Weekend = Opening.Weekend...., of.Gross.earned.abroad = X..of.Gross.earned.abroad) 
-# data_2022 <- data_2022[, -ncol(data_2022)]
-# 
-# movie_data <- rbind(data_2011, data_2012, data_2013, data_2014, data_2015, data_2016, data_2017, data_2018, data_2019, data_2020, data_2021, data_2022) #2011-2022
-# 
-# write.csv(movie_data, "movie_data.csv", row.names = FALSE)
-# movie_data <- movie_data[, -ncol(movie_data)]
-
-```
+## Joining Datasets
 
 ```{r}
 data_2011 <- data_2011[, -ncol(data_2011)]
@@ -124,4 +101,81 @@ movie_data <- rbind(data_2007, data_2008, data_2009, data_2010, data_2011, data_
 write.csv(movie_data, "movie_data.csv", row.names = FALSE)
 ```
 
-primary genre and genre NA
+## Data Cleaning
+```{r}
+# Changing variable names to snake case
+movie_data <- clean_names(movie_data)
+
+# Deleting unnecessary variables
+drop = c("link", "none")
+movie_data = movie_data[,!(names(movie_data) %in% drop)]
+
+# Changing character variables to integers when needed
+char_vector <- c("rotten_tomatoes_critics", "metacritic_critics", 
+                 "average_critics", "metacritic_audience",
+                 "rotten_tomatoes_vs_metacritic_deviance", 
+                 "average_audience", "audience_vs_critics_deviance", 
+                 "opening_weekend", "opening_weekend_million", 
+                 "domestic_gross", "domestic_gross_million", 
+                 "foreign_gross_million", "foreign_gross", 
+                 "worldwide_gross", "worldwide_gross_million", 
+                 "budget_million")
+
+# Convert the character vector to integer
+movie_data <- movie_data %>%
+  mutate_at(char_vector, ~as.integer(.))
+
+# Replace NA values in 'genre' with values from 'primary_genre'
+movie_data <- movie_data %>%
+  mutate(genre = ifelse(is.na(genre) | genre == "-", primary_genre, genre))
+
+
+
+
+```
+
+
+## Exploration 1: What is the most popular/successful genre?
+- opening weekend success
+- oscar winner success
+```{r}
+unique_genres <- unique(movie_data$genre)
+
+genre_opening_success <- movie_data |> 
+  group_by(genre) |> 
+  summarize(mean_opening_success = mean(opening_weekend)) |> 
+  arrange(desc(mean_opening_success)) |> 
+  slice_head(n = 3)
+genre_opening_success
+```
+
+## Exploration 2: What is the most popular/successful script type?
+- opening weekend success
+- oscar winner success
+```{r}
+unique_scripttype <- unique(movie_data$script_type)
+unique_scripttype
+
+scripttype_opening_success <- movie_data |> 
+  group_by(script_type) |> 
+  summarize(mean_opening_success = mean(opening_weekend)) |> 
+  arrange(desc(mean_opening_success)) |> 
+  slice_head(n = 3)
+scripttype_opening_success
+```
+
+
+## Exploration 3: What changes over the years from 2007-2022?
+```{r}
+year_opening_success <- movie_data |> 
+  group_by(year) |> 
+  summarize(mean_opening_success = mean(opening_weekend_million, na.rm = TRUE)) 
+year_opening_success
+
+ggplot(year_opening_success, aes(x = year, y = mean_opening_success)) +
+  geom_line() +
+  geom_point() +
+  labs(x = "Year", y = "Mean Opening Weekend Amount (in millions)", title = "Average Opening Weekend Amount in Millions from 2007-2022") +
+  ylim(0, 28)
+```
+
