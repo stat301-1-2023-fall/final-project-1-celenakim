@@ -5063,10 +5063,12 @@ color: #333;
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#packages-datasets" id="toc-packages-datasets" class="nav-link" data-scroll-target="#packages-datasets">Packages &amp; Datasets</a></li>
+  <li><a href="#joining-datasets" id="toc-joining-datasets" class="nav-link" data-scroll-target="#joining-datasets">Joining Datasets</a></li>
   <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">Data Cleaning</a></li>
   <li><a href="#exploration-1-what-is-the-most-popularsuccessful-genre" id="toc-exploration-1-what-is-the-most-popularsuccessful-genre" class="nav-link" data-scroll-target="#exploration-1-what-is-the-most-popularsuccessful-genre">Exploration 1: What is the most popular/successful genre?</a></li>
   <li><a href="#exploration-2-what-is-the-most-popularsuccessful-script-type" id="toc-exploration-2-what-is-the-most-popularsuccessful-script-type" class="nav-link" data-scroll-target="#exploration-2-what-is-the-most-popularsuccessful-script-type">Exploration 2: What is the most popular/successful script type?</a></li>
   <li><a href="#exploration-3-what-changes-over-the-years-from-2007-2022" id="toc-exploration-3-what-changes-over-the-years-from-2007-2022" class="nav-link" data-scroll-target="#exploration-3-what-changes-over-the-years-from-2007-2022">Exploration 3: What changes over the years from 2007-2022?</a></li>
+  <li><a href="#exploration-4-what-affects-oscar" id="toc-exploration-4-what-affects-oscar" class="nav-link" data-scroll-target="#exploration-4-what-affects-oscar">Exploration 4: What affects Oscar</a></li>
   </ul>
 </nav>
 </div>
@@ -5147,16 +5149,9 @@ Github Repo Link
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/The Hollywood Inider - all data - 2022.csv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="callout-tip callout callout-style-default no-icon callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Joining Datasets
-</div>
-</div>
-<div class="callout-body-container callout-body">
+</section>
+<section id="joining-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="joining-datasets">Joining Datasets</h2>
 <div class="cell">
 <details open>
 <summary>Code</summary>
@@ -5198,8 +5193,6 @@ Joining Datasets
 </details>
 </div>
 <p>There are 16 different csv files corresponding to a year from 2007-2023, so joining data sets was necessary. However, there were some discrepancies between the data sets, so some preliminary cleaning was needed. First, the data sets had different numbers of variables with the years 2011-2022 having one or two extra: “film list” and “financial source”. These variables were not necessary for my analysis, so I simply removed them from those data sets and ended up with 33 variables in all 16 files. Next, I notcied that there were some slight differences in column names, such as “Genres” vs. “Genres”, so I skimmed through the variable names in each file and ensured that all were uniform. After these changes, all 16 files matches in column number and variable name, so I was then able to combine all of them into one data set: “movie_data”.</p>
-</div>
-</div>
 </section>
 <section id="data-cleaning" class="level2">
 <h2 class="anchored" data-anchor-id="data-cleaning">Data Cleaning</h2>
@@ -5230,9 +5223,14 @@ Joining Datasets
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace NA values in &#39;genre&#39; with values from &#39;primary_genre&#39;</span></span>
 <span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>movie_data <span class="ot">&lt;-</span> movie_data <span class="sc">%&gt;%</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">genre =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(genre) <span class="sc">|</span> genre <span class="sc">==</span> <span class="st">&quot;-&quot;</span>, primary_genre, genre))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">genre =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(genre) <span class="sc">|</span> genre <span class="sc">==</span> <span class="st">&quot;-&quot;</span>, primary_genre, genre))</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Changing &quot;oscar_winners&quot; variable to boolean</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>movie_data <span class="ot">&lt;-</span> movie_data <span class="sc">%&gt;%</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">oscar_winners =</span> <span class="fu">ifelse</span>(oscar_winners <span class="sc">==</span> <span class="st">&quot;&quot;</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+<p>After my files were condensed into one main data set, I did a bit more data set cleaning. First, the variable names were not in snake case form, so I fixed that using the clean_names() function. Next, I noticed that there were more unnecessary variables– “link”, which provided an Amazon link to the movie, and “None”, which just had NAs– so I decided to remove them from the data set as well. Third, after glimpsing my data, I noticed that variables such as critic ratings and domestic gross earnings were character type variables rather than integers, so I converted those variables into integers using as.integer(). Next, I noticed that there were NAs for some movies’ “genre” variable, even though they had a value “primary genre”, so I made an if_else statement that set a movie’s NA in “genre” to its “primary genre”. And finally,</p>
 </section>
 <section id="exploration-1-what-is-the-most-popularsuccessful-genre" class="level2">
 <h2 class="anchored" data-anchor-id="exploration-1-what-is-the-most-popularsuccessful-genre">Exploration 1: What is the most popular/successful genre?</h2>
@@ -5255,8 +5253,8 @@ Joining Datasets
 </details>
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-30ab76c4aed4bc414682" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-30ab76c4aed4bc414682">{"x":{"filter":"none","vertical":false,"data":[["1","2","3"],["sci-fi, fantasy","adventure, sci-fi, fantasy, horror","adventure, sci-fi, drama, thriller, fantasy"],[247966675,187420998,181339761]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>genre<\/th>\n      <th>mean_opening_success<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-c4f941a6751e4d3e7230" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-c4f941a6751e4d3e7230">{"x":{"filter":"none","vertical":false,"data":[["1","2","3"],["sci-fi, fantasy","adventure, sci-fi, fantasy, horror","adventure, sci-fi, drama, thriller, fantasy"],[247966675,187420998,181339761]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>genre<\/th>\n      <th>mean_opening_success<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -5297,8 +5295,8 @@ Joining Datasets
 </details>
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-c9c8778be79eb21dd628" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-c9c8778be79eb21dd628">{"x":{"filter":"none","vertical":false,"data":[["1","2","3"],["sequel, adaptation","sequel","prequel"],[83761192.33333333,46715951.72,45600391]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>script_type<\/th>\n      <th>mean_opening_success<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-253bd8e08b02f6f6cac4" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-253bd8e08b02f6f6cac4">{"x":{"filter":"none","vertical":false,"data":[["1","2","3"],["sequel, adaptation","sequel","prequel"],[83761192.33333333,46715951.72,45600391]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>script_type<\/th>\n      <th>mean_opening_success<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -5317,8 +5315,8 @@ Joining Datasets
 </details>
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-6c1e381efc76ee98e31d" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-6c1e381efc76ee98e31d">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"],[2012,2014,2013,2015,2007,2019,2016,2022,2010,2009,2018,2011,2017,2008,2021,2020],[26.91428571428571,26.88990825688073,25.60176991150442,24.96946564885496,24.12222222222222,23.55479452054794,23.03333333333333,22.08988764044944,21.38970588235294,21.29411764705882,21.15094339622642,20.29496402877698,20.06849315068493,19.42176870748299,15.59183673469388,8.266666666666667]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>year<\/th>\n      <th>mean_opening_success<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-d57ab530f69a8c147807" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-d57ab530f69a8c147807">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"],[2012,2014,2013,2015,2007,2019,2016,2022,2010,2009,2018,2011,2017,2008,2021,2020],[26.91428571428571,26.88990825688073,25.60176991150442,24.96946564885496,24.12222222222222,23.55479452054794,23.03333333333333,22.08988764044944,21.38970588235294,21.29411764705882,21.15094339622642,20.29496402877698,20.06849315068493,19.42176870748299,15.59183673469388,8.266666666666667]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>year<\/th>\n      <th>mean_opening_success<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <details open>
 <summary>Code</summary>
@@ -5333,6 +5331,9 @@ Joining Datasets
 </div>
 </div>
 <p>These visualizations represent the change in the mean opening weekend earnings (in millions) for Hollywood movies from 2007-2008. As can be seen by the graph, the years with the most successful opening weekends in terms of mean earnings are the years 2012 and 2014, closely tied with an average earning of 27 million dollars. The lowest point on the graph corresponds to 2020, with that year earning the least during opening weekend: 8 million dollars. This data definitely reflects the times/economy of the country during this year, as 2020 was the year that America was under quarantine and movie theaters were shut down.</p>
+</section>
+<section id="exploration-4-what-affects-oscar" class="level2">
+<h2 class="anchored" data-anchor-id="exploration-4-what-affects-oscar">Exploration 4: What affects Oscar</h2>
 </section>
 
 </main>

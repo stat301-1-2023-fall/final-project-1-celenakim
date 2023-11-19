@@ -61,7 +61,7 @@ data_2021 <- read.csv("data/The Hollywood Inider - all data - 2021.csv")
 data_2022 <- read.csv("data/The Hollywood Inider - all data - 2022.csv")
 ```
 
-::: {.callout-tip icon="false"}
+
 ## Joining Datasets
 ```{r}
 data_2011 <- data_2011[, -ncol(data_2011)]
@@ -101,7 +101,6 @@ movie_data <- rbind(data_2007, data_2008, data_2009, data_2010, data_2011, data_
 write.csv(movie_data, "movie_data.csv", row.names = FALSE)
 ```
 There are 16 different csv files corresponding to a year from 2007-2023, so joining data sets was necessary. However, there were some discrepancies between the data sets, so some preliminary cleaning was needed. First, the data sets had different numbers of variables with the years 2011-2022 having one or two extra: "film list" and "financial source". These variables were not necessary for my analysis, so I simply removed them from those data sets and ended up with 33 variables in all 16 files. Next, I notcied that there were some slight differences in column names, such as "Genres" vs. "Genres", so I skimmed through the variable names in each file and ensured that all were uniform. After these changes, all 16 files matches in column number and variable name, so I was then able to combine all of them into one data set: "movie_data".
-::: 
 
 
 ## Data Cleaning
@@ -131,8 +130,12 @@ movie_data <- movie_data %>%
 # Replace NA values in 'genre' with values from 'primary_genre'
 movie_data <- movie_data %>%
   mutate(genre = ifelse(is.na(genre) | genre == "-", primary_genre, genre))
-```
 
+# Changing "oscar_winners" variable to boolean
+movie_data <- movie_data %>%
+  mutate(oscar_winners = ifelse(oscar_winners == "", FALSE, TRUE))
+```
+After my files were condensed into one main data set, I did a bit more data set cleaning. First, the variable names were not in snake case form, so I fixed that using the clean_names() function. Next, I noticed that there were more unnecessary variables-- "link", which provided an Amazon link to the movie, and "None", which just had NAs-- so I decided to remove them from the data set as well. Third, after glimpsing my data, I noticed that variables such as critic ratings and domestic gross earnings were character type variables rather than integers, so I converted those variables into integers using as.integer(). Next, I noticed that there were NAs for some movies' "genre" variable, even though they had a value "primary genre", so I made an if_else statement that set a movie's NA in "genre" to its "primary genre". And finally, 
 
 ## Exploration 1: What is the most popular/successful genre?
 - opening weekend success
@@ -184,3 +187,6 @@ ggplot(year_opening_success, aes(x = year, y = mean_opening_success)) +
   ylim(0, 28)
 ```
 These visualizations represent the change in the mean opening weekend earnings (in millions) for Hollywood movies from 2007-2008. As can be seen by the graph, the years with the most successful opening weekends in terms of mean earnings are the years 2012 and 2014, closely tied with an average earning of 27 million dollars. The lowest point on the graph corresponds to 2020, with that year earning the least during opening weekend: 8 million dollars. This data definitely reflects the times/economy of the country during this year, as 2020 was the year that America was under quarantine and movie theaters were shut down.
+
+
+## Exploration 4: What affects Oscar
