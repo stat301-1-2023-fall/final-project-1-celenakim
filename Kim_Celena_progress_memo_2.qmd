@@ -26,15 +26,6 @@ from: markdown+emoji
 [https://github.com/stat301-1-2023-fall/final-project-1-celenakim](https://github.com/stat301-1-2023-fall/final-project-1-celenakim)
 :::
 
-## Overview
-
-Students are expected to demonstrate that significant progress has been made on their final project since the submission of progress memo 1. Students should have their data cleaned and the EDA should be started.
-
-Demonstrating significant progress means students should have some univariate and bivariate analyses complete for several of their variables.  They should share a few graphics and/or tables with a description of what they have found thus far to demonstrate they progress. Students should should clearly state what they are exploring and why in these demonstrations. That is, they should share the guiding curiosity or research question that accompanies the particular graphics and/or tables they choose to share. 
-
-What else should be in the memo
-Students should summarize their progress, where they are at, and what their next steps will be. Self assessment of progress would also be appropriate. When thinking or describing next steps students should share any guiding curiosities or research questions they plan to explore.
-
 ## Packages & Datasets
 The data used in this project is called [Hollywood Hits and Flops (2007 - 2023)](https://www.kaggle.com/datasets/sujaykapadnis/hollywood-hits-and-flops-2007-2023/) found on [Kaggle](https://www.kaggle.com). 
 
@@ -81,26 +72,35 @@ data_2017 <- data_2017[, -ncol(data_2017)]
 data_2018 <- data_2018[, -ncol(data_2018)]
 
 data_2019 <- data_2019 |> 
-  rename(Genre = Genres, Opening.Weekend = Opening.Weekend...., of.Gross.earned.abroad = X..of.Gross.earned.abroad)
+  rename(Genre = Genres, Opening.Weekend = Opening.Weekend...., 
+         of.Gross.earned.abroad = X..of.Gross.earned.abroad)
 data_2019 <- data_2019[, -c((ncol(data_2019) - 1):ncol(data_2019))]
 
 data_2020 <- data_2020 |> 
-  rename(Genre = Genres, Opening.Weekend = Opening.Weekend...., of.Gross.earned.abroad = X..of.Gross.earned.abroad) 
+  rename(Genre = Genres, Opening.Weekend = Opening.Weekend...., 
+         of.Gross.earned.abroad = X..of.Gross.earned.abroad) 
 data_2020 <- data_2020[, -c((ncol(data_2020) - 1):ncol(data_2020))]
 
 data_2021 <- data_2021 |> 
-  rename(Genre = Genres, Opening.Weekend = Opening.Weekend...., of.Gross.earned.abroad = X..of.Gross.earned.abroad) 
+  rename(Genre = Genres, Opening.Weekend = Opening.Weekend...., 
+         of.Gross.earned.abroad = X..of.Gross.earned.abroad) 
 data_2021 <- data_2021[, -c((ncol(data_2021) - 1):ncol(data_2021))]
 
 data_2022 <- data_2022 |> 
-  rename(Genre = Genres, Opening.Weekend = Opening.Weekend...., of.Gross.earned.abroad = X..of.Gross.earned.abroad) 
+  rename(Genre = Genres, Opening.Weekend = Opening.Weekend...., 
+         of.Gross.earned.abroad = X..of.Gross.earned.abroad) 
 data_2022 <- data_2022[, -c((ncol(data_2022) - 1):ncol(data_2022))]
 
-movie_data <- rbind(data_2007, data_2008, data_2009, data_2010, data_2011, data_2012, data_2013, data_2014, data_2015, data_2016, data_2017, data_2018, data_2019, data_2020, data_2021, data_2022) #2011-2022
+movie_data <- rbind(data_2007, data_2008, data_2009, 
+                    data_2010, data_2011, data_2012, 
+                    data_2013, data_2014, data_2015, 
+                    data_2016, data_2017, data_2018, 
+                    data_2019, data_2020, data_2021, 
+                    data_2022)
 
 write.csv(movie_data, "movie_data.csv", row.names = FALSE)
 ```
-There are 16 different csv files corresponding to a year from 2007-2023, so joining data sets was necessary. However, there were some discrepancies between the data sets, so some preliminary cleaning was needed. First, the data sets had different numbers of variables with the years 2011-2022 having one or two extra: "film list" and "financial source". These variables were not necessary for my analysis, so I simply removed them from those data sets and ended up with 33 variables in all 16 files. Next, I notcied that there were some slight differences in column names, such as "Genres" vs. "Genres", so I skimmed through the variable names in each file and ensured that all were uniform. After these changes, all 16 files matches in column number and variable name, so I was then able to combine all of them into one data set: "movie_data".
+There are 16 different csv files corresponding to a year from 2007-2023, so joining data sets was necessary. However, there were some discrepancies between the data sets, so some preliminary cleaning was needed. First, the data sets had different numbers of columns with the years 2011-2022 having one or two extra variables: "film list" and "financial source". These variables were not necessary for my analysis, so I simply removed them from those data sets and ended up with 33 variables in all 16 files. Next, I noticed that there were some slight differences in column names, such as "Genres" vs. "Genres", so I skimmed through the variable names in each file and ensured that all were uniform. After these changes, all 16 files matched in column number and variable name, so I was then able to combine all of them into one data set: "movie_data".
 
 
 ## Data Cleaning
@@ -129,13 +129,19 @@ movie_data <- movie_data %>%
 
 # Replace NA values in 'genre' with values from 'primary_genre'
 movie_data <- movie_data %>%
-  mutate(genre = ifelse(is.na(genre) | genre == "-", primary_genre, genre))
+  mutate(genre = ifelse(is.na(genre) | 
+                          genre == "-",
+                        primary_genre, 
+                        genre))
 
 # Changing "oscar_winners" variable to boolean
 movie_data <- movie_data %>%
-  mutate(oscar_winners = ifelse(oscar_winners == "", FALSE, TRUE))
+  mutate(oscar_winners = ifelse(oscar_winners == "", 
+                                FALSE, 
+                                TRUE))
 ```
-After my files were condensed into one main data set, I did a bit more data set cleaning. First, the variable names were not in snake case form, so I fixed that using the clean_names() function. Next, I noticed that there were more unnecessary variables-- "link", which provided an Amazon link to the movie, and "None", which just had NAs-- so I decided to remove them from the data set as well. Third, after glimpsing my data, I noticed that variables such as critic ratings and domestic gross earnings were character type variables rather than integers, so I converted those variables into integers using as.integer(). Next, I noticed that there were NAs for some movies' "genre" variable, even though they had a value "primary genre", so I made an if_else statement that set a movie's NA in "genre" to its "primary genre". And finally, 
+After my files were condensed into one main data set, I did a bit more data set cleaning. First, the variable names were not in snake case form, so I fixed that using the clean_names() function. Next, I noticed that there were more unnecessary variables-- "link", which provided an Amazon link to the movie, and "None", which just had NAs-- so I decided to remove them from the data set as well. Third, after glimpsing my data, I noticed that variables such as critic ratings and domestic gross earnings were character type variables rather than integers, so I converted those variables into integers using as.integer(). Next, I noticed that there were NAs for some movies' "genre" variable, even though they had a value "primary genre", so I made an ifelse statement that set a movie's NA in "genre" to its "primary genre". And finally, in order to be able to do analyses with the "oscar_winners" variable, I changed it's type to be a boolean using an ifelse statement.
+
 
 ## Exploration 1: What is the most popular/successful genre?
 - opening weekend success
@@ -151,10 +157,11 @@ genre_opening_success <- movie_data |>
   DT::datatable()
 genre_opening_success
 ```
+EXPLAIN
+
 
 ## Exploration 2: What is the most popular/successful script type?
-- opening weekend success
-- oscar winner success
+
 ```{r}
 unique_scripttype <- unique(movie_data$script_type)
 unique_scripttype
@@ -189,4 +196,13 @@ ggplot(year_opening_success, aes(x = year, y = mean_opening_success)) +
 These visualizations represent the change in the mean opening weekend earnings (in millions) for Hollywood movies from 2007-2008. As can be seen by the graph, the years with the most successful opening weekends in terms of mean earnings are the years 2012 and 2014, closely tied with an average earning of 27 million dollars. The lowest point on the graph corresponds to 2020, with that year earning the least during opening weekend: 8 million dollars. This data definitely reflects the times/economy of the country during this year, as 2020 was the year that America was under quarantine and movie theaters were shut down.
 
 
-## Exploration 4: What affects Oscar
+## Exploration 4: What affects likelihood of getting Oscar?
+
+
+
+## Exploration 5: Comparing domestic vs foreign vs worldwide gross?
+
+
+## Exploration 6: Opening weekend success vs. budget recovered?
+
+

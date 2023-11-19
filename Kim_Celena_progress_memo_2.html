@@ -5061,14 +5061,15 @@ color: #333;
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#packages-datasets" id="toc-packages-datasets" class="nav-link" data-scroll-target="#packages-datasets">Packages &amp; Datasets</a></li>
+  <li><a href="#packages-datasets" id="toc-packages-datasets" class="nav-link active" data-scroll-target="#packages-datasets">Packages &amp; Datasets</a></li>
   <li><a href="#joining-datasets" id="toc-joining-datasets" class="nav-link" data-scroll-target="#joining-datasets">Joining Datasets</a></li>
   <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">Data Cleaning</a></li>
   <li><a href="#exploration-1-what-is-the-most-popularsuccessful-genre" id="toc-exploration-1-what-is-the-most-popularsuccessful-genre" class="nav-link" data-scroll-target="#exploration-1-what-is-the-most-popularsuccessful-genre">Exploration 1: What is the most popular/successful genre?</a></li>
   <li><a href="#exploration-2-what-is-the-most-popularsuccessful-script-type" id="toc-exploration-2-what-is-the-most-popularsuccessful-script-type" class="nav-link" data-scroll-target="#exploration-2-what-is-the-most-popularsuccessful-script-type">Exploration 2: What is the most popular/successful script type?</a></li>
   <li><a href="#exploration-3-what-changes-over-the-years-from-2007-2022" id="toc-exploration-3-what-changes-over-the-years-from-2007-2022" class="nav-link" data-scroll-target="#exploration-3-what-changes-over-the-years-from-2007-2022">Exploration 3: What changes over the years from 2007-2022?</a></li>
-  <li><a href="#exploration-4-what-affects-oscar" id="toc-exploration-4-what-affects-oscar" class="nav-link" data-scroll-target="#exploration-4-what-affects-oscar">Exploration 4: What affects Oscar</a></li>
+  <li><a href="#exploration-4-what-affects-likelihood-of-getting-oscar" id="toc-exploration-4-what-affects-likelihood-of-getting-oscar" class="nav-link" data-scroll-target="#exploration-4-what-affects-likelihood-of-getting-oscar">Exploration 4: What affects likelihood of getting Oscar?</a></li>
+  <li><a href="#exploration-5-comparing-domestic-vs-foreign-vs-worldwide-gross" id="toc-exploration-5-comparing-domestic-vs-foreign-vs-worldwide-gross" class="nav-link" data-scroll-target="#exploration-5-comparing-domestic-vs-foreign-vs-worldwide-gross">Exploration 5: Comparing domestic vs foreign vs worldwide gross?</a></li>
+  <li><a href="#exploration-6-opening-weekend-success-vs.-budget-recovered" id="toc-exploration-6-opening-weekend-success-vs.-budget-recovered" class="nav-link" data-scroll-target="#exploration-6-opening-weekend-success-vs.-budget-recovered">Exploration 6: Opening weekend success vs. budget recovered?</a></li>
   </ul>
 </nav>
 </div>
@@ -5117,12 +5118,6 @@ Github Repo Link
 <p><a href="https://github.com/stat301-1-2023-fall/final-project-1-celenakim">https://github.com/stat301-1-2023-fall/final-project-1-celenakim</a></p>
 </div>
 </div>
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>Students are expected to demonstrate that significant progress has been made on their final project since the submission of progress memo 1. Students should have their data cleaned and the EDA should be started.</p>
-<p>Demonstrating significant progress means students should have some univariate and bivariate analyses complete for several of their variables. They should share a few graphics and/or tables with a description of what they have found thus far to demonstrate they progress. Students should should clearly state what they are exploring and why in these demonstrations. That is, they should share the guiding curiosity or research question that accompanies the particular graphics and/or tables they choose to share.</p>
-<p>What else should be in the memo Students should summarize their progress, where they are at, and what their next steps will be. Self assessment of progress would also be appropriate. When thinking or describing next steps students should share any guiding curiosities or research questions they plan to explore.</p>
-</section>
 <section id="packages-datasets" class="level2">
 <h2 class="anchored" data-anchor-id="packages-datasets">Packages &amp; Datasets</h2>
 <p>The data used in this project is called <a href="https://www.kaggle.com/datasets/sujaykapadnis/hollywood-hits-and-flops-2007-2023/">Hollywood Hits and Flops (2007 - 2023)</a> found on <a href="https://www.kaggle.com">Kaggle</a>.</p>
@@ -5172,27 +5167,36 @@ Github Repo Link
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>data_2018 <span class="ot">&lt;-</span> data_2018[, <span class="sc">-</span><span class="fu">ncol</span>(data_2018)]</span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>data_2019 <span class="ot">&lt;-</span> data_2019 <span class="sc">|&gt;</span> </span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Genre =</span> Genres, <span class="at">Opening.Weekend =</span> Opening.Weekend...., <span class="at">of.Gross.earned.abroad =</span> X..of.Gross.earned.abroad)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>data_2019 <span class="ot">&lt;-</span> data_2019[, <span class="sc">-</span><span class="fu">c</span>((<span class="fu">ncol</span>(data_2019) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">:</span><span class="fu">ncol</span>(data_2019))]</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>data_2020 <span class="ot">&lt;-</span> data_2020 <span class="sc">|&gt;</span> </span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Genre =</span> Genres, <span class="at">Opening.Weekend =</span> Opening.Weekend...., <span class="at">of.Gross.earned.abroad =</span> X..of.Gross.earned.abroad) </span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>data_2020 <span class="ot">&lt;-</span> data_2020[, <span class="sc">-</span><span class="fu">c</span>((<span class="fu">ncol</span>(data_2020) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">:</span><span class="fu">ncol</span>(data_2020))]</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>data_2021 <span class="ot">&lt;-</span> data_2021 <span class="sc">|&gt;</span> </span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Genre =</span> Genres, <span class="at">Opening.Weekend =</span> Opening.Weekend...., <span class="at">of.Gross.earned.abroad =</span> X..of.Gross.earned.abroad) </span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>data_2021 <span class="ot">&lt;-</span> data_2021[, <span class="sc">-</span><span class="fu">c</span>((<span class="fu">ncol</span>(data_2021) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">:</span><span class="fu">ncol</span>(data_2021))]</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="ot">&lt;-</span> data_2022 <span class="sc">|&gt;</span> </span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Genre =</span> Genres, <span class="at">Opening.Weekend =</span> Opening.Weekend...., <span class="at">of.Gross.earned.abroad =</span> X..of.Gross.earned.abroad) </span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="ot">&lt;-</span> data_2022[, <span class="sc">-</span><span class="fu">c</span>((<span class="fu">ncol</span>(data_2022) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">:</span><span class="fu">ncol</span>(data_2022))]</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>movie_data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(data_2007, data_2008, data_2009, data_2010, data_2011, data_2012, data_2013, data_2014, data_2015, data_2016, data_2017, data_2018, data_2019, data_2020, data_2021, data_2022) <span class="co">#2011-2022</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(movie_data, <span class="st">&quot;movie_data.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Genre =</span> Genres, <span class="at">Opening.Weekend =</span> Opening.Weekend...., </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">of.Gross.earned.abroad =</span> X..of.Gross.earned.abroad)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>data_2019 <span class="ot">&lt;-</span> data_2019[, <span class="sc">-</span><span class="fu">c</span>((<span class="fu">ncol</span>(data_2019) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">:</span><span class="fu">ncol</span>(data_2019))]</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>data_2020 <span class="ot">&lt;-</span> data_2020 <span class="sc">|&gt;</span> </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Genre =</span> Genres, <span class="at">Opening.Weekend =</span> Opening.Weekend...., </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>         <span class="at">of.Gross.earned.abroad =</span> X..of.Gross.earned.abroad) </span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>data_2020 <span class="ot">&lt;-</span> data_2020[, <span class="sc">-</span><span class="fu">c</span>((<span class="fu">ncol</span>(data_2020) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">:</span><span class="fu">ncol</span>(data_2020))]</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>data_2021 <span class="ot">&lt;-</span> data_2021 <span class="sc">|&gt;</span> </span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Genre =</span> Genres, <span class="at">Opening.Weekend =</span> Opening.Weekend...., </span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>         <span class="at">of.Gross.earned.abroad =</span> X..of.Gross.earned.abroad) </span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>data_2021 <span class="ot">&lt;-</span> data_2021[, <span class="sc">-</span><span class="fu">c</span>((<span class="fu">ncol</span>(data_2021) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">:</span><span class="fu">ncol</span>(data_2021))]</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="ot">&lt;-</span> data_2022 <span class="sc">|&gt;</span> </span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Genre =</span> Genres, <span class="at">Opening.Weekend =</span> Opening.Weekend...., </span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>         <span class="at">of.Gross.earned.abroad =</span> X..of.Gross.earned.abroad) </span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="ot">&lt;-</span> data_2022[, <span class="sc">-</span><span class="fu">c</span>((<span class="fu">ncol</span>(data_2022) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">:</span><span class="fu">ncol</span>(data_2022))]</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>movie_data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(data_2007, data_2008, data_2009, </span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>                    data_2010, data_2011, data_2012, </span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>                    data_2013, data_2014, data_2015, </span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>                    data_2016, data_2017, data_2018, </span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>                    data_2019, data_2020, data_2021, </span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>                    data_2022)</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(movie_data, <span class="st">&quot;movie_data.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>There are 16 different csv files corresponding to a year from 2007-2023, so joining data sets was necessary. However, there were some discrepancies between the data sets, so some preliminary cleaning was needed. First, the data sets had different numbers of variables with the years 2011-2022 having one or two extra: “film list” and “financial source”. These variables were not necessary for my analysis, so I simply removed them from those data sets and ended up with 33 variables in all 16 files. Next, I notcied that there were some slight differences in column names, such as “Genres” vs. “Genres”, so I skimmed through the variable names in each file and ensured that all were uniform. After these changes, all 16 files matches in column number and variable name, so I was then able to combine all of them into one data set: “movie_data”.</p>
+<p>There are 16 different csv files corresponding to a year from 2007-2023, so joining data sets was necessary. However, there were some discrepancies between the data sets, so some preliminary cleaning was needed. First, the data sets had different numbers of columns with the years 2011-2022 having one or two extra variables: “film list” and “financial source”. These variables were not necessary for my analysis, so I simply removed them from those data sets and ended up with 33 variables in all 16 files. Next, I noticed that there were some slight differences in column names, such as “Genres” vs. “Genres”, so I skimmed through the variable names in each file and ensured that all were uniform. After these changes, all 16 files matched in column number and variable name, so I was then able to combine all of them into one data set: “movie_data”.</p>
 </section>
 <section id="data-cleaning" class="level2">
 <h2 class="anchored" data-anchor-id="data-cleaning">Data Cleaning</h2>
@@ -5223,14 +5227,19 @@ Github Repo Link
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace NA values in &#39;genre&#39; with values from &#39;primary_genre&#39;</span></span>
 <span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>movie_data <span class="ot">&lt;-</span> movie_data <span class="sc">%&gt;%</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">genre =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(genre) <span class="sc">|</span> genre <span class="sc">==</span> <span class="st">&quot;-&quot;</span>, primary_genre, genre))</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Changing &quot;oscar_winners&quot; variable to boolean</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>movie_data <span class="ot">&lt;-</span> movie_data <span class="sc">%&gt;%</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">oscar_winners =</span> <span class="fu">ifelse</span>(oscar_winners <span class="sc">==</span> <span class="st">&quot;&quot;</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">genre =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(genre) <span class="sc">|</span> </span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>                          genre <span class="sc">==</span> <span class="st">&quot;-&quot;</span>,</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>                        primary_genre, </span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>                        genre))</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Changing &quot;oscar_winners&quot; variable to boolean</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>movie_data <span class="ot">&lt;-</span> movie_data <span class="sc">%&gt;%</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">oscar_winners =</span> <span class="fu">ifelse</span>(oscar_winners <span class="sc">==</span> <span class="st">&quot;&quot;</span>, </span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>                                <span class="cn">FALSE</span>, </span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>                                <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>After my files were condensed into one main data set, I did a bit more data set cleaning. First, the variable names were not in snake case form, so I fixed that using the clean_names() function. Next, I noticed that there were more unnecessary variables– “link”, which provided an Amazon link to the movie, and “None”, which just had NAs– so I decided to remove them from the data set as well. Third, after glimpsing my data, I noticed that variables such as critic ratings and domestic gross earnings were character type variables rather than integers, so I converted those variables into integers using as.integer(). Next, I noticed that there were NAs for some movies’ “genre” variable, even though they had a value “primary genre”, so I made an if_else statement that set a movie’s NA in “genre” to its “primary genre”. And finally,</p>
+<p>After my files were condensed into one main data set, I did a bit more data set cleaning. First, the variable names were not in snake case form, so I fixed that using the clean_names() function. Next, I noticed that there were more unnecessary variables– “link”, which provided an Amazon link to the movie, and “None”, which just had NAs– so I decided to remove them from the data set as well. Third, after glimpsing my data, I noticed that variables such as critic ratings and domestic gross earnings were character type variables rather than integers, so I converted those variables into integers using as.integer(). Next, I noticed that there were NAs for some movies’ “genre” variable, even though they had a value “primary genre”, so I made an ifelse statement that set a movie’s NA in “genre” to its “primary genre”. And finally, in order to be able to do analyses with the “oscar_winners” variable, I changed it’s type to be a boolean using an ifelse statement.</p>
 </section>
 <section id="exploration-1-what-is-the-most-popularsuccessful-genre" class="level2">
 <h2 class="anchored" data-anchor-id="exploration-1-what-is-the-most-popularsuccessful-genre">Exploration 1: What is the most popular/successful genre?</h2>
@@ -5253,17 +5262,14 @@ Github Repo Link
 </details>
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-c4f941a6751e4d3e7230" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-c4f941a6751e4d3e7230">{"x":{"filter":"none","vertical":false,"data":[["1","2","3"],["sci-fi, fantasy","adventure, sci-fi, fantasy, horror","adventure, sci-fi, drama, thriller, fantasy"],[247966675,187420998,181339761]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>genre<\/th>\n      <th>mean_opening_success<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-1dd3721104bea7e0530b" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1dd3721104bea7e0530b">{"x":{"filter":"none","vertical":false,"data":[["1","2","3"],["sci-fi, fantasy","adventure, sci-fi, fantasy, horror","adventure, sci-fi, drama, thriller, fantasy"],[247966675,187420998,181339761]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>genre<\/th>\n      <th>mean_opening_success<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
+<p>EXPLAIN</p>
 </section>
 <section id="exploration-2-what-is-the-most-popularsuccessful-script-type" class="level2">
 <h2 class="anchored" data-anchor-id="exploration-2-what-is-the-most-popularsuccessful-script-type">Exploration 2: What is the most popular/successful script type?</h2>
-<ul>
-<li>opening weekend success</li>
-<li>oscar winner success</li>
-</ul>
 <div class="cell">
 <details open>
 <summary>Code</summary>
@@ -5295,8 +5301,8 @@ Github Repo Link
 </details>
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-253bd8e08b02f6f6cac4" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-253bd8e08b02f6f6cac4">{"x":{"filter":"none","vertical":false,"data":[["1","2","3"],["sequel, adaptation","sequel","prequel"],[83761192.33333333,46715951.72,45600391]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>script_type<\/th>\n      <th>mean_opening_success<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-5e8ea009630a2834ca34" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-5e8ea009630a2834ca34">{"x":{"filter":"none","vertical":false,"data":[["1","2","3"],["sequel, adaptation","sequel","prequel"],[83761192.33333333,46715951.72,45600391]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>script_type<\/th>\n      <th>mean_opening_success<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -5315,8 +5321,8 @@ Github Repo Link
 </details>
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-d57ab530f69a8c147807" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-d57ab530f69a8c147807">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"],[2012,2014,2013,2015,2007,2019,2016,2022,2010,2009,2018,2011,2017,2008,2021,2020],[26.91428571428571,26.88990825688073,25.60176991150442,24.96946564885496,24.12222222222222,23.55479452054794,23.03333333333333,22.08988764044944,21.38970588235294,21.29411764705882,21.15094339622642,20.29496402877698,20.06849315068493,19.42176870748299,15.59183673469388,8.266666666666667]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>year<\/th>\n      <th>mean_opening_success<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-9bd3735c77e5bc6b8557" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-9bd3735c77e5bc6b8557">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"],[2012,2014,2013,2015,2007,2019,2016,2022,2010,2009,2018,2011,2017,2008,2021,2020],[26.91428571428571,26.88990825688073,25.60176991150442,24.96946564885496,24.12222222222222,23.55479452054794,23.03333333333333,22.08988764044944,21.38970588235294,21.29411764705882,21.15094339622642,20.29496402877698,20.06849315068493,19.42176870748299,15.59183673469388,8.266666666666667]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>year<\/th>\n      <th>mean_opening_success<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <details open>
 <summary>Code</summary>
@@ -5332,8 +5338,14 @@ Github Repo Link
 </div>
 <p>These visualizations represent the change in the mean opening weekend earnings (in millions) for Hollywood movies from 2007-2008. As can be seen by the graph, the years with the most successful opening weekends in terms of mean earnings are the years 2012 and 2014, closely tied with an average earning of 27 million dollars. The lowest point on the graph corresponds to 2020, with that year earning the least during opening weekend: 8 million dollars. This data definitely reflects the times/economy of the country during this year, as 2020 was the year that America was under quarantine and movie theaters were shut down.</p>
 </section>
-<section id="exploration-4-what-affects-oscar" class="level2">
-<h2 class="anchored" data-anchor-id="exploration-4-what-affects-oscar">Exploration 4: What affects Oscar</h2>
+<section id="exploration-4-what-affects-likelihood-of-getting-oscar" class="level2">
+<h2 class="anchored" data-anchor-id="exploration-4-what-affects-likelihood-of-getting-oscar">Exploration 4: What affects likelihood of getting Oscar?</h2>
+</section>
+<section id="exploration-5-comparing-domestic-vs-foreign-vs-worldwide-gross" class="level2">
+<h2 class="anchored" data-anchor-id="exploration-5-comparing-domestic-vs-foreign-vs-worldwide-gross">Exploration 5: Comparing domestic vs foreign vs worldwide gross?</h2>
+</section>
+<section id="exploration-6-opening-weekend-success-vs.-budget-recovered" class="level2">
+<h2 class="anchored" data-anchor-id="exploration-6-opening-weekend-success-vs.-budget-recovered">Exploration 6: Opening weekend success vs. budget recovered?</h2>
 </section>
 
 </main>
