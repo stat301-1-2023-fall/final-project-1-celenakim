@@ -5063,7 +5063,6 @@ color: #333;
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#packages-datasets" id="toc-packages-datasets" class="nav-link" data-scroll-target="#packages-datasets">Packages &amp; Datasets</a></li>
-  <li><a href="#joining-datasets" id="toc-joining-datasets" class="nav-link" data-scroll-target="#joining-datasets">Joining Datasets</a></li>
   <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">Data Cleaning</a></li>
   <li><a href="#exploration-1-what-is-the-most-popularsuccessful-genre" id="toc-exploration-1-what-is-the-most-popularsuccessful-genre" class="nav-link" data-scroll-target="#exploration-1-what-is-the-most-popularsuccessful-genre">Exploration 1: What is the most popular/successful genre?</a></li>
   <li><a href="#exploration-2-what-is-the-most-popularsuccessful-script-type" id="toc-exploration-2-what-is-the-most-popularsuccessful-script-type" class="nav-link" data-scroll-target="#exploration-2-what-is-the-most-popularsuccessful-script-type">Exploration 2: What is the most popular/successful script type?</a></li>
@@ -5148,9 +5147,16 @@ Github Repo Link
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>data_2022 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/The Hollywood Inider - all data - 2022.csv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section>
-<section id="joining-datasets" class="level2">
-<h2 class="anchored" data-anchor-id="joining-datasets">Joining Datasets</h2>
+<div class="callout-tip callout callout-style-default no-icon callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Joining Datasets
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <div class="cell">
 <details open>
 <summary>Code</summary>
@@ -5190,6 +5196,9 @@ Github Repo Link
 <span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(movie_data, <span class="st">&quot;movie_data.csv&quot;</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+</div>
+<p>There are 16 different csv files corresponding to a year from 2007-2023, so joining data sets was necessary. However, there were some discrepancies between the data sets, so some preliminary cleaning was needed. First, the data sets had different numbers of variables with the years 2011-2022 having one or two extra: “film list” and “financial source”. These variables were not necessary for my analysis, so I simply removed them from those data sets and ended up with 33 variables in all 16 files. Next, I notcied that there were some slight differences in column names, such as “Genres” vs. “Genres”, so I skimmed through the variable names in each file and ensured that all were uniform. After these changes, all 16 files matches in column number and variable name, so I was then able to combine all of them into one data set: “movie_data”.</p>
+</div>
 </div>
 </section>
 <section id="data-cleaning" class="level2">
@@ -5246,8 +5255,8 @@ Github Repo Link
 </details>
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-0b0bace086662a1795f9" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-0b0bace086662a1795f9">{"x":{"filter":"none","vertical":false,"data":[["1","2","3"],["sci-fi, fantasy","adventure, sci-fi, fantasy, horror","adventure, sci-fi, drama, thriller, fantasy"],[247966675,187420998,181339761]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>genre<\/th>\n      <th>mean_opening_success<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-30ab76c4aed4bc414682" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-30ab76c4aed4bc414682">{"x":{"filter":"none","vertical":false,"data":[["1","2","3"],["sci-fi, fantasy","adventure, sci-fi, fantasy, horror","adventure, sci-fi, drama, thriller, fantasy"],[247966675,187420998,181339761]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>genre<\/th>\n      <th>mean_opening_success<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -5288,8 +5297,8 @@ Github Repo Link
 </details>
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-3bc0f9f254c3eafcb8fe" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-3bc0f9f254c3eafcb8fe">{"x":{"filter":"none","vertical":false,"data":[["1","2","3"],["sequel, adaptation","sequel","prequel"],[83761192.33333333,46715951.72,45600391]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>script_type<\/th>\n      <th>mean_opening_success<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-c9c8778be79eb21dd628" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-c9c8778be79eb21dd628">{"x":{"filter":"none","vertical":false,"data":[["1","2","3"],["sequel, adaptation","sequel","prequel"],[83761192.33333333,46715951.72,45600391]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>script_type<\/th>\n      <th>mean_opening_success<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -5308,8 +5317,8 @@ Github Repo Link
 </details>
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-c345eae5858be930075b" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-c345eae5858be930075b">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"],[2012,2014,2013,2015,2007,2019,2016,2022,2010,2009,2018,2011,2017,2008,2021,2020],[26.91428571428571,26.88990825688073,25.60176991150442,24.96946564885496,24.12222222222222,23.55479452054794,23.03333333333333,22.08988764044944,21.38970588235294,21.29411764705882,21.15094339622642,20.29496402877698,20.06849315068493,19.42176870748299,15.59183673469388,8.266666666666667]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>year<\/th>\n      <th>mean_opening_success<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-6c1e381efc76ee98e31d" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-6c1e381efc76ee98e31d">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"],[2012,2014,2013,2015,2007,2019,2016,2022,2010,2009,2018,2011,2017,2008,2021,2020],[26.91428571428571,26.88990825688073,25.60176991150442,24.96946564885496,24.12222222222222,23.55479452054794,23.03333333333333,22.08988764044944,21.38970588235294,21.29411764705882,21.15094339622642,20.29496402877698,20.06849315068493,19.42176870748299,15.59183673469388,8.266666666666667]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>year<\/th>\n      <th>mean_opening_success<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <details open>
 <summary>Code</summary>

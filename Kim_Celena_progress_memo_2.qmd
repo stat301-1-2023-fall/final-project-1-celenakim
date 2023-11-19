@@ -61,8 +61,8 @@ data_2021 <- read.csv("data/The Hollywood Inider - all data - 2021.csv")
 data_2022 <- read.csv("data/The Hollywood Inider - all data - 2022.csv")
 ```
 
+::: {.callout-tip icon="false"}
 ## Joining Datasets
-
 ```{r}
 data_2011 <- data_2011[, -ncol(data_2011)]
 
@@ -100,6 +100,9 @@ movie_data <- rbind(data_2007, data_2008, data_2009, data_2010, data_2011, data_
 
 write.csv(movie_data, "movie_data.csv", row.names = FALSE)
 ```
+There are 16 different csv files corresponding to a year from 2007-2023, so joining data sets was necessary. However, there were some discrepancies between the data sets, so some preliminary cleaning was needed. First, the data sets had different numbers of variables with the years 2011-2022 having one or two extra: "film list" and "financial source". These variables were not necessary for my analysis, so I simply removed them from those data sets and ended up with 33 variables in all 16 files. Next, I notcied that there were some slight differences in column names, such as "Genres" vs. "Genres", so I skimmed through the variable names in each file and ensured that all were uniform. After these changes, all 16 files matches in column number and variable name, so I was then able to combine all of them into one data set: "movie_data".
+::: 
+
 
 ## Data Cleaning
 ```{r}
@@ -128,10 +131,6 @@ movie_data <- movie_data %>%
 # Replace NA values in 'genre' with values from 'primary_genre'
 movie_data <- movie_data %>%
   mutate(genre = ifelse(is.na(genre) | genre == "-", primary_genre, genre))
-
-
-
-
 ```
 
 
