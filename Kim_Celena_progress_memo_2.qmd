@@ -173,7 +173,8 @@ In terms of mean opening weekend earnings success, the "sci-fi & fantasy" genre 
 
 
 ## Exploration 2: What is the most popular/successful script type?
-
+- opening weekend success
+- oscar winner success
 ```{r}
 #| echo: false
 scripttype_opening_success <- movie_data |> 
@@ -214,13 +215,64 @@ ggplot(year_opening_success, aes(x = year, y = mean_opening_success)) +
 These visualizations represent the change in the mean opening weekend earnings (in millions) for Hollywood movies from 2007-2008. As can be seen by the graph, the years with the most successful opening weekends in terms of mean earnings are the years 2012 and 2014, closely tied with an average earning of 27 million dollars. The lowest point on the graph corresponds to 2020, with that year earning the least during opening weekend: 8 million dollars. This data definitely reflects the times/economy of the country during this year, as 2020 was the year that America was under quarantine and movie theaters were shut down.
 
 
-## Exploration 4: What affects likelihood of getting Oscar?
+## Exploration 4: Do movies that have won Oscars have better Rotten Tomatoes critic ratings?
+```{r}
+#| echo: false
+rt_rating_oscar <- movie_data |> 
+  group_by(oscar_winners) |> 
+  summarize(mean_rt_critic_rating = round(mean(rotten_tomatoes_critics, na.rm = TRUE))) |> 
+  DT::datatable()
+
+rt_rating_oscar
+```
+The table shows that movies that have won an Oscar have a much higher average Rotten Tomatoes critic rating than those who have not won an Oscar.
+
+## Exploration 5: How do the different critic ratings correlate with opening weekend success?
+```{r}
+#| echo: false
+movie_data |> 
+  ggplot(aes(x = rotten_tomatoes_critics, y = opening_weekend_million)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Opening Weekend Earnings (millions) by Rotten Tomatoes Critics Rating",
+       x = "Rotten Tomatoes Critics Rating",
+       y = "Opening Weekend Earnings (millions)")
+
+movie_data |> 
+  ggplot(aes(x = rotten_tomatoes_audience, y = opening_weekend_million)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Opening Weekend Earnings (millions) by Rotten Tomatoes Audience Rating",
+       x = "Rotten Tomatoes Audience Rating",
+       y = "Opening Weekend Earnings (millions)")
+
+movie_data |> 
+  ggplot(aes(x = metacritic_critics, y = opening_weekend_million)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Opening Weekend Earnings (millions) by Metacritic Critics Rating",
+       x = "Metacritic Critics Rating",
+       y = "Opening Weekend Earnings (millions)")
+
+movie_data |> 
+  ggplot(aes(x = metacritic_audience, y = opening_weekend_million)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Opening Weekend Earnings (millions) by Metacritic Audience Rating",
+       x = "Metacritic Audience Rating",
+       y = "Opening Weekend Earnings (millions)")
+```
+
+Comparing the line of best fits between the four graphs, the "Rotten Tomatoes Audience Rating" has the highest positive correlation with "Opening Weekened Earnings (millions)"; the relationship is strongest between these two variables.
+
+## Exploration 6: Are successful opening weekends associated with getting an Oscar?
+
+
+## Exploration 7: Comparing domestic vs foreign vs worldwide gross?
 
 
 
-## Exploration 5: Comparing domestic vs foreign vs worldwide gross?
 
-
-## Exploration 6: Opening weekend success vs. budget recovered?
-
+## Summary of Findings
+Students should summarize their progress, where they are at, and what their next steps will be. Self assessment of progress would also be appropriate. When thinking or describing next steps students should share any guiding curiosities or research questions they plan to explore.
 
