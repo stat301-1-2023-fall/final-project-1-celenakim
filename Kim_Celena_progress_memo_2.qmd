@@ -31,6 +31,7 @@ The data used in this project is called [Hollywood Hits and Flops (2007 - 2023)]
 
 ```{r}
 #| label: load-pkgs-data
+#| echo: false
 
 library(tidyverse)
 library(janitor)
@@ -55,6 +56,7 @@ data_2022 <- read.csv("data/The Hollywood Inider - all data - 2022.csv")
 
 ## Joining Datasets
 ```{r}
+#| echo: false
 data_2011 <- data_2011[, -ncol(data_2011)]
 
 data_2012 <- data_2012[, -ncol(data_2012)]
@@ -105,6 +107,7 @@ There are 16 different csv files corresponding to a year from 2007-2023, so join
 
 ## Data Cleaning
 ```{r}
+#| echo: false
 # Changing variable names to snake case
 movie_data <- clean_names(movie_data)
 
@@ -147,6 +150,7 @@ After my files were condensed into one main data set, I did a bit more data set 
 - opening weekend success
 - oscar winner success
 ```{r}
+#| echo: false
 unique_genres <- unique(movie_data$genre)
 
 genre_opening_success <- movie_data |> 
@@ -156,32 +160,46 @@ genre_opening_success <- movie_data |>
   slice_head(n = 3) |> 
   DT::datatable()
 genre_opening_success
+
+genre_oscar_counts <- movie_data |> 
+  group_by(genre) |> 
+  summarize(oscar_count = sum(oscar_winners)) |> 
+  arrange(desc(oscar_count)) |> 
+  slice_head(n = 3)|> 
+  DT::datatable()
+genre_oscar_counts
 ```
-EXPLAIN
+In terms of mean opening weekend earnings success, the "sci-fi & fantasy" genre was the most successful as this genre combination had the highest earnings. In terms of Oscar win success, the "biography & history" genre was the most successful as this genre combination earned the most amount of Oscars.
 
 
 ## Exploration 2: What is the most popular/successful script type?
 
 ```{r}
-unique_scripttype <- unique(movie_data$script_type)
-unique_scripttype
-
+#| echo: false
 scripttype_opening_success <- movie_data |> 
   group_by(script_type) |> 
-  summarize(mean_opening_success = mean(opening_weekend)) |> 
+  summarize(mean_opening_success = round(mean(opening_weekend))) |> 
   arrange(desc(mean_opening_success)) |> 
   slice_head(n = 3) |> 
   DT::datatable()
-
 scripttype_opening_success
-```
 
+scripttype_oscar_counts <- movie_data |> 
+  group_by(script_type) |> 
+  summarize(oscar_count = sum(oscar_winners)) |> 
+  arrange(desc(oscar_count)) |> 
+  slice_head(n = 3)|> 
+  DT::datatable()
+scripttype_oscar_counts
+```
+The script type combination that is the most successful during opening weekend is "sequel & adaptation". The script type that earned the most Oscars is "original screenplay".
 
 ## Exploration 3: What changes over the years from 2007-2022?
 ```{r}
+#| echo: false
 year_opening_success <- movie_data |> 
   group_by(year) |> 
-  summarize(mean_opening_success = mean(opening_weekend_million, na.rm = TRUE))  |> 
+  summarize(mean_opening_success = round(mean(opening_weekend_million, na.rm = TRUE)))  |> 
   arrange(desc(mean_opening_success)) 
 
 year_opening_success |> 
