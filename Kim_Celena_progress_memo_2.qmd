@@ -225,7 +225,7 @@ rt_rating_oscar <- movie_data |>
 
 rt_rating_oscar
 ```
-The table shows that movies that have won an Oscar have a much higher average Rotten Tomatoes critic rating than those who have not won an Oscar.
+The table shows that movies that have won an Oscar have a much higher average Rotten Tomatoes critic rating than those who have not won an Oscar (89 vs. 54).
 
 ## Exploration 5: How do the different critic ratings correlate with opening weekend success?
 ```{r}
