@@ -1,5 +1,4 @@
 library(tidyverse)
-library(janitor)
 
 
 data_2007 <- read.csv("data/The Hollywood Inider - all data - 2007.csv")
