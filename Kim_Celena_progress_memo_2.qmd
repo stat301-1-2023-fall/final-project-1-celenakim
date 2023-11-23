@@ -35,36 +35,17 @@ movie_data <- read_csv("data/movie_data.csv")
 
 
 ## Joining Datasets
-The data used in this project is called [Hollywood Hits and Flops (2007 - 2023)](https://www.kaggle.com/datasets/sujaykapadnis/hollywood-hits-and-flops-2007-2023/) found on [Kaggle](https://www.kaggle.com). There are 16 different csv files containing movie data for each year from 2007-2023, so joining data sets was necessary. However, there were some discrepancies between the data sets, so some preliminary cleaning was needed. First, the data sets had different numbers of columns with the years 2011-2022 having one or two extra variables: "film list" and "financial source". These variables were not necessary for my analysis, so I used for loops to remove those variables from those data sets, and ended up with 33 variables in all 16 files. Next, I noticed that there were some slight differences in column names, such as "Genres" vs. "Genres", so I skimmed through the variable names in each file and ensured that all were uniform using another for loop. After these changes, all 16 files matched in column number and variable name, so I was then able to combine all of them into one data set: "movie_data".
+The data used in this project is called [Hollywood Hits and Flops (2007 - 2023)](https://www.kaggle.com/datasets/sujaykapadnis/hollywood-hits-and-flops-2007-2023/) found on [Kaggle](https://www.kaggle.com). There are 16 different csv files containing movie data for each year from 2007-2023, so joining data sets was necessary. However, there were some discrepancies between the data sets, so some preliminary cleaning was needed. First, the data sets had diferent numbers of columns, with the years 2011-2022 having one or two extra variables: `film list` and/or `financial source`. These variables were not necessary for my analysis, so I used for loops to remove those variables from those data sets, and ended up with 33 variables in all 16 files. Next, I noticed that there were some slight differences in column names, such as "Genres" vs. "Genres", so I ensured that all variable names across the data sets were uniform using another for loop. After these changes, all 16 files matched in column number and variable name, so I was then able to use rbind() combine all of them into one data set: "movie_data".
 
 
 ## Data Cleaning
-After my files were condensed into one main data set, I did a bit more data set cleaning. First, the variable names were not in snake case form, so I fixed that using the clean_names() function. Next, I noticed that there were more unnecessary variables-- "link", which provided an Amazon link to the movie, and "None", which just had NAs-- so I decided to remove them from the data set as well. Third, after glimpsing my data, I noticed that variables such as critic ratings and domestic gross earnings were character type variables rather than integers, so I converted those variables into integers using as.integer(). Next, I noticed that there were NAs for some movies' "genre" variable, even though they had a value "primary genre", so I made an ifelse statement that set a movie's NA in "genre" to its "primary genre". And finally, in order to be able to do analyses with the "oscar_winners" variable, I changed it's type to be a boolean using an ifelse statement.
+After my files were condensed into one main data set, I did a bit more data set cleaning. First, the variable names were not in snake case form, so I fixed that using the clean_names() function. Next, I noticed that there were more unnecessary variables-- `link`, which provided an Amazon link to the movie, and `None`, which just had NAs in every observation-- so I decided to remove them from the data set as well. Third, after glimpsing my data, I noticed that variables such as `critic ratings` and `domestic gross earnings` were character type variables rather than integers, so I converted those variables into integers using as.integer() so I would be able to conduct numerical analyses. Next, I noticed that there were NAs for some movies' `genre` variable, even though they had a value in `primary genre`, so I made an ifelse statement that set a movie's NA in `genre` to its `primary genre`, if the primary genre was present. And finally, in order to be able to conduct analyses with the `oscar_winners` variable, I changed it's type to be a boolean using an ifelse statement. If a movie one an Oscar, the variable's observation would read TRUE, and if it did not win an Oscar, it would be FALSE.
 
 
 ## Exploration 1: What is the most popular/successful genre?
 - opening weekend success
 - oscar winner success
-```{r}
-#| echo: false
-unique_genres <- unique(movie_data$genre)
 
-genre_opening_success <- movie_data |> 
-  group_by(genre) |> 
-  summarize(mean_opening_success = mean(opening_weekend)) |> 
-  arrange(desc(mean_opening_success)) |> 
-  slice_head(n = 3) |> 
-  DT::datatable()
-genre_opening_success
-
-genre_oscar_counts <- movie_data |> 
-  group_by(genre) |> 
-  summarize(oscar_count = sum(oscar_winners)) |> 
-  arrange(desc(oscar_count)) |> 
-  slice_head(n = 3)|> 
-  DT::datatable()
-genre_oscar_counts
-```
 In terms of mean opening weekend earnings success, the "sci-fi & fantasy" genre was the most successful as this genre combination had the highest earnings. In terms of Oscar win success, the "biography & history" genre was the most successful as this genre combination earned the most amount of Oscars.
 
 
