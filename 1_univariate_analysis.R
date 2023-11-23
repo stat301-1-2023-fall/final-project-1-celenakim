@@ -33,13 +33,24 @@ ggplot(yearly_rt_critic_rating, aes(x = year, y = mean_rt_rating)) +
   labs(x = "Year", y = "Rotten Tomatoes Critic Ratings", title = "Average Rotten Tomatoes Critic Ratings for Hollywood Movies from 2007-2022") 
 
 
+## Exploration 3: How do the overall average metacritic critic ratings change over the years from 2007-2022?
+yearly_mc_critic_rating <- movie_data |> 
+  group_by(year) |> 
+  summarize(mean_mc_rating = round(mean(metacritic_critics, na.rm = TRUE)))  |> 
+  arrange(desc(mean_mc_rating)) 
 
-## Exploration 3: How does the overall average opening weekend earning change over the years from 2007-2022?
+yearly_mc_critic_rating |> 
+  DT::datatable()
+
+ggplot(yearly_mc_critic_rating, aes(x = year, y = mean_mc_rating)) +
+  geom_line() +
+  geom_point() +
+  labs(x = "Year", y = "Metacritic Critic Ratings", title = "Average Metacritic Critic Ratings for Hollywood Movies from 2007-2022") 
 
 
-## Exploration 6: Are successful opening weekends associated with getting an Oscar?
+## Exploration 4: How do 
 
 
-## Exploration 7: Comparing domestic vs foreign vs worldwide gross?
+
 
 

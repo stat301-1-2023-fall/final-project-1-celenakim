@@ -33,27 +33,25 @@ scripttype_opening_success
 ### Exploration 4: Which script type has the highest Oscar wins?
 scripttype_oscar_counts <- movie_data |> 
   group_by(script_type) |> 
-  summarize(oscar_count = sum(oscar_winners)) |> 
-  arrange(desc(oscar_count)) |> 
+  summarize(st_oscar_count = sum(oscar_winners, na.rm = TRUE)) |> 
+  arrange(desc(st_oscar_count)) |> 
   slice_head(n = 3)|> 
   DT::datatable()
 scripttype_oscar_counts
 
 
 ## What variables affect a movie's opening weekend earnings or Oscar win count?
-### Exploration 4: Do movies that have won Oscars have better Rotten Tomatoes critic ratings?
+### Exploration 5: Do movies that have won Oscars have better Rotten Tomatoes critic ratings?
 rt_rating_oscar <- movie_data |> 
   group_by(oscar_winners) |> 
   summarize(mean_rt_critic_rating = round(mean(rotten_tomatoes_critics, na.rm = TRUE))) |> 
   DT::datatable()
-
 rt_rating_oscar
-
 The table shows that movies that have won an Oscar have a much higher average Rotten Tomatoes critic rating than those who have not won an Oscar (89 vs. 54).
 
-## Exploration 5: How do the different critic ratings correlate with opening weekend success?
+## Exploration 6: How do the different critic ratings correlate with opening weekend success?
 
-movie_data |> 
+rt_critic_success_cor <- movie_data |> 
   ggplot(aes(x = rotten_tomatoes_critics, y = opening_weekend_million)) +
   geom_point() +
   geom_smooth(method = "lm") +
@@ -61,7 +59,7 @@ movie_data |>
        x = "Rotten Tomatoes Critics Rating",
        y = "Opening Weekend Earnings (millions)")
 
-movie_data |> 
+rt_audience_success_cor <- movie_data |> 
   ggplot(aes(x = rotten_tomatoes_audience, y = opening_weekend_million)) +
   geom_point() +
   geom_smooth(method = "lm") +
@@ -69,7 +67,7 @@ movie_data |>
        x = "Rotten Tomatoes Audience Rating",
        y = "Opening Weekend Earnings (millions)")
 
-movie_data |> 
+mc_critic_success_cor <- movie_data |> 
   ggplot(aes(x = metacritic_critics, y = opening_weekend_million)) +
   geom_point() +
   geom_smooth(method = "lm") +
@@ -77,7 +75,7 @@ movie_data |>
        x = "Metacritic Critics Rating",
        y = "Opening Weekend Earnings (millions)")
 
-movie_data |> 
+mc_audience_success_cor <- movie_data |> 
   ggplot(aes(x = metacritic_audience, y = opening_weekend_million)) +
   geom_point() +
   geom_smooth(method = "lm") +
@@ -94,9 +92,16 @@ Comparing the line of best fits between the four graphs, the "Rotten Tomatoes Au
 
 
 
+## Exploration 6: Are successful opening weekends associated with getting an Oscar?
+
+
+## Exploration 7: Comparing domestic vs foreign vs worldwide gross?
 
 
 
 
 
-The script type combination that is the most successful during opening weekend is "sequel & adaptation". The script type that earned the most Oscars is "original screenplay".
+
+
+
+

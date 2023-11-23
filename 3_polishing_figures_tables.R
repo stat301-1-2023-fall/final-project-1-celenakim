@@ -23,6 +23,14 @@ ggplot(yearly_rt_critic_rating, aes(x = year, y = mean_rt_rating)) +
 # ![](figures/yearly_rt_critic_rating_plot.png)
 # This graph represents the change in the average Rotten Tomatoes critic ratings for Hollywood movies for each year from 2007-2022. Overall, it seems that the average critic ratings have increased significantly over the years, with about a 30% increase in ratings from 2007 to 2022.
 
+## Exploration 3: How do the overall average metacritic critic ratings change over the years from 2007-2022?
+ggplot(yearly_mc_critic_rating, aes(x = year, y = mean_mc_rating)) +
+  geom_line() +
+  geom_point() +
+  labs(x = "Year", y = "Metacritic Critic Ratings", title = "Average Metacritic Critic Ratings for Hollywood Movies from 2007-2022") 
+# ![](figures/yearly_mc_critic_rating_plot.png)
+
+
 
 # BIVARIATE
 ### Exploration 1: Which genre has the highest mean opening weekend earning? 
@@ -33,20 +41,31 @@ genre_opening_success
 ### Exploration 2: Which genre has the highest Oscar wins?
 genre_oscar_counts
 # ![](figures/genre_oscar_counts_table.png)
-In terms of Oscar win success, the "biography & history" genre was the most successful as this genre combination earned the most amount of Oscars.
+# In terms of Oscar win success, the "biography & history" genre was the most successful as this genre combination earned the most amount of Oscars.
 
 ### Exploration 3: Which script type has the highest mean opening weekend earning? 
-
+scripttype_opening_success
+# ![](figures/script_type_opening_success_table.png)
+# The script type combination that had the most successful opening weekend is "sequel & adaptation", with a mean opening weekend earning of about 84 million dollars.
 
 ### Exploration 4: Which script type has the highest Oscar wins?
+scripttype_oscar_counts
+# ![](figures/script_type_oscar_counts_table.png)
+# The script type that earned the most Oscars is "original screenplay", with 28 Oscar wins.
+
+### Exploration 5: Do movies that have won Oscars have better Rotten Tomatoes critic ratings?
+rt_rating_oscar
+# ![](figures/rt_rating_oscar_table.png)
+# The table shows that movies that have won an Oscar have a much higher average Rotten Tomatoes critic rating than those who have not won an Oscar (89 vs. 54).
 
 
+### Exploration 6: How do the various critic ratings correlate with opening weekend success?
+rt_critic_success_cor
+# ![](figures/rt_critic_success_cor_plot.png)
+rt_audience_success_cor
+# ![](figures/rt_audience_success_cor_plot.png)
+mc_critic_success_cor
+# ![](figures/mc_critic_success_cor_plot.png)
+mc_audience_success_cor
+# ![](figures/mc_audience_success_cor_plot.png)
 
-
-genre_oscar_counts <- movie_data |> 
-  group_by(genre) |> 
-  summarize(oscar_count = sum(oscar_winners)) |> 
-  arrange(desc(oscar_count)) |> 
-  slice_head(n = 3)|> 
-  DT::datatable()
-genre_oscar_counts

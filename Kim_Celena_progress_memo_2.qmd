@@ -53,6 +53,10 @@ These visualizations represent the change in the mean opening weekend earnings (
 ![](figures/yearly_rt_critic_rating_plot.png)
 This graph represents the change in the average Rotten Tomatoes critic ratings for Hollywood movies for each year from 2007-2022. Overall, it seems that the average critic ratings have increased significantly over the years, with about a 30% increase in ratings from 2007 to 2022.
 
+## Exploration 3: How do the overall average metacritic critic ratings change over the years from 2007-2022?
+![](figures/yearly_mc_critic_rating_plot.png)
+This graph represents the change in the average Metacritic critic ratings for Hollywood movies for each year from 2007-2022. Like the previous Rotten Tomatoes critic rating plot, this data also seems to have followed the trend of critic ratings increasing over the years, but this increase is less dramatic with it being only 20%. Also, both the Rotten Tomatoes critic and Metacritic rating plots seem to follow similar trends of increase, decrease, and peaks, such as ratings increasing significantly from 2009-2012, and dropping significantly from 2019-2020.
+
 
 ## Multivariate Analyses
 
@@ -66,8 +70,29 @@ As shown in the table, the "sci-fi & fantasy" genre combination had the most suc
 In terms of Oscar win success, the "biography & history" genre was the most successful as this genre combination earned the most amount of Oscars: 4.
 
 ### Exploration 3: Which script type has the highest mean opening weekend earning? 
+![](figures/script_type_opening_success_table.png)
+The script type combination that had the most successful opening weekend is "sequel & adaptation", with a mean opening weekend earning of about 84 million
+
 
 ### Exploration 4: Which script type has the highest Oscar wins?
+![](figures/script_type_oscar_counts_table.png)
+The script type that earned the most Oscars is "original screenplay", with 28 Oscar wins.
+
+### Exploration 5: Do movies that have won Oscars have better Rotten Tomatoes critic ratings?
+![](figures/rt_rating_oscar_table.png)
+The table shows that movies that have won an Oscar have a much higher average Rotten Tomatoes critic rating than those who have not won an Oscar (89 vs. 54).
+
+### Exploration 6: How do the different critic ratings correlate with opening weekend success?
+![](figures/rt_critic_success_cor_plot.png)
+![](figures/rt_audience_success_cor_plot.png)
+![](figures/mc_critic_success_cor_plot.png)
+![](figures/mc_audience_success_cor_plot.png)
+Comparing the line of best fits between the four graphs, the "Rotten Tomatoes Audience Rating" has the steepest line of best fit, and thus the highest positive correlation with "Opening Weekened Earnings (millions)". The relationship is strongest between these two variables.
+
+
+### Exploration 7: Which distributor has the most Oscar wins?
+
+### Exploration 8: Which distributor has the highest IMDb rating?
 
 
 ## Summary of Findings
