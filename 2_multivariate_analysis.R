@@ -102,9 +102,19 @@ movie_data |>
        title = "Opening Weekend Earnings by Movie Budget (millions)",
        subtitle = "There is an overall positive association between a movie's budget and it's opening weekend earnings.")
   
-  
-  
+### Exploration 9: What is the correlation between a movie's IMDb rating and opening weekend success?
+movie_data |> 
+  ggplot(aes(x = im_db_rating, y = opening_weekend_million)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "IMDb Rating",
+       y = "Opening Weekend Earnings (millions)",
+       title = "Opening Weekend Earnings (millions) by IMDb Rating",
+       subtitle = "There is an overall positive association between a movie's budget and it's opening weekend earnings.")
 
+
+  
+  
 
 
 
