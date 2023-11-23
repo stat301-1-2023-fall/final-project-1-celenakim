@@ -67,6 +67,10 @@ Based on this graph, the average yearly movie budgets seem to fluctuate from 200
 ![](figures/script_type_dist_plot.png) 
 There are numerous combinations of movie script types across the years 2007-2022, but the top three most popular are "original screenplay", "adaptation", and "sequel".
 
+## Exploration 6: What is the distribution of average critic ratings?
+![](figures/avg_critic_rating_plot.png)
+The distribution of the average between Rotten Tomatoes and Metacritic ratings seems to be bell-shaped, with a majority of these average ratings to be at the middle point between 0-100. This means that a majority of these Hollywood movies are rated to be average.
+
 ## Multivariate Analyses
 
 -   What variables influence a movie's opening weekend earnings?
@@ -106,7 +110,7 @@ Through the IMDb website, IMDb registered users can submit a rating (from 1 to 1
 This graph shows that there is an overall positive correlation between a movie's budget and it's opening weekend success earnings. This suggests that, on average, movies with higher production budgets tend to achieve greater financial success during their initial release weekends. However, this does not imply causation.
 
 ## Summary of Findings
-Through this progress memo, I conducted various analyses that answer the overarching question of how various factors contribute to a Hollywood movie's overall success. I explored success in various ways, such as defined by a movie's mean `opening_weekend` earnings, `oscar_winners`, `im_db_rating`, and `rotten_tomatoes_critics` or `metacritic_critics` ratings. I also explored how various categorical variables such as a movie's `script_type` or `genre` interact with these numerical variables. Through my univariate analyses, I was mostly interested in analyzing how certain movie variables such as mean `opening_weekend` earnings and critic ratings have changed over the years, and I also analyzed the disribution of the `script_type` variable. In my multivariate analyses, I focused on how certain variables influence `opening_weekend` earning success and `oscar_winners`. In my next steps, I would like to make analyses utilizing the `domestic_gross`, `foreign_gross`, and `wordwide_gross` variables and compare and contrast the success rates that I explored in this progress memo through these lenses. Some guiding curiosities/research questions I plan to explore are:
+Through this progress memo, I conducted various analyses that answer the overarching question of how various factors contribute to a Hollywood movie's overall success. I explored success in various ways, such as defined by a movie's mean `opening_weekend` earnings, `oscar_winners`, `im_db_rating`, and `rotten_tomatoes_critics` or `metacritic_critics` ratings. I also explored how various categorical variables such as a movie's `script_type` or `genre` interact with these numerical variables. Through my univariate analyses, I was mostly interested in analyzing how certain movie variables such as mean `opening_weekend` earnings and critic ratings have changed over the years, and I also analyzed the disribution of variables such as `script_type` and `average_critics` In my multivariate analyses, I focused on how certain variables influence `opening_weekend` earning success and `oscar_winners`. In my next steps, I would like to make analyses utilizing the `domestic_gross`, `foreign_gross`, and `wordwide_gross` variables and compare and contrast the success rates that I explored in this progress memo through these lenses. Some guiding curiosities/research questions I plan to explore are:
 
 - What is the correlation between a movie's budget, and it's `domestic_gross`, `foreign_gross`, and `wordwide_gross`?
 - How do overall averages for variables such as `opening_weekend` earnings and `im_db_rating` differ in terms of `domestic_gross`, `foreign_gross`, and `wordwide_gross`?

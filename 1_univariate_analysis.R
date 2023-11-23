@@ -82,7 +82,13 @@ ggplot(yearly_movie_budget, aes(x = year, y = mean_movie_budget)) +
        y = "Moviet Budget (millions)", 
        title = "Average Budgets in Millions for Hollywood Movies from 2007-2022") 
 
-
+## Exploration 6: What is the distribution of average critic ratings?
+movie_data |> 
+ggplot(aes(x = average_critics)) +
+  geom_histogram(binwidth = 4) +
+  labs(x = "Average Rotten Tomatoes and Metacritic Critic Rating",
+       y = "Count",
+       title = "Distribution of Average Rotten Tomatoes and Metacritic Critic Rating")
 
 
 

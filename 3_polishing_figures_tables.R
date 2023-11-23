@@ -50,6 +50,15 @@ ggplot(script_type_dist, aes(x = script_type)) +
        title = "Distribution of Movie Script Type")
 # ![](figures/script_type_dist_plot.png)
 
+## Exploration 6: What is the distribution of average critic ratings?
+movie_data |> 
+  ggplot(aes(x = average_critics)) +
+  geom_histogram(binwidth = 4) +
+  labs(x = "Average Rotten Tomatoes and Metacritic Critic Rating",
+       y = "Count",
+       title = "Distribution of Average Rotten Tomatoes and Metacritic Critic Rating")
+# ![](figures/avg_critic_rating_plot.png)
+
 
 
 # BIVARIATE
