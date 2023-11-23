@@ -41,113 +41,22 @@ The data used in this project is called [Hollywood Hits and Flops (2007 - 2023)]
 ## Data Cleaning
 After my files were condensed into one main data set, I did a bit more data set cleaning. First, the variable names were not in snake case form, so I fixed that using the clean_names() function. Next, I noticed that there were more unnecessary variables-- `link`, which provided an Amazon link to the movie, and `None`, which just had NAs in every observation-- so I decided to remove them from the data set as well. Third, after glimpsing my data, I noticed that variables such as `critic ratings` and `domestic gross earnings` were character type variables rather than integers, so I converted those variables into integers using as.integer() so I would be able to conduct numerical analyses. Next, I noticed that there were NAs for some movies' `genre` variable, even though they had a value in `primary genre`, so I made an ifelse statement that set a movie's NA in `genre` to its `primary genre`, if the primary genre was present. And finally, in order to be able to conduct analyses with the `oscar_winners` variable, I changed it's type to be a boolean using an ifelse statement. If a movie one an Oscar, the variable's observation would read TRUE, and if it did not win an Oscar, it would be FALSE.
 
+## Univariate Analyses
 
-## Exploration 1: What is the most popular/successful genre?
-
-![Top 3 Movie Genres with the Highest Mean Opening Success Earnings](figures/genre_opening_success_mean.png)
-
-In terms of mean opening weekend earnings success, the "sci-fi & fantasy" genre was the most successful as this genre combination had the highest earnings. In terms of Oscar win success, the "biography & history" genre was the most successful as this genre combination earned the most amount of Oscars.
-
-
-## Exploration 2: What is the most popular/successful script type?
-- opening weekend success
-- oscar winner success
-```{r}
-#| echo: false
-scripttype_opening_success <- movie_data |> 
-  group_by(script_type) |> 
-  summarize(mean_opening_success = round(mean(opening_weekend))) |> 
-  arrange(desc(mean_opening_success)) |> 
-  slice_head(n = 3) |> 
-  DT::datatable()
-scripttype_opening_success
-
-scripttype_oscar_counts <- movie_data |> 
-  group_by(script_type) |> 
-  summarize(oscar_count = sum(oscar_winners)) |> 
-  arrange(desc(oscar_count)) |> 
-  slice_head(n = 3)|> 
-  DT::datatable()
-scripttype_oscar_counts
-```
-The script type combination that is the most successful during opening weekend is "sequel & adaptation". The script type that earned the most Oscars is "original screenplay".
-
-## Exploration 3: What changes over the years from 2007-2022?
-```{r}
-#| echo: false
-year_opening_success <- movie_data |> 
-  group_by(year) |> 
-  summarize(mean_opening_success = round(mean(opening_weekend_million, na.rm = TRUE)))  |> 
-  arrange(desc(mean_opening_success)) 
-
-year_opening_success |> 
-  DT::datatable()
-
-ggplot(year_opening_success, aes(x = year, y = mean_opening_success)) +
-  geom_line() +
-  geom_point() +
-  labs(x = "Year", y = "Mean Opening Weekend Earnings (in millions)", title = "Average Opening Weekend Earnings for Hollywood Movies from 2007-2022") +
-  ylim(0, 28)
-```
-These visualizations represent the change in the mean opening weekend earnings (in millions) for Hollywood movies from 2007-2008. As can be seen by the graph, the years with the most successful opening weekends in terms of mean earnings are the years 2012 and 2014, closely tied with an average earning of 27 million dollars. The lowest point on the graph corresponds to 2020, with that year earning the least during opening weekend: 8 million dollars. This data definitely reflects the times/economy of the country during this year, as 2020 was the year that America was under quarantine and movie theaters were shut down.
+### What variables change over the years? 
+### Exploration 1: How does the overall average opening weekend earning change over the years from 2007-2022?
+![](figures/avg_opening_wknd_earnings_yearly_table.png)
+![](figures/avg_opening_wknd_earnings_yearly.png)
+These visualizations represent the change in the mean opening weekend earnings (in millions) for Hollywood movies from 2007-2022. As can be seen by the graph, the years with the most successful opening weekends in terms of highest mean earnings are the years 2012 and 2014, closely tied with an average earning of 27 million dollars. The lowest point on the graph corresponds to 2020, with that year earning the least during opening weekend: 8 million dollars. This data definitely reflects the times/economy of the country during this year, as 2020 was the year that America was under quarantine and movie theaters were shut down, so they earned significantly less money than as compared to previous years.
 
 
-## Exploration 4: Do movies that have won Oscars have better Rotten Tomatoes critic ratings?
-```{r}
-#| echo: false
-rt_rating_oscar <- movie_data |> 
-  group_by(oscar_winners) |> 
-  summarize(mean_rt_critic_rating = round(mean(rotten_tomatoes_critics, na.rm = TRUE))) |> 
-  DT::datatable()
-
-rt_rating_oscar
-```
-The table shows that movies that have won an Oscar have a much higher average Rotten Tomatoes critic rating than those who have not won an Oscar (89 vs. 54).
-
-## Exploration 5: How do the different critic ratings correlate with opening weekend success?
-```{r}
-#| echo: false
-movie_data |> 
-  ggplot(aes(x = rotten_tomatoes_critics, y = opening_weekend_million)) +
-  geom_point() +
-  geom_smooth(method = "lm") +
-  labs(title = "Opening Weekend Earnings (millions) by Rotten Tomatoes Critics Rating",
-       x = "Rotten Tomatoes Critics Rating",
-       y = "Opening Weekend Earnings (millions)")
-
-movie_data |> 
-  ggplot(aes(x = rotten_tomatoes_audience, y = opening_weekend_million)) +
-  geom_point() +
-  geom_smooth(method = "lm") +
-  labs(title = "Opening Weekend Earnings (millions) by Rotten Tomatoes Audience Rating",
-       x = "Rotten Tomatoes Audience Rating",
-       y = "Opening Weekend Earnings (millions)")
-
-movie_data |> 
-  ggplot(aes(x = metacritic_critics, y = opening_weekend_million)) +
-  geom_point() +
-  geom_smooth(method = "lm") +
-  labs(title = "Opening Weekend Earnings (millions) by Metacritic Critics Rating",
-       x = "Metacritic Critics Rating",
-       y = "Opening Weekend Earnings (millions)")
-
-movie_data |> 
-  ggplot(aes(x = metacritic_audience, y = opening_weekend_million)) +
-  geom_point() +
-  geom_smooth(method = "lm") +
-  labs(title = "Opening Weekend Earnings (millions) by Metacritic Audience Rating",
-       x = "Metacritic Audience Rating",
-       y = "Opening Weekend Earnings (millions)")
-```
-
-Comparing the line of best fits between the four graphs, the "Rotten Tomatoes Audience Rating" has the highest positive correlation with "Opening Weekened Earnings (millions)"; the relationship is strongest between these two variables.
-
-## Exploration 6: Are successful opening weekends associated with getting an Oscar?
 
 
-## Exploration 7: Comparing domestic vs foreign vs worldwide gross?
+## Multivariate Analyses
 
 
+### What variables affect a movie's opening weekend earnings or Oscar win count?
+### Exploration 1: Which genre has the highest mean opening weekend earning? 
 
 
 ## Summary of Findings
