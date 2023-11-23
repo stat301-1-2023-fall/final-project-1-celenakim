@@ -7,7 +7,9 @@ library(tidyverse)
 genre_opening_success <- movie_data |> 
   group_by(genre) |> 
   summarize(mean_opening_success = mean(opening_weekend)) |> 
-  arrange(desc(mean_opening_success))
+  arrange(desc(mean_opening_success)) |> 
+  slice_head(n = 3)|> 
+  DT::datatable()
 genre_opening_success
 
 ### Exploration 2: Which genre has the highest Oscar wins?
@@ -88,13 +90,6 @@ Comparing the line of best fits between the four graphs, the "Rotten Tomatoes Au
 
 
 
-## Exploration 1: What is the most popular/successful genre?
-
-![Top 3 Movie Genres with the Highest Mean Opening Success Earnings](figures/genre_opening_success_mean.png)
-
-This first 
-
-In terms of mean opening weekend earnings success, the "sci-fi & fantasy" genre was the most successful as this genre combination had the highest earnings. In terms of Oscar win success, the "biography & history" genre was the most successful as this genre combination earned the most amount of Oscars.
 
 
 
