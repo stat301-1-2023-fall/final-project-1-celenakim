@@ -12,7 +12,7 @@ for (year in years_one) {
   assign(paste0("data_", year), current_data)
 }
 
-## Renaming variables and deleting last two columns frmo 2019-2022 data frames
+## Renaming variables and deleting last two columns from 2019-2022 data frames
 years_two <- 2019:2022
 for (year in years_two) {
   current_data <- get(paste0("data_", year))
@@ -28,6 +28,12 @@ for (year in years_two) {
 
 
 
+movie_data <- rbind(data_2007, data_2008, data_2009,
+                    data_2010, data_2011, data_2012,
+                    data_2013, data_2014, data_2015,
+                    data_2016, data_2017, data_2018,
+                    data_2019, data_2020, data_2021,
+                    data_2022)
 
 write.csv(movie_data, "movie_data.csv", row.names = FALSE)
 
