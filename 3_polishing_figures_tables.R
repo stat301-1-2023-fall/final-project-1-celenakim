@@ -21,7 +21,7 @@ ggplot(yearly_rt_critic_rating, aes(x = year, y = mean_rt_rating)) +
   geom_point() +
   labs(x = "Year", y = "Rotten Tomatoes Critic Ratings", title = "Average Rotten Tomatoes Critic Ratings for Hollywood Movies from 2007-2022") 
 # ![](figures/yearly_rt_critic_rating_plot.png)
-# This graph represents the change in the average Rotten Tomatoes critic ratings for Hollywood movies for each year from 2007-2022. Overall, it seems that the average critic ratings have increased significantly over the years, with about a 30% increase in ratings from 2007 to 2022.
+#A Rotten Tomatoes score is one of the most trusted recommendation resources for movie entertainment and represents the percentage of professional critic reviews that are positive. If at least 60% of reviews for a movie are positive, then the movie is considered "Fresh", and if less than 60% of reviews are positive, then the title is considered "Rotten". This graph represents the change in the average Rotten Tomatoes critic ratings for Hollywood movies for each year from 2007-2022. Overall, it seems that the average critic ratings have increased significantly over the years, with about a 30% increase in ratings from 2007 to 2022.
 
 ## Exploration 3: How do the overall average metacritic critic ratings change over the years from 2007-2022?
 ggplot(yearly_mc_critic_rating, aes(x = year, y = mean_mc_rating)) +
@@ -29,7 +29,7 @@ ggplot(yearly_mc_critic_rating, aes(x = year, y = mean_mc_rating)) +
   geom_point() +
   labs(x = "Year", y = "Metacritic Critic Ratings", title = "Average Metacritic Critic Ratings for Hollywood Movies from 2007-2022") 
 # ![](figures/yearly_mc_critic_rating_plot.png)
-
+# A Metacritic "Metascore" is curated from a weighted average of critic reviews from a scale of 1-100. This graph represents the change in the average Metacritic critic ratings for Hollywood movies for each year from 2007-2022. Like the previous Rotten Tomatoes critic rating plot, this data also seems to have followed the trend of critic ratings increasing over the years, but this increase is less dramatic with it being only 20%. Also, both the Rotten Tomatoes critic and Metacritic rating plots seem to follow similar trends of increase, decrease, and peaks, such as ratings increasing significantly from 2009-2012, and dropping significantly from 2019-2020.
 
 
 # BIVARIATE
@@ -68,4 +68,10 @@ mc_critic_success_cor
 # ![](figures/mc_critic_success_cor_plot.png)
 mc_audience_success_cor
 # ![](figures/mc_audience_success_cor_plot.png)
+
+
+### Exploration 7: Which distributor has the highest IMDb rating?
+imdb_rating_by_dist
+# ![](figures/imdb_rating_by_distr_table.png)
+
 

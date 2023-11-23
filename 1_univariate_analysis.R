@@ -14,7 +14,9 @@ year_opening_success |>
 ggplot(year_opening_success, aes(x = year, y = mean_opening_success)) +
   geom_line() +
   geom_point() +
-  labs(x = "Year", y = "Mean Opening Weekend Earnings (in millions)", title = "Average Opening Weekend Earnings for Hollywood Movies from 2007-2022") +
+  labs(x = "Year", 
+       y = "Mean Opening Weekend Earnings (in millions)", 
+       title = "Average Opening Weekend Earnings for Hollywood Movies from 2007-2022") +
   ylim(0, 28)
 
 
@@ -30,7 +32,9 @@ yearly_rt_critic_rating |>
 ggplot(yearly_rt_critic_rating, aes(x = year, y = mean_rt_rating)) +
   geom_line() +
   geom_point() +
-  labs(x = "Year", y = "Rotten Tomatoes Critic Ratings", title = "Average Rotten Tomatoes Critic Ratings for Hollywood Movies from 2007-2022") 
+  labs(x = "Year", 
+       y = "Rotten Tomatoes Critic Ratings", 
+       title = "Average Rotten Tomatoes Critic Ratings for Hollywood Movies from 2007-2022") 
 
 
 ## Exploration 3: How do the overall average metacritic critic ratings change over the years from 2007-2022?
@@ -45,10 +49,38 @@ yearly_mc_critic_rating |>
 ggplot(yearly_mc_critic_rating, aes(x = year, y = mean_mc_rating)) +
   geom_line() +
   geom_point() +
-  labs(x = "Year", y = "Metacritic Critic Ratings", title = "Average Metacritic Critic Ratings for Hollywood Movies from 2007-2022") 
+  labs(x = "Year", 
+       y = "Metacritic Critic Ratings", 
+       title = "Average Metacritic Critic Ratings for Hollywood Movies from 2007-2022") 
 
 
-## Exploration 4: How do 
+## Exploration 4: What is the distribution of script type?
+script_type_dist <- movie_data |> 
+  group_by(script_type) |> 
+  filter(!is.na(script_type))
+
+ggplot(script_type_dist, aes(x = script_type)) +
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Script Type",
+       y = "Count",
+       title = "Distribution of Movie Script Type")
+
+## Exploration 5: How do the overall movie budgets change over the years from 2007-2022?
+yearly_movie_budget <- movie_data |> 
+  group_by(year) |> 
+  summarize(mean_movie_budget = round(mean(budget_million, na.rm = TRUE)))  |> 
+  arrange(desc(mean_movie_budget)) 
+
+yearly_movie_budget |> 
+  DT::datatable()
+
+ggplot(yearly_movie_budget, aes(x = year, y = mean_movie_budget)) +
+  geom_line() +
+  geom_point() +
+  labs(x = "Year", 
+       y = "Moviet Budget (millions)", 
+       title = "Average Budgets in Millions for Hollywood Movies from 2007-2022") 
 
 
 

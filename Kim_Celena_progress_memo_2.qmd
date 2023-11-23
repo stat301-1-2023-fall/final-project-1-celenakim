@@ -42,25 +42,37 @@ The data used in this project is called [Hollywood Hits and Flops (2007 - 2023)]
 After my files were condensed into one main data set, I did a bit more data set cleaning. First, the variable names were not in snake case form, so I fixed that using the clean_names() function. Next, I noticed that there were more unnecessary variables-- `link`, which provided an Amazon link to the movie, and `None`, which just had NAs in every observation-- so I decided to remove them from the data set as well. Third, after glimpsing my data, I noticed that variables such as `critic ratings` and `domestic gross earnings` were character type variables rather than integers, so I converted those variables into integers using as.integer() so I would be able to conduct numerical analyses. Next, I noticed that there were NAs for some movies' `genre` variable, even though they had a value in `primary genre`, so I made an ifelse statement that set a movie's NA in `genre` to its `primary genre`, if the primary genre was present. And finally, in order to be able to conduct analyses with the `oscar_winners` variable, I changed it's type to be a boolean using an ifelse statement. If a movie one an Oscar, the variable's observation would read TRUE, and if it did not win an Oscar, it would be FALSE.
 
 ## Univariate Analyses
+- How do variables change over the years from 2007-2022? 
+- What does the distribution of specific categorical variables look like?
 
-### What variables change over the years? 
-## Exploration 1: How do the overall average opening weekend earnings change over the years from 2007-2022?
+### Exploration 1: How do the overall average opening weekend earnings change over the years from 2007-2022?
 ![](figures/avg_opening_wknd_earnings_yearly_table.png)
 ![](figures/avg_opening_wknd_earnings_yearly.png)
 These visualizations represent the change in the mean opening weekend earnings (in millions) for Hollywood movies from 2007-2022. As can be seen by the graph, the years with the most successful opening weekends in terms of highest mean earnings are the years 2012 and 2014, closely tied with an average earning of 27 million dollars. The lowest point on the graph corresponds to 2020, with that year earning the least during opening weekend: 8 million dollars. This data definitely reflects the times/economy of the country during this year, as 2020 was the year that America was under quarantine and movie theaters were shut down, so they earned significantly less money than as compared to previous years.
 
-## Exploration 2: How do the overall average rotten tomato critic ratings change over the years from 2007-2022?
+### Exploration 2: How do the overall average rotten tomato critic ratings change over the years from 2007-2022?
 ![](figures/yearly_rt_critic_rating_plot.png)
 A Rotten Tomatoes score is one of the most trusted recommendation resources for movie entertainment and represents the percentage of professional critic reviews that are positive. If at least 60% of reviews for a movie are positive, then the movie is considered "Fresh", and if less than 60% of reviews are positive, then the title is considered "Rotten". This graph represents the change in the average Rotten Tomatoes critic ratings for Hollywood movies for each year from 2007-2022. Overall, it seems that the average critic ratings have increased significantly over the years, with about a 30% increase in ratings from 2007 to 2022.
 
-## Exploration 3: How do the overall average metacritic critic ratings change over the years from 2007-2022?
+### Exploration 3: How do the overall average metacritic critic ratings change over the years from 2007-2022?
 ![](figures/yearly_mc_critic_rating_plot.png)
-This graph represents the change in the average Metacritic critic ratings for Hollywood movies for each year from 2007-2022. Like the previous Rotten Tomatoes critic rating plot, this data also seems to have followed the trend of critic ratings increasing over the years, but this increase is less dramatic with it being only 20%. Also, both the Rotten Tomatoes critic and Metacritic rating plots seem to follow similar trends of increase, decrease, and peaks, such as ratings increasing significantly from 2009-2012, and dropping significantly from 2019-2020.
+A Metacritic "Metascore" is curated from a weighted average of critic reviews from a scale of 1-100. This graph represents the change in the average Metacritic critic ratings for Hollywood movies for each year from 2007-2022. Like the previous Rotten Tomatoes critic rating plot, this data also seems to have followed the trend of critic ratings generally increasing from 2007 to 2022, but this increase is less dramatic with it being only 20%. Also, both the Rotten Tomatoes critic and Metacritic rating plots seem to follow similar trends of increase, decrease, and peaks, such as ratings increasing significantly from 2009-2012, and dropping significantly from 2019-2020.
+
+### Exploration 4: How do the overall movie budgets change over the years from 2007-2022?
+![](figures/yearly_movie_budget_plot.png)
+Based on this graph, the average yearly movie budgets seem to fluctuate from 2007-2022. However, as compared to the graph in exploration 1 of yearly average opening weekend earnings, the trends seem to be roughly similar to eachother-- for example, with the highest points for both graphs being around the year 2012 and 2013, and both having a significant drop in the year 2020. This finding could suggest that there could be a correlation between a movie's budget and opening weekend earnings.
+
+### Exploration 5: What is the distribution of script type?
+![](figures/script_type_dist_plot.png)
+There are numerous combinations of movie script types across the years 2007-2022, but the top three most popular are "original screenplay", "adaptation", and "sequel".
+
 
 
 ## Multivariate Analyses
+- What variables affect a movie's opening weekend earnings? 
+- What variables affect a movie's Oscar win count?
+- How do critic ratings affect various variables of success?
 
-### What variables affect a movie's opening weekend earnings or Oscar win count?
 ### Exploration 1: Which genre has the highest mean opening weekend earning? 
 ![](figures/genre_opening_success_mean.png)
 As shown in the table, the "sci-fi & fantasy" genre combination had the most success in terms of highest opening weekend earnings, with about 248 million dollars in earnings.
@@ -91,7 +103,7 @@ Comparing the line of best fits between the four graphs, the "Rotten Tomatoes Au
 
 ### Exploration 7: Which distributor has the highest IMDb rating?
 ![](figures/imdb_rating_by_distr_table.png)
-Through the IMDb website, IMDb registered users can submit a rating (from 1 to 10) on every released movie title in the database. As can be seen in the table, the movie distribution company with the highest overall mean IMDb rating is Trafalgar Releasing.
+Through the IMDb website, IMDb registered users can submit a rating (from 1 to 10) on every released movie title in the database. As can be seen in the table, the movie distribution company with the highest overall mean IMDb rating is Trafalgar Releasing, with a mean IMDb rating of 8.6/10.
 
 ## Summary of Findings
 Students should summarize their progress, where they are at, and what their next steps will be. Self assessment of progress would also be appropriate. When thinking or describing next steps students should share any guiding curiosities or research questions they plan to explore.

@@ -47,7 +47,6 @@ rt_rating_oscar <- movie_data |>
   summarize(mean_rt_critic_rating = round(mean(rotten_tomatoes_critics, na.rm = TRUE))) |> 
   DT::datatable()
 rt_rating_oscar
-The table shows that movies that have won an Oscar have a much higher average Rotten Tomatoes critic rating than those who have not won an Oscar (89 vs. 54).
 
 ## Exploration 6: How do the different critic ratings correlate with opening weekend success?
 
@@ -83,21 +82,15 @@ mc_audience_success_cor <- movie_data |>
        x = "Metacritic Audience Rating",
        y = "Opening Weekend Earnings (millions)")
 
-Comparing the line of best fits between the four graphs, the "Rotten Tomatoes Audience Rating" has the highest positive correlation with "Opening Weekened Earnings (millions)"; the relationship is strongest between these two variables.
 
-
-
-
-
-
-
-
-## Exploration 6: Are successful opening weekends associated with getting an Oscar?
-
-
-## Exploration 7: Comparing domestic vs foreign vs worldwide gross?
-
-
+### Exploration 7: Which distributor has the highest IMDb rating?
+imdb_rating_by_dist <- movie_data |> 
+  group_by(distributor) |> 
+  summarize(mean_distr_imdb = mean(im_db_rating, na.rm = TRUE)) |> 
+  arrange(desc(mean_distr_imdb)) |> 
+  slice_head(n = 3) |> 
+  DT::datatable()
+imdb_rating_by_dist
 
 
 
