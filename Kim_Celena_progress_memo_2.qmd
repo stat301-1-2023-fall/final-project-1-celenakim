@@ -43,8 +43,8 @@ After my files were condensed into one main data set, I did a bit more data set 
 
 
 ## Exploration 1: What is the most popular/successful genre?
-- opening weekend success
-- oscar winner success
+
+![Top 3 Movie Genres with the Highest Mean Opening Success Earnings](figures/genre_opening_success_mean.png)
 
 In terms of mean opening weekend earnings success, the "sci-fi & fantasy" genre was the most successful as this genre combination had the highest earnings. In terms of Oscar win success, the "biography & history" genre was the most successful as this genre combination earned the most amount of Oscars.
 
