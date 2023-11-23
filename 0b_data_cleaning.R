@@ -34,8 +34,6 @@ movie_data <- rbind(data_2007, data_2008, data_2009,
                     data_2019, data_2020, data_2021,
                     data_2022)
 
-write.csv(movie_data, "data/movie_data.csv", row.names = FALSE)
-
 ## CLEANING DATA
 # Changing variable names to snake case
 movie_data <- clean_names(movie_data)
@@ -72,7 +70,7 @@ movie_data <- movie_data %>%
                                 FALSE, 
                                 TRUE))
 
-
+write.csv(movie_data, "data/movie_data.csv", row.names = FALSE)
 
 
 

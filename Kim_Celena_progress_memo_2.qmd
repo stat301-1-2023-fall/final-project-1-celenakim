@@ -25,12 +25,12 @@ from: markdown+emoji
 [https://github.com/stat301-1-2023-fall/final-project-1-celenakim](https://github.com/stat301-1-2023-fall/final-project-1-celenakim)
 :::
 
-## Loading Packages
 ```{r}
 #| label: load-pkgs-data
-
 library(tidyverse)
 library(janitor)
+library(readr)
+movie_data <- read_csv("data/movie_data.csv")
 ```
 
 
