@@ -31,6 +31,26 @@ ggplot(yearly_mc_critic_rating, aes(x = year, y = mean_mc_rating)) +
 # ![](figures/yearly_mc_critic_rating_plot.png)
 # A Metacritic "Metascore" is curated from a weighted average of critic reviews from a scale of 1-100. This graph represents the change in the average Metacritic critic ratings for Hollywood movies for each year from 2007-2022. Like the previous Rotten Tomatoes critic rating plot, this data also seems to have followed the trend of critic ratings increasing over the years, but this increase is less dramatic with it being only 20%. Also, both the Rotten Tomatoes critic and Metacritic rating plots seem to follow similar trends of increase, decrease, and peaks, such as ratings increasing significantly from 2009-2012, and dropping significantly from 2019-2020.
 
+### Exploration 4: How do the overall movie budgets change over the years from 2007-2022?
+ggplot(yearly_movie_budget, aes(x = year, y = mean_movie_budget)) +
+  geom_line() +
+  geom_point() +
+  labs(x = "Year", 
+       y = "Moviet Budget (millions)", 
+       title = "Average Budgets in Millions for Hollywood Movies from 2007-2022") 
+# ![](figures/yearly_movie_budget_plot.png)
+
+
+## Exploration 5: What is the distribution of script type?
+ggplot(script_type_dist, aes(x = script_type)) +
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(x = "Script Type",
+       y = "Count",
+       title = "Distribution of Movie Script Type")
+# ![](figures/script_type_dist_plot.png)
+
+
 
 # BIVARIATE
 ### Exploration 1: Which genre has the highest mean opening weekend earning? 
@@ -74,4 +94,15 @@ mc_audience_success_cor
 imdb_rating_by_dist
 # ![](figures/imdb_rating_by_distr_table.png)
 
+
+### Exploration 8: What is the correlation between a movie's budget and opening weekend success?
+movie_data |> 
+  ggplot(aes(x = budget_million, y = opening_weekend_million)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Movie Budget (millions)",
+       y = "Opening Weekend Earnings (millions)",
+       title = "Opening Weekend Earnings by Movie Budget (millions)",
+       subtitle = "There is an overall positive association between a movie's budget and it's opening weekend earnings.")
+# ![](figures/opening_weekend_by_budget_plot.png)
 

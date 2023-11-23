@@ -18,11 +18,10 @@ execute:
 from: markdown+emoji 
 ---
 
-
 ::: {.callout-tip icon="false"}
 ## Github Repo Link
 
-[https://github.com/stat301-1-2023-fall/final-project-1-celenakim](https://github.com/stat301-1-2023-fall/final-project-1-celenakim)
+<https://github.com/stat301-1-2023-fall/final-project-1-celenakim>
 :::
 
 ```{r}
@@ -33,80 +32,83 @@ library(readr)
 movie_data <- read_csv("data/movie_data.csv")
 ```
 
-
 ## Joining Datasets
-The data used in this project is called [Hollywood Hits and Flops (2007 - 2023)](https://www.kaggle.com/datasets/sujaykapadnis/hollywood-hits-and-flops-2007-2023/) found on [Kaggle](https://www.kaggle.com). There are 16 different csv files containing movie data for each year from 2007-2023, so joining data sets was necessary. However, there were some discrepancies between the data sets, so some preliminary cleaning was needed. First, the data sets had diferent numbers of columns, with the years 2011-2022 having one or two extra variables: `film list` and/or `financial source`. These variables were not necessary for my analysis, so I used for loops to remove those variables from those data sets, and ended up with 33 variables in all 16 files. Next, I noticed that there were some slight differences in column names, such as "Genres" vs. "Genres", so I ensured that all variable names across the data sets were uniform using another for loop. After these changes, all 16 files matched in column number and variable name, so I was then able to use rbind() combine all of them into one data set: "movie_data".
 
+The data used in this project is called [Hollywood Hits and Flops (2007 - 2023)](https://www.kaggle.com/datasets/sujaykapadnis/hollywood-hits-and-flops-2007-2023/) found on [Kaggle](https://www.kaggle.com). There are 16 different csv files containing movie data for each year from 2007-2023, so joining data sets was necessary. However, there were some discrepancies between the data sets, so some preliminary cleaning was needed. First, the data sets had diferent numbers of columns, with the years 2011-2022 having one or two extra variables: `film list` and/or `financial source`. These variables were not necessary for my analysis, so I used for loops to remove thenfrom the data sets, and ended up with 33 variables in all 16 files. Next, I noticed that there were some slight differences in variable names, such as `Genre` vs. `Genres`, so I ensured that all names across the data sets were uniform using another for loop. After these changes, all 16 files matched in column number and variable name, so I was then able to use rbind() combine all of them into one data set: "movie_data".
 
 ## Data Cleaning
-After my files were condensed into one main data set, I did a bit more data set cleaning. First, the variable names were not in snake case form, so I fixed that using the clean_names() function. Next, I noticed that there were more unnecessary variables-- `link`, which provided an Amazon link to the movie, and `None`, which just had NAs in every observation-- so I decided to remove them from the data set as well. Third, after glimpsing my data, I noticed that variables such as `critic ratings` and `domestic gross earnings` were character type variables rather than integers, so I converted those variables into integers using as.integer() so I would be able to conduct numerical analyses. Next, I noticed that there were NAs for some movies' `genre` variable, even though they had a value in `primary genre`, so I made an ifelse statement that set a movie's NA in `genre` to its `primary genre`, if the primary genre was present. And finally, in order to be able to conduct analyses with the `oscar_winners` variable, I changed it's type to be a boolean using an ifelse statement. If a movie one an Oscar, the variable's observation would read TRUE, and if it did not win an Oscar, it would be FALSE.
+
+After my files were condensed into one main data set, I did a bit more data set cleaning. First, the variable names were not in snake case form, so I fixed that using the clean_names() function. Next, I noticed that there were more unnecessary variables-- `link`, which provided an Amazon link to the movie, and `None`, which just had NAs in every observation-- so I decided to remove them from the data set as well. Third, after glimpsing my data, I noticed that variables such as `critic ratings` and `domestic gross earnings` were character type variables rather than integers, so I converted those variables into integers using as.integer() so I would be able to conduct numerical analyses. Next, I noticed that there were NAs for some movies' `genre` variable, even though they had a value in `primary genre`, so I made an ifelse statement that set a movie's NA in `genre` to its `primary genre`, if the primary genre was present. And finally, in order to be able to conduct analyses with the `oscar_winners` variable, I changed it's type to be a boolean using an ifelse statement. If a movie one an Oscar, the variable's observation would read TRUE, and if it did not win an Oscar, it would be FALSE. After these changes were made, my data was then ready for analyses to be performed.
+
+# Overall guiding question: What factors contribute to a Hollywood movie's overall success?
 
 ## Univariate Analyses
-- How do variables change over the years from 2007-2022? 
-- What does the distribution of specific categorical variables look like?
 
-### Exploration 1: How do the overall average opening weekend earnings change over the years from 2007-2022?
-![](figures/avg_opening_wknd_earnings_yearly_table.png)
-![](figures/avg_opening_wknd_earnings_yearly.png)
-These visualizations represent the change in the mean opening weekend earnings (in millions) for Hollywood movies from 2007-2022. As can be seen by the graph, the years with the most successful opening weekends in terms of highest mean earnings are the years 2012 and 2014, closely tied with an average earning of 27 million dollars. The lowest point on the graph corresponds to 2020, with that year earning the least during opening weekend: 8 million dollars. This data definitely reflects the times/economy of the country during this year, as 2020 was the year that America was under quarantine and movie theaters were shut down, so they earned significantly less money than as compared to previous years.
+-   How do variables change over the years from 2007-2022?
+-   What does the distribution of specific categorical variables look like?
 
-### Exploration 2: How do the overall average rotten tomato critic ratings change over the years from 2007-2022?
-![](figures/yearly_rt_critic_rating_plot.png)
-A Rotten Tomatoes score is one of the most trusted recommendation resources for movie entertainment and represents the percentage of professional critic reviews that are positive. If at least 60% of reviews for a movie are positive, then the movie is considered "Fresh", and if less than 60% of reviews are positive, then the title is considered "Rotten". This graph represents the change in the average Rotten Tomatoes critic ratings for Hollywood movies for each year from 2007-2022. Overall, it seems that the average critic ratings have increased significantly over the years, with about a 30% increase in ratings from 2007 to 2022.
+#### Exploration 1: How do the overall average opening weekend earnings change over the years from 2007-2022?
 
-### Exploration 3: How do the overall average metacritic critic ratings change over the years from 2007-2022?
-![](figures/yearly_mc_critic_rating_plot.png)
-A Metacritic "Metascore" is curated from a weighted average of critic reviews from a scale of 1-100. This graph represents the change in the average Metacritic critic ratings for Hollywood movies for each year from 2007-2022. Like the previous Rotten Tomatoes critic rating plot, this data also seems to have followed the trend of critic ratings generally increasing from 2007 to 2022, but this increase is less dramatic with it being only 20%. Also, both the Rotten Tomatoes critic and Metacritic rating plots seem to follow similar trends of increase, decrease, and peaks, such as ratings increasing significantly from 2009-2012, and dropping significantly from 2019-2020.
+![](figures/avg_opening_wknd_earnings_yearly_table.png) ![](figures/avg_opening_wknd_earnings_yearly.png) These visualizations represent the change in the mean opening weekend earnings (in millions) for Hollywood movies from 2007-2022. As can be seen by the graph, the years with the most successful opening weekends in terms of highest mean earnings are the years 2012 and 2014, closely tied with an average earning of 27 million dollars. The lowest point on the graph corresponds to 2020, with that year earning the least during opening weekend: 8 million dollars. This data definitely reflects the times/economy of the country during this year, as 2020 was the year that America was under quarantine and movie theaters were shut down, so they earned significantly less money than as compared to previous years.
 
-### Exploration 4: How do the overall movie budgets change over the years from 2007-2022?
-![](figures/yearly_movie_budget_plot.png)
-Based on this graph, the average yearly movie budgets seem to fluctuate from 2007-2022. However, as compared to the graph in exploration 1 of yearly average opening weekend earnings, the trends seem to be roughly similar to eachother-- for example, with the highest points for both graphs being around the year 2012 and 2013, and both having a significant drop in the year 2020. This finding could suggest that there could be a correlation between a movie's budget and opening weekend earnings.
+#### Exploration 2: How do the overall average Rotten Tomato critic ratings change over the years from 2007-2022?
 
-### Exploration 5: What is the distribution of script type?
-![](figures/script_type_dist_plot.png)
-There are numerous combinations of movie script types across the years 2007-2022, but the top three most popular are "original screenplay", "adaptation", and "sequel".
+![](figures/yearly_rt_critic_rating_plot.png) A Rotten Tomatoes score is one of the most trusted recommendation sources for movie entertainment and represents the percentage of professional critic reviews that are positive. If at least 60% of reviews for a movie are positive, then the movie is considered "Fresh", and if less than 60% of reviews are positive, then the title is considered "Rotten". This graph represents the change in the average Rotten Tomatoes critic ratings for Hollywood movies for each year from 2007-2022. Overall, it seems that the average critic ratings have increased significantly over the years, with about a 30% increase in ratings from 2007 to 2022.
 
+#### Exploration 3: How do the overall average Metacritic critic ratings change over the years from 2007-2022?
 
+![](figures/yearly_mc_critic_rating_plot.png) A Metacritic "Metascore" is curated from a weighted average of critic reviews from a scale of 1-100. This graph represents the change in the average Metacritic critic ratings for Hollywood movies for each year from 2007-2022. Like the previous Rotten Tomatoes critic rating plot, this data also seems to have followed the trend of critic ratings generally increasing from 2007 to 2022, but this increase is less dramatic with it being only 20%. Also, both the Rotten Tomatoes critic and Metacritic rating plots seem to follow slightly similar trends of increase, decrease, and peaks, such as ratings increasing significantly from 2009-2012, and dropping significantly from 2019-2020.
+
+#### Exploration 4: How do the overall movie budgets change over the years from 2007-2022?
+
+![](figures/yearly_movie_budget_plot.png) Based on this graph, the average yearly movie budgets seem to fluctuate from 2007-2022. However, as compared to the graph in Exploration 1 of yearly average opening weekend earnings, the trends seem to be roughly similar to each other-- for example, the highest points for both graphs appear to be around the year 2012 and 2013, and both graphs have a significant drop in their values in the year 2020. This finding could suggest that there could be a correlation between a movie's budget and opening weekend earnings.
+
+#### Exploration 5: What is the distribution of script type?
+
+![](figures/script_type_dist_plot.png) There are numerous combinations of movie script types across the years 2007-2022, but the top three most popular are "original screenplay", "adaptation", and "sequel".
 
 ## Multivariate Analyses
-- What variables affect a movie's opening weekend earnings? 
-- What variables affect a movie's Oscar win count?
-- How do critic ratings affect various variables of success?
 
-### Exploration 1: Which genre has the highest mean opening weekend earning? 
-![](figures/genre_opening_success_mean.png)
-As shown in the table, the "sci-fi & fantasy" genre combination had the most success in terms of highest opening weekend earnings, with about 248 million dollars in earnings.
+-   What variables influence a movie's opening weekend earnings?
+-   What variables influence a movie's Oscar win count?
+-   How do critic ratings influence various variables of success?
 
-### Exploration 2: Which genre has the highest Oscar wins?
-![](figures/genre_oscar_counts_table.png)
-In terms of Oscar win success, the "biography & history" genre was the most successful as this genre combination earned the most amount of Oscars: 4.
+#### Exploration 1: Which genre has the highest mean opening weekend earning?
 
-### Exploration 3: Which script type has the highest mean opening weekend earning? 
-![](figures/script_type_opening_success_table.png)
-The script type combination that had the most successful opening weekend is "sequel & adaptation", with a mean opening weekend earning of about 84 million
+![](figures/genre_opening_success_mean.png) As shown in the table, the "sci-fi & fantasy" genre combination had the most success in terms of highest opening weekend earnings, with about 248 million dollars in earnings.
 
+#### Exploration 2: Which genre has the highest Oscar wins?
 
-### Exploration 4: Which script type has the highest Oscar wins?
-![](figures/script_type_oscar_counts_table.png)
-The script type that earned the most Oscars is "original screenplay", with 28 Oscar wins.
+![](figures/genre_oscar_counts_table.png) In terms of Oscar win success, the "biography & history" genre was the most successful as this genre combination earned the most amount of Oscars: 4.
 
-### Exploration 5: Do movies that have won Oscars have better Rotten Tomatoes critic ratings?
-![](figures/rt_rating_oscar_table.png)
-The table shows that movies that have won an Oscar have a much higher average Rotten Tomatoes critic rating than those who have not won an Oscar (89 vs. 54).
+#### Exploration 3: Which script type has the highest mean opening weekend earning?
 
-### Exploration 6: How do the different critic ratings correlate with opening weekend success?
-![](figures/rt_critic_success_cor_plot.png)
-![](figures/rt_audience_success_cor_plot.png)
-![](figures/mc_critic_success_cor_plot.png)
-![](figures/mc_audience_success_cor_plot.png)
-Comparing the line of best fits between the four graphs, the "Rotten Tomatoes Audience Rating" has the steepest line of best fit, and thus the highest positive correlation with "Opening Weekened Earnings (millions)". The relationship is strongest between these two variables.
+![](figures/script_type_opening_success_table.png) The script type combination that had the most successful opening weekend is "sequel & adaptation", with a mean opening weekend earning of about 84 million.
 
-### Exploration 7: Which distributor has the highest IMDb rating?
-![](figures/imdb_rating_by_distr_table.png)
-Through the IMDb website, IMDb registered users can submit a rating (from 1 to 10) on every released movie title in the database. As can be seen in the table, the movie distribution company with the highest overall mean IMDb rating is Trafalgar Releasing, with a mean IMDb rating of 8.6/10.
+#### Exploration 4: Which script type has the highest Oscar wins?
+
+![](figures/script_type_oscar_counts_table.png) The script type that earned the most Oscars is "original screenplay", with 28 Oscar wins.
+
+#### Exploration 5: Do movies that have won Oscars have better Rotten Tomatoes critic ratings?
+
+![](figures/rt_rating_oscar_table.png) The table shows that movies that have won an Oscar have a much higher average Rotten Tomatoes critic rating than those who have not won an Oscar (89 vs. 54).
+
+#### Exploration 6: How do the different critic ratings correlate with opening weekend success?
+
+![](figures/rt_critic_success_cor_plot.png) ![](figures/rt_audience_success_cor_plot.png) ![](figures/mc_critic_success_cor_plot.png) ![](figures/mc_audience_success_cor_plot.png) Comparing the line of best fits between the four graphs, the "Rotten Tomatoes Audience Rating" has the steepest increasing line of best fit, and thus the highest positive correlation with "Opening Weekened Earnings (millions)". The relationship is strongest between these two variables and could suggest that movies with a higher Rotten Tomates Audience Rating tend to be more successful in their opening weekend earnings, on average. However, this does not imply causation.
+
+#### Exploration 7: Which distributor has the highest IMDb rating?
+
+![](figures/imdb_rating_by_distr_table.png) Through the IMDb website, IMDb registered users can submit a rating (from 1 to 10) on every released movie title in the database. As can be seen in the table, the movie distribution company with the highest overall mean IMDb rating is Trafalgar Releasing, with a mean IMDb rating of 8.6/10.
+
+### Exploration 8: What is the correlation between a movie's budget and opening weekend success?
+![](figures/opening_weekend_by_budget_plot.png)
+This graph shows that there is an overall positive correlation between a movie's budget and it's opening weekend success earnings. This suggests that, on average, movies with higher production budgets tend to achieve greater financial success during their initial release weekends. However, this does not imply causation.
+
 
 ## Summary of Findings
-Students should summarize their progress, where they are at, and what their next steps will be. Self assessment of progress would also be appropriate. When thinking or describing next steps students should share any guiding curiosities or research questions they plan to explore.
 
-How does domestic compare to foreign ?
+Through this progress memo, I conducted various analyses that answer the overarching question of how various factors contribute to a Hollywood movie's overall success. I explored success in various ways, such as defined by a movie's mean `opening_weekend` earnings, `oscar_winners`, `im_db_rating`, and `rotten_tomatoes_critics` or `metacritic_critics` ratings. I also explored how various categorical variables such as a movie's `script_type` or `genre` interact with these numerical variables. Through my univariate analyses, I was mostly interested in analyzing how certain movie variables such as mean `opening_weekend` earnings and critic ratings have changed over the years, and I also analyzed the disribution of the `script_type` variable. In my multivariate analyses, I focused on how certain variables influence `opening_weekend` earning success and `oscar_winners`. In my next steps, I would like to make analyses utilizing the `domestic_gross`, `foreign_gross`, and `wordwide_gross` variables and compare and contrast the success rates that I explored in this progress memo through these lenses. Some guiding curiosities/research questions I plan to explore are:
 
+-   What is the correlation between a movie's budget, and it's `domestic_gross`, `foreign_gross`, `wordwide_gross`?
+-   How do overall `domestic_gross`, `foreign_gross`, and `wordwide_gross` averages for variables such as `opening_weekend` earnings and `im_db_rating` differ?
