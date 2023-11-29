@@ -29,3 +29,31 @@ movie_data |>
        title = "Opening Weekend Earnings by Movie Budget (millions)",
        subtitle = "There is an overall positive association between a movie's budget and it's opening weekend earnings.")
 
+
+
+### Exploration 3: What is the correlation between a movie's opening weekend revenue and its budget recovered during opening weekend?
+movie_data |> 
+  mutate(budget_recovered_millions = round(budget_million * (budget_recovered / 100))) |> 
+  ggplot(aes(x = opening_weekend_million, y = budget_recovered_millions)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Opening Weekend Earnings (millions)",
+       y = "Budget Recovery Earnings (millions)",
+       title = "Opening Weekend Earnings by Budget Recovery (millions)",
+       subtitle = "There is an overall strong positive association between a movie's opening weekend earnings and the percentage of its budget that it recovers.")
+
+
+### Exploration 4: Facet by script type
+movie_data |> 
+  mutate(budget_recovered_millions = round(budget_million * (budget_recovered / 100))) |> 
+  ggplot(aes(x = budget_recovered_millions)) +
+  geom_bar(fill = script_type) 
+
+
+
+### Exploration 5: budget vs. oscar wins
+
+
+
+
+

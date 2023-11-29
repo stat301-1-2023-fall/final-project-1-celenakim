@@ -2,6 +2,20 @@ library(tidyverse)
 
 # Ratings: Rotten Tomatoes, Metacritic, and IMDb ratings, both critic and audience
 
+## Exploration: Average critic and audience ratings over the years
+movie_data |> 
+  group_by(year) |> 
+  summarize(avg_critics_ratings = mean(average_critics, na.rm = TRUE),
+            avg_audience_ratings = mean(average_audience, na.rm = TRUE)) |> 
+  ggplot(aes(x = year)) +
+  geom_line(aes(y = avg_critics_ratings, color = "Critics"), size = 1.5) +
+  geom_line(aes(y = avg_audience_ratings, color = "Audience"), linetype = "dashed", size = 1.5) +
+  labs(title = "Average Audience and Critic Ratings Over Years",
+       x = "Year",
+       y = "Average Rating",
+       color = "Rating Type") +
+  theme_minimal()
+
 ## Exploration 1: What is the distribution of average critic ratings?
 movie_data |> 
   ggplot(aes(x = average_critics)) +
@@ -72,6 +86,23 @@ movie_data |>
        title = "Opening Weekend Earnings (millions) by IMDb Rating",
        subtitle = "There is an overall positive association between a movie's budget and it's opening weekend earnings.")
 
+
+
+
+## Explore the average ratings (critics and audience) for each primary genre.
+movie_data %>%
+  group_by(script_type) %>%
+  summarize(avg_rotten_tomatoes_critics = mean(rotten_tomatoes_critics, na.rm = TRUE),
+            avg_rotten_tomatoes_audience = mean(rotten_tomatoes_audience, na.rm = TRUE),
+            avg_im_db_rating = mean(im_db_rating, na.rm = TRUE)) %>%
+  gather(key = "rating_type", value = "average_rating", -script_type) %>%
+  ggplot(aes(x = script_type, y = average_rating, fill = rating_type)) +
+  geom_bar(stat = "identity", position = "dodge", color = "white") +
+  labs(title = "Average Ratings by Genre",
+       x = "Primary Genre",
+       y = "Average Rating") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 
 
