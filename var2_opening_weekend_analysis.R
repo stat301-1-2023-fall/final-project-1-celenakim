@@ -1,5 +1,6 @@
 # Opening weekend revenue: Opening weekend revenue
-
+# KEY TAKEAWAYS
+## -heavily impacted by 2020 covid pandemic
 
 ## Exploration 1: How do the overall average opening weekend earnings change over the years from 2007-2022?
 year_opening_success <- movie_data |> 
@@ -38,7 +39,7 @@ scripttype_opening_success
 
 
 
-## Exploration 6: How do the different critic ratings correlate with opening weekend success?
+## Exploration 4: How do the different critic ratings correlate with opening weekend success?
 rt_critic_success_cor <- movie_data |> 
   ggplot(aes(x = rotten_tomatoes_critics, y = opening_weekend_million)) +
   geom_point() +
@@ -46,6 +47,7 @@ rt_critic_success_cor <- movie_data |>
   labs(title = "Opening Weekend Earnings (millions) by Rotten Tomatoes Critics Rating",
        x = "Rotten Tomatoes Critics Rating",
        y = "Opening Weekend Earnings (millions)")
+rt_critic_success_cor
 
 rt_audience_success_cor <- movie_data |> 
   ggplot(aes(x = rotten_tomatoes_audience, y = opening_weekend_million)) +
@@ -54,6 +56,7 @@ rt_audience_success_cor <- movie_data |>
   labs(title = "Opening Weekend Earnings (millions) by Rotten Tomatoes Audience Rating",
        x = "Rotten Tomatoes Audience Rating",
        y = "Opening Weekend Earnings (millions)")
+rt_audience_success_cor
 
 mc_critic_success_cor <- movie_data |> 
   ggplot(aes(x = metacritic_critics, y = opening_weekend_million)) +
@@ -62,6 +65,7 @@ mc_critic_success_cor <- movie_data |>
   labs(title = "Opening Weekend Earnings (millions) by Metacritic Critics Rating",
        x = "Metacritic Critics Rating",
        y = "Opening Weekend Earnings (millions)")
+mc_critic_success_cor
 
 mc_audience_success_cor <- movie_data |> 
   ggplot(aes(x = metacritic_audience, y = opening_weekend_million)) +
@@ -70,10 +74,10 @@ mc_audience_success_cor <- movie_data |>
   labs(title = "Opening Weekend Earnings (millions) by Metacritic Audience Rating",
        x = "Metacritic Audience Rating",
        y = "Opening Weekend Earnings (millions)")
+mc_audience_success_cor
 
 
-
-### Exploration 8: What is the correlation between a movie's budget and opening weekend success?
+### Exploration 5: What is the correlation between a movie's budget and opening weekend success?
 movie_data |> 
   ggplot(aes(x = budget_million, y = opening_weekend_million)) +
   geom_point() +
@@ -84,7 +88,7 @@ movie_data |>
        subtitle = "There is an overall positive association between a movie's budget and it's opening weekend earnings.")
 
 
-### Exploration 9: What is the correlation between a movie's IMDb rating and opening weekend success?
+### Exploration 6: What is the correlation between a movie's IMDb rating and opening weekend success?
 movie_data |> 
   ggplot(aes(x = im_db_rating, y = opening_weekend_million)) +
   geom_point() +

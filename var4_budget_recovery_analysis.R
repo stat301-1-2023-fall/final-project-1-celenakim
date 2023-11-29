@@ -1,4 +1,6 @@
 # Budget recovery: Budget recovered, and during opening weekend alone
+# KEY TAKEAWAYS
+## -heavily impacted by 2020 covid pandemic
 
 ## Exploration 1: How do the overall movie budgets change over the years from 2007-2022?
 yearly_movie_budget <- movie_data |> 
@@ -17,7 +19,7 @@ ggplot(yearly_movie_budget, aes(x = year, y = mean_movie_budget)) +
        title = "Average Budgets in Millions for Hollywood Movies from 2007-2022") 
 
 
-### Exploration 8: What is the correlation between a movie's budget and opening weekend success?
+### Exploration 2: What is the correlation between a movie's budget and opening weekend success?
 movie_data |> 
   ggplot(aes(x = budget_million, y = opening_weekend_million)) +
   geom_point() +

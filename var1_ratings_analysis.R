@@ -1,3 +1,5 @@
+library(tidyverse)
+
 # Ratings: Rotten Tomatoes, Metacritic, and IMDb ratings, both critic and audience
 
 ## Exploration 1: What is the distribution of average critic ratings?
@@ -43,14 +45,14 @@ ggplot(yearly_mc_critic_rating, aes(x = year, y = mean_mc_rating)) +
        title = "Average Metacritic Critic Ratings for Hollywood Movies from 2007-2022") 
 
 
-### Exploration 5: Do movies that have won Oscars have better Rotten Tomatoes critic ratings?
+### Exploration 4: Do movies that have won Oscars have better Rotten Tomatoes critic ratings?
 rt_rating_oscar <- movie_data |> 
   group_by(oscar_winners) |> 
   summarize(mean_rt_critic_rating = round(mean(rotten_tomatoes_critics, na.rm = TRUE))) |> 
   DT::datatable()
 rt_rating_oscar
 
-### Exploration 7: Which distributor has the highest IMDb rating?
+### Exploration 5: Which distributor has the highest IMDb rating?
 imdb_rating_by_dist <- movie_data |> 
   group_by(distributor) |> 
   summarize(mean_distr_imdb = mean(im_db_rating, na.rm = TRUE)) |> 
@@ -60,7 +62,7 @@ imdb_rating_by_dist <- movie_data |>
 imdb_rating_by_dist
 
 
-### Exploration 9: What is the correlation between a movie's IMDb rating and opening weekend success?
+### Exploration 6: What is the correlation between a movie's IMDb rating and opening weekend success?
 movie_data |> 
   ggplot(aes(x = im_db_rating, y = opening_weekend_million)) +
   geom_point() +
