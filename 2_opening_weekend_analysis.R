@@ -1,1 +1,0 @@
-# Opening weekend revenue: Opening weekend revenue

@@ -13,9 +13,7 @@ Here is a brief overview of what you can find in the repo:
 
 - `0a_data_collection.R`: This R file shows each of the 16 files in the "Hollywood Hits and Flops" data set being read in and assigned to their own variables.
 - `0b_data_cleaning.R`: Here, the process of cleaning the 16 data files, joining them into one data set ("movie_data"), and carrying out more post-join cleaning is shown.
-- `1_univariate_analysis.R`: All of my univariate analyses can be found in this R file.
-- `2_multivariate_analysis.R`: All of my multivariate analyses can be found in this R file.
-- `3_polishing_figures_tables.R`: This R file contains the png code and explanations for all of my univariate and multivariate tables and plots.
+
 
 
 ## Project Memos
