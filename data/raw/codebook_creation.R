@@ -63,7 +63,7 @@ codebook_tibble <- tibble(
               "the company responsible for marketing and releasing the movie (only available for 2019-2022 movies)",
               "the movie's IMDb score, on a scale of 1 to 10 (only available for 2019-2022 movies)", 
               "the movie's IMDb score minus its Rotten Tomatoes score (only available for 2019-2022 movies)",
-              "the date that the movie was released, in MDY format")
+              "the date that the movie was released in the US")
 )
 
 
