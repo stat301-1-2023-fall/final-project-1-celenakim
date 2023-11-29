@@ -43,7 +43,7 @@ movie_data <- clean_names(movie_data)
 drop = c("link", "none")
 movie_data = movie_data[,!(names(movie_data) %in% drop)]
 
-# Changing character variables to integers when needed
+# Changing character variables to integers when needed, changing date variable to date type
 char_vector <- c("rotten_tomatoes_critics", "metacritic_critics", 
                  "average_critics", "metacritic_audience",
                  "rotten_tomatoes_vs_metacritic_deviance", 
@@ -55,18 +55,21 @@ char_vector <- c("rotten_tomatoes_critics", "metacritic_critics",
                  "budget_million")
 
 # Convert the character vector to integer
-movie_data <- movie_data %>%
-  mutate_at(char_vector, ~as.integer(.))
+movie_data <- movie_data |> 
+  mutate_at(char_vector, ~as.integer(.)) 
+
+movie_data$release_date_us <- as.Date(strptime(movie_data$release_date_us, "%B %d, %Y"))
+
 
 # Replace NA values in 'genre' with values from 'primary_genre'
-movie_data <- movie_data %>%
+movie_data <- movie_data |> 
   mutate(genre = ifelse(is.na(genre) | 
                           genre == "-",
                         primary_genre, 
                         genre))
 
 # Changing "oscar_winners" variable to boolean
-movie_data <- movie_data %>%
+movie_data <- movie_data |> 
   mutate(oscar_winners = ifelse(oscar_winners == "", 
                                 FALSE, 
                                 TRUE))

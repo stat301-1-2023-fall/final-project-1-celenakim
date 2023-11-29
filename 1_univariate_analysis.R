@@ -1,4 +1,7 @@
 library(tidyverse)
+library(readr)
+movie_data <- read_csv("data/movie_data.csv")
+View(movie_data)
 
 # UNIVARIATE: What variables change over the years? 
 
@@ -89,6 +92,7 @@ ggplot(aes(x = average_critics)) +
   labs(x = "Average Rotten Tomatoes and Metacritic Critic Rating",
        y = "Count",
        title = "Distribution of Average Rotten Tomatoes and Metacritic Critic Rating")
+
 
 
 
