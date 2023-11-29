@@ -1,0 +1,1 @@
+# Ratings: Rotten Tomatoes, Metacritic, and IMDb ratings, both critic and audience

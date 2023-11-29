@@ -58,8 +58,8 @@ char_vector <- c("rotten_tomatoes_critics", "metacritic_critics",
 movie_data <- movie_data |> 
   mutate_at(char_vector, ~as.integer(.)) 
 
+# Convert the 'release_date_us' variable to date type
 movie_data$release_date_us <- as.Date(strptime(movie_data$release_date_us, "%B %d, %Y"))
-
 
 # Replace NA values in 'genre' with values from 'primary_genre'
 movie_data <- movie_data |> 
@@ -73,6 +73,16 @@ movie_data <- movie_data |>
   mutate(oscar_winners = ifelse(oscar_winners == "", 
                                 FALSE, 
                                 TRUE))
+
+# Fixing missing values for worldwide gross columns
+movie_data <- movie_data |> 
+  mutate(worldwide_gross = domestic_gross + foreign_gross)
+
+# Fixing incorrectly "millions" conversions
+movie_data$opening_weekend_million <- round(movie_data$opening_weekend / 1000000)
+movie_data$domestic_gross_million <- round(movie_data$domestic_gross / 1000000)
+movie_data$foreign_gross_million <- round(movie_data$foreign_gross / 1000000)
+movie_data$worldwide_gross_million <- round(movie_data$worldwide_gross / 1000000)
 
 write.csv(movie_data, "data/movie_data.csv", row.names = FALSE)
 
