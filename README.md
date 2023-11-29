@@ -13,7 +13,15 @@ Here is a brief overview of what you can find in the repo:
 
 - `0a_data_collection.R`: This R file shows each of the 16 files in the "Hollywood Hits and Flops" data set being read in and assigned to their own variables.
 - `0b_data_cleaning.R`: Here, the process of cleaning the 16 data files, joining them into one data set ("movie_data"), and carrying out more post-join cleaning is shown.
-
+- `codebook_creation.R`: In this R file, I create the codebook for my variables.
+- `var1_ratings_analysis.R`: Uni/multivariate analyses of the various ratings/reviews variables in the data set.
+- `var2_opening_weekend_analysis.R`: Uni/multivariate analyses of the opening weekend revenue variables.
+- `var3_gross_analysis.R`: Uni/multivariate analyses of the domestic, foreign, and worldwide gross variables.
+- `var4_budget_recovery_analysis.R`: Uni/multivariate analyses of the various variables pertaining to a movie's budget.
+- `var5_oscars_analysis.R`: Uni/multivariate analyses of the various variables pertaining to a movie's Oscar wins.
+- `1_univariate_analysis.R`: Simple univariate analyses can be found in this R file.
+- `2_multivariate_analysis.R`: Multivariate analyses can be found in this R file.
+- `3_polishing_figures_tables.R`: This R file contains plots and tables from my analyses, as well as their explanations.
 
 
 ## Project Memos

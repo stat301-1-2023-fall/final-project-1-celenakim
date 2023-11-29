@@ -15,3 +15,15 @@ ggplot(yearly_movie_budget, aes(x = year, y = mean_movie_budget)) +
   labs(x = "Year", 
        y = "Moviet Budget (millions)", 
        title = "Average Budgets in Millions for Hollywood Movies from 2007-2022") 
+
+
+### Exploration 8: What is the correlation between a movie's budget and opening weekend success?
+movie_data |> 
+  ggplot(aes(x = budget_million, y = opening_weekend_million)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Movie Budget (millions)",
+       y = "Opening Weekend Earnings (millions)",
+       title = "Opening Weekend Earnings by Movie Budget (millions)",
+       subtitle = "There is an overall positive association between a movie's budget and it's opening weekend earnings.")
+
