@@ -1,5 +1,3 @@
-## Datasets
+## The Hollywood Hits and Flops (2007-2023) Kaggle Dataset
 
-Cite and describe datasets ....
-
-
+The data source that I chose for my project is called [Hollywood Hits and Flops (2007 - 2023)](https://www.kaggle.com/datasets/sujaykapadnis/hollywood-hits-and-flops-2007-2023/) found on [Kaggle](https://www.kaggle.com). The original data set consisted of 16 separate files, but I joined them all to create one main data set, "movie_data". This movie data set contains 33 variables that all represent details for 1,967 movies from 2007-2022, such as their critic ratings, genre, opening weekend revenue, foreign and worldwide gross, IMDb ratings, Oscar wins, etc. All of these variables contribute to the success rate of the movies.
