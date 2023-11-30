@@ -6,7 +6,7 @@ This repository contains an analysis of data collected on 1,967 movies from 2007
 Here is a brief overview of what you can find in the repo:
 
 - `data/`: Here you can find the data set I will be working with throughout this EDA: "movie_data", a cleaned and joined version of the "Hollywood Hits and Flops" data set. Inside the `raw/` folder, you can find the original "Hollywood Hits and Flops" data set in its raw form of 16 separate files.
-- `figure/`: This folder contains pngs of all of the plots and tables used for my analysis.
+- `figures/`: Separate into five subfolders, this folder contains pngs of all of the plots and tables used for each of my five variable analyses.
 
 
 ## R scripts
