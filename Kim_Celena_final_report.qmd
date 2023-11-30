@@ -89,7 +89,7 @@ ggplot(year_opening_success, aes(x = year, y = mean_opening_success)) +
   geom_line() +
   geom_point() +
   labs(x = "Year", 
-       y = "Mean Opening Weekend Earnings (in millions)", 
+       y = "Mean Opening Weekend Earnings (in millions of $)", 
        title = "Average Opening Weekend Earnings for Hollywood Movies from 2007-2022") +
   ylim(0, 28) +
   theme_minimal() +
@@ -98,6 +98,23 @@ ggplot(year_opening_success, aes(x = year, y = mean_opening_success)) +
 ```
 @fig-yearly-opening-wknd visualizes the change in the mean opening weekend earnings (in millions) for Hollywood movies from 2007-2022. As can be seen by the graph, the years with the most successful opening weekends in terms of highest mean earnings are the years 2012 and 2014, closely tied with an average earning of 27 million dollars. The lowest point on the graph corresponds to 2020, with that year earning the least during opening weekend: 8 million dollars. This data definitely reflects the times/economy of the country during this year, as 2020 was the year that America was under quarantine and movie theaters were shut down, so they earned significantly less money than as compared to previous years. This is certainly something to keep in mind throughout this variable analysis, as the opening weekend revenue for 2020 is greatly impacted by the pandemic.
 
+```{r}
+#| label: fig-opening-wknd-by-budget
+#| fig-cap: The correlation between a movie's production budget in millions of dollars and how much it earned during its opening weekend.
+
+movie_data |> 
+  ggplot(aes(x = budget_million, y = opening_weekend_million)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Movie Budget (millions of $)",
+       y = "Opening Weekend Earnings (millions of $)",
+       title = "Opening Weekend Earnings by Movie Budget") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot")
+
+```
+In @fig-opening-wknd-by-budget, there is a clear positive association between a Hollywood movie's budget and its opening weeked earnings. This suggests that, on average, movies with higher production budgets tend to achieve greater financial success during their initial release weekends. 
 
 ## Variable 3: Domestic, foreign, & worldwide gross
 

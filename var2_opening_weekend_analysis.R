@@ -35,7 +35,7 @@ scripttype_opening_success <- movie_data |>
   arrange(desc(mean_opening_success)) |> 
   slice_head(n = 3) |> 
   DT::datatable()
-scripttype_opening_success
+scripttype_opening_success 
 
 
 
@@ -77,15 +77,20 @@ mc_audience_success_cor <- movie_data |>
 mc_audience_success_cor
 
 
+
+
 ### Exploration 5: What is the correlation between a movie's budget and opening weekend success?
 movie_data |> 
   ggplot(aes(x = budget_million, y = opening_weekend_million)) +
   geom_point() +
   geom_smooth(method = "lm") +
-  labs(x = "Movie Budget (millions)",
-       y = "Opening Weekend Earnings (millions)",
-       title = "Opening Weekend Earnings by Movie Budget (millions)",
-       subtitle = "There is an overall positive association between a movie's budget and it's opening weekend earnings.")
+  labs(x = "Movie Budget (millions of $)",
+       y = "Opening Weekend Earnings (millions of $)",
+       title = "Opening Weekend Earnings by Movie Budget",
+       subtitle = "There is an overall positive association between a movie's budget and it's opening weekend earnings.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot")
 
 
 ### Exploration 6: What is the correlation between a movie's IMDb rating and opening weekend success?
