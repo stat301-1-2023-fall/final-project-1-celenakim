@@ -19,8 +19,10 @@ Here is a brief overview of what you can find in the repo:
 - `var3_gross_analysis.R`: Uni/multivariate analyses of the domestic, foreign, and worldwide gross variables.
 - `var4_budget_recovery_analysis.R`: Uni/multivariate analyses of the various variables pertaining to a movie's budget.
 - `var5_oscars_analysis.R`: Uni/multivariate analyses of the various variables pertaining to a movie's Oscar wins.
+to a movie's budget.
+- `var6_seasons_analysis.R`: Uni/multivariate analyses of the trends of movie successes by season.
 - `1_polishing_figures_tables.R`: This R file contains plots and tables from my analyses, as well as their explanations.
-- `extra_exlp.R`: Here, I included extra explorations in addition to the 5 variable analyses, such as seasons and genre/script types.
+- `extra_exlp.R`: Here, I included extra explorations in addition to the 5 variable analyses, such as genre/script type distribution.
 
 
 ## Project Memos

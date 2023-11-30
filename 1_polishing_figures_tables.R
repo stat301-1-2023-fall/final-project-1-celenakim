@@ -123,3 +123,8 @@ movie_data |>
        subtitle = "There is an overall positive association between a movie's budget and it's opening weekend earnings.")
 # ![](figures/opening_weekend_by_budget_plot.png)
 
+
+
+
+
+
