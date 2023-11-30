@@ -20,8 +20,13 @@ Here is a brief overview of what you can find in the repo:
 - `var4_budget_recovery_analysis.R`: Uni/multivariate analyses of the various variables pertaining to a movie's budget.
 - `var5_oscars_analysis.R`: Uni/multivariate analyses of the various variables pertaining to a movie's Oscar wins.
 - `1_polishing_figures_tables.R`: This R file contains plots and tables from my analyses, as well as their explanations.
+- `extra_exlp.R`: Here, I included extra explorations in addition to the 5 variable analyses, such as seasons and genre/script types.
 
 
 ## Project Memos
 - `Kim_Celena_progress_memo_1.qmd`: This memo is the first step in my project, in which I identified my data set and anticipated potential issues/next steps.
 - `Kim_Celena_progress_memo_1_qmd`: This next memo demonstrates a start on my EDA through a cleaned/joined data set and initial uni/multivariate analyses.
+
+## Final Project
+- `Kim_Celena_final_report.qmd`: My complete final report, including the full EDA and explanations.
+- executive summary . . .
