@@ -2,21 +2,37 @@ library(tidyverse)
 
 # Ratings: Rotten Tomatoes, Metacritic, and IMDb ratings, both critic and audience
 
-## Exploration: Average critic and audience ratings over the years
-movie_data |> 
+
+## Exploration 1: Average critic and audience ratings over the years
+var1_exp1_plot <- movie_data |> 
   group_by(year) |> 
-  summarize(avg_critics_ratings = mean(average_critics, na.rm = TRUE),
-            avg_audience_ratings = mean(average_audience, na.rm = TRUE)) |> 
+  summarize(avg_critics_ratings = mean(average_critics, 
+                                       na.rm = TRUE),
+            avg_audience_ratings = mean(average_audience, 
+                                        na.rm = TRUE)) |> 
   ggplot(aes(x = year)) +
-  geom_line(aes(y = avg_critics_ratings, color = "Critics"), size = 1.5) +
-  geom_line(aes(y = avg_audience_ratings, color = "Audience"), linetype = "dashed", size = 1.5) +
-  labs(title = "Average Audience and Critic Ratings Over Years",
+  geom_line(aes(y = avg_critics_ratings, 
+                color = "Critics"), 
+            size = 1.5) +
+  geom_line(aes(y = avg_audience_ratings, 
+                color = "Audience"), 
+            linetype = "dashed", 
+            size = 1.5) +
+  labs(title = "Average Audience and Critic Ratings Over the Years",
+       subtitle = "Both the average audience and average critic ratings have increased 
+over the years overall. Critics seem to rate lower than audiences.",
        x = "Year",
        y = "Average Rating",
        color = "Rating Type") +
-  theme_minimal()
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot") +
+  ylim(0, 100)
+var1_exp1_plot
 
-## Exploration 1: What is the distribution of average critic ratings?
+
+
+## Exploration 2: What is the distribution of average critic ratings?
 movie_data |> 
   ggplot(aes(x = average_critics)) +
   geom_histogram(binwidth = 4) +
@@ -25,7 +41,7 @@ movie_data |>
        title = "Distribution of Average Rotten Tomatoes and Metacritic Critic Rating")
 
 
-## Exploration 2: How do the overall average rotten tomato critic ratings change over the years from 2007-2022?
+## Exploration 3: How do the overall average rotten tomato critic ratings change over the years from 2007-2022?
 yearly_rt_critic_rating <- movie_data |> 
   group_by(year) |> 
   summarize(mean_rt_rating = round(mean(rotten_tomatoes_critics, na.rm = TRUE)))  |> 
@@ -42,7 +58,7 @@ ggplot(yearly_rt_critic_rating, aes(x = year, y = mean_rt_rating)) +
        title = "Average Rotten Tomatoes Critic Ratings for Hollywood Movies from 2007-2022") 
 
 
-## Exploration 3: How do the overall average metacritic critic ratings change over the years from 2007-2022?
+## Exploration 4: How do the overall average metacritic critic ratings change over the years from 2007-2022?
 yearly_mc_critic_rating <- movie_data |> 
   group_by(year) |> 
   summarize(mean_mc_rating = round(mean(metacritic_critics, na.rm = TRUE)))  |> 
@@ -59,14 +75,14 @@ ggplot(yearly_mc_critic_rating, aes(x = year, y = mean_mc_rating)) +
        title = "Average Metacritic Critic Ratings for Hollywood Movies from 2007-2022") 
 
 
-### Exploration 4: Do movies that have won Oscars have better Rotten Tomatoes critic ratings?
+### Exploration 5: Do movies that have won Oscars have better Rotten Tomatoes critic ratings?
 rt_rating_oscar <- movie_data |> 
   group_by(oscar_winners) |> 
   summarize(mean_rt_critic_rating = round(mean(rotten_tomatoes_critics, na.rm = TRUE))) |> 
   DT::datatable()
 rt_rating_oscar
 
-### Exploration 5: Which distributor has the highest IMDb rating?
+### Exploration 6: Which distributor has the highest IMDb rating?
 imdb_rating_by_dist <- movie_data |> 
   group_by(distributor) |> 
   summarize(mean_distr_imdb = mean(im_db_rating, na.rm = TRUE)) |> 
@@ -76,7 +92,7 @@ imdb_rating_by_dist <- movie_data |>
 imdb_rating_by_dist
 
 
-### Exploration 6: What is the correlation between a movie's IMDb rating and opening weekend success?
+### Exploration 7: What is the correlation between a movie's IMDb rating and opening weekend success?
 movie_data |> 
   ggplot(aes(x = im_db_rating, y = opening_weekend_million)) +
   geom_point() +

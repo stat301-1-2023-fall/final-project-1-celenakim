@@ -1,6 +1,14 @@
 library(tidyverse)
 library(knitr)
 
+# VAR1_RATINGS_ANALYSIS
+var1_exp1_plot
+
+
+
+
+
+
 
 # UNIVARIATE
 ## Exploration 1: How does the overall average opening weekend earning change over the years from 2007-2022?

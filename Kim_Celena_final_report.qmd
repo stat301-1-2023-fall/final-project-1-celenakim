@@ -18,6 +18,15 @@ execute:
 from: markdown+emoji 
 ---
 
+```{r}
+#| label: basic-setup
+
+# load packages and data
+library(tidyverse)
+
+movie_data <- read_csv("data/movie_data.csv")
+```
+
 
 ::: {.callout-tip icon="false"}
 ## Github Repo Link
@@ -33,8 +42,62 @@ text
 
 # Explorations: What variables contribute to a movie's overall success rate?
 ## Variable 1: Ratings
+Within this dataset, the 3 main movie rating measures are the Rotten Tomatoes score (audience and critic), Metacritic score (audience and critic), and IMDb rating. 
+```{r}
+#| label: fig-yearly-avg-ratings
+#| fig-cap: caption...
+
+movie_data |> 
+  group_by(year) |> 
+  summarize(avg_critics_ratings = mean(average_critics, 
+                                       na.rm = TRUE),
+            avg_audience_ratings = mean(average_audience, 
+                                        na.rm = TRUE)) |> 
+  ggplot(aes(x = year)) +
+  geom_line(aes(y = avg_critics_ratings, 
+                color = "Critics"), 
+            size = 1.5) +
+  geom_line(aes(y = avg_audience_ratings, 
+                color = "Audience"), 
+            linetype = "dashed", 
+            size = 1.5) +
+  labs(title = "Average Audience and Critic Ratings Over the Years",
+       subtitle = "Both the average audience and average critic ratings have increased 
+over the years overall. Critics seem to rate lower than audiences.",
+       x = "Year",
+       y = "Average Rating",
+       color = "Rating Group") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot") +
+  ylim(0, 100)
+```
+@fig-yearly-avg-ratings visualizes how the average of Rotten Tomatoes and Metacritic scores have changed over the years, separated by audience and critic rating groups. Overall, it appears that these ratings as a whole have increased since 2007. Additionally, the audience rating group seems to consistenly give higher ratings than the critic rating group. This analysis of ratings over the years serves to help us understand how much the numbers for the two rating groups of audience and critics differ, as well as visualizing the overall pattern of critic ratings over the years.
 
 ## Variable 2: Opening weekend revenue
+A movie's opening weekend revenue refers to the total box office earnings that the film earned during its first weekend of release in theaters. 
+```{r}
+#| label: fig-yearly-opening-wknd
+#| fig-cap: caption...
+
+year_opening_success <- movie_data |> 
+  group_by(year) |> 
+  summarize(mean_opening_success = round(mean(opening_weekend_million, na.rm = TRUE)))  |> 
+  arrange(desc(mean_opening_success)) 
+
+ggplot(year_opening_success, aes(x = year, y = mean_opening_success)) +
+  geom_line() +
+  geom_point() +
+  labs(x = "Year", 
+       y = "Mean Opening Weekend Earnings (in millions)", 
+       title = "Average Opening Weekend Earnings for Hollywood Movies from 2007-2022") +
+  ylim(0, 28) +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot")
+```
+@fig-yearly-opening-wknd visualizes the change in the mean opening weekend earnings (in millions) for Hollywood movies from 2007-2022. As can be seen by the graph, the years with the most successful opening weekends in terms of highest mean earnings are the years 2012 and 2014, closely tied with an average earning of 27 million dollars. The lowest point on the graph corresponds to 2020, with that year earning the least during opening weekend: 8 million dollars. This data definitely reflects the times/economy of the country during this year, as 2020 was the year that America was under quarantine and movie theaters were shut down, so they earned significantly less money than as compared to previous years. This is certainly something to keep in mind throughout this variable analysis, as the opening weekend revenue for 2020 is greatly impacted by the pandemic.
+
 
 ## Variable 3: Domestic, foreign, & worldwide gross
 
@@ -52,6 +115,6 @@ text
 text
 
 ## Appendix: extra explorations
-text
+- which season has the movies with the most oscar wins
 
 
