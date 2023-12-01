@@ -32,7 +32,8 @@ codebook_tibble <- tibble(
                 "distributor",
                 "im_db_rating", 
                 "imdb_vs_rt_disparity",
-                "release_date_us"),
+                "release_date_us",
+                "season"),
   Meaning = c("the title of the movie", 
               "the year the movie was released",
               "the script type classification of the movie", 
@@ -63,7 +64,8 @@ codebook_tibble <- tibble(
               "the company responsible for marketing and releasing the movie (only available for 2019-2022 movies)",
               "the movie's IMDb score, on a scale of 1 to 10 (only available for 2019-2022 movies)", 
               "the movie's IMDb score minus its Rotten Tomatoes score (only available for 2019-2022 movies)",
-              "the date that the movie was released in the US")
+              "the date that the movie was released in the US",
+              "the season that the movie was released in")
 )
 
 

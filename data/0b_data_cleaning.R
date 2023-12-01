@@ -88,6 +88,15 @@ movie_data$domestic_gross_million <- round(movie_data$domestic_gross / 1000000)
 movie_data$foreign_gross_million <- round(movie_data$foreign_gross / 1000000)
 movie_data$worldwide_gross_million <- round(movie_data$worldwide_gross / 1000000)
 
+# Adding the "season" variable
+movie_data <- movie_data |> 
+  mutate(season = case_when(
+    month(release_date_us) %in% c(3, 4, 5) ~ "Spring",
+    month(release_date_us) %in% c(6, 7, 8) ~ "Summer",
+    month(release_date_us) %in% c(9, 10, 11) ~ "Fall",
+    TRUE ~ "Winter"
+  )) 
+
 write.csv(movie_data, "data/movie_data.csv", row.names = FALSE)
 
 

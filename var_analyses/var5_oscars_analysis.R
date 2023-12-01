@@ -1,3 +1,8 @@
+library(tidyverse)
+library(scales)
+library(ggrepel)
+library(patchwork)
+
 # Oscars: Oscar wins
 
 ### Exploration 1: Which genre has the highest Oscar wins?

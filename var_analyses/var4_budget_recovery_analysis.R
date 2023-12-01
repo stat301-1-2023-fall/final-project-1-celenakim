@@ -1,3 +1,8 @@
+library(tidyverse)
+library(scales)
+library(ggrepel)
+library(patchwork)
+
 # Budget recovery: Budget recovered, and during opening weekend alone
 # KEY TAKEAWAYS
 ## -heavily impacted by 2020 covid pandemic

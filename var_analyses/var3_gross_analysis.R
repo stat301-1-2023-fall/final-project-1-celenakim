@@ -1,3 +1,8 @@
+library(tidyverse)
+library(scales)
+library(ggrepel)
+library(patchwork)
+
 # Gross: Domestic, foreign, and worldwide gross
 # KEY TAKEAWAYS
 ## -heavily impacted by 2020 covid pandemic

@@ -1,35 +1,53 @@
 library(tidyverse)
-library(knitr)
+library(scales)
+library(ggrepel)
+library(patchwork)
 
 ## Investigating how seasons interact with each variable
-movie_data_with_season <- movie_data |> 
-  mutate(season = case_when(
-    month(release_date_us) %in% c(3, 4, 5) ~ "Spring",
-    month(release_date_us) %in% c(6, 7, 8) ~ "Summer",
-    month(release_date_us) %in% c(9, 10, 11) ~ "Fall",
-    TRUE ~ "Winter"
-  )) 
-
-movie_data_with_season |> 
-  group_by(season) |> 
-  summarize(count = n()) |> 
-  arrange(desc(count)) |> 
-  DT::datatable()
-
 
 # By var1: ratings
 # Which season has the highest average critic and audience ratings
-movie_data_with_season |> 
+
+seasonal_critics_table <- movie_data |> 
   group_by(season) |> 
   summarise(avg_critic_rating = round(mean(average_critics, na.rm = TRUE))) |> 
   arrange(desc(avg_critic_rating)) |> 
   DT::datatable()
 
-movie_data_with_season |> 
+seasonal_critics_plot <- movie_data |> 
+  group_by(season)  |> 
+  summarise(avg_critic_rating = round(mean(average_critics, na.rm = TRUE)))  |> 
+  arrange(desc(avg_critic_rating))  |> 
+  ggplot(aes(x = season, y = avg_critic_rating, fill = season)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Average Critic Ratings by Season",
+       x = "Season",
+       y = "Average Critic Rating",
+       fill = "Season") +
+  theme_minimal() +
+  ylim(0, 70)
+
+seasonal_audience_table <-  movie_data |>  
   group_by(season) |> 
   summarise(avg_audience_rating = mean(average_audience, na.rm = TRUE)) |> 
   arrange(desc(avg_audience_rating))
-  # Same pattern for both rating groups: highest ratings for movies released in the Fall
+
+seasonal_audience_plot <-  movie_data |>  
+  group_by(season) |> 
+  summarise(avg_audience_rating = mean(average_audience, na.rm = TRUE)) |> 
+  arrange(desc(avg_audience_rating)) |> 
+  ggplot(aes(x = season, y = avg_audience_rating, fill = season)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Average Audience Ratings by Season",
+       x = "Season",
+       y = "Average Audience Rating",
+       fill = "Season") +
+  theme_minimal() +
+  ylim(0, 70)
+
+seasonal_critics_plot + seasonal_audience_plot
+
+
 
 
 # By var2: opening weekend revenue

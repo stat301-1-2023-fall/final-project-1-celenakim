@@ -1,9 +1,20 @@
 library(tidyverse)
-library(knitr)
+library(scales)
+library(ggrepel)
+library(patchwork)
+
+
+
 
 # VAR1_RATINGS_ANALYSIS
 var1_exp1_plot
 
+
+# VAR6_SEASONS_ANALYSIS
+seasonal_critics_plot + seasonal_audience_plot
+# ![](figures/var6_figures/seasonal_ratings_plot.png)
+# Same pattern for both rating groups: Both critic and audience rating groups gave the highest ratings for movies released in the Fall
+# As Figure 1 revealed, the audience rating group gives higher ratings for these Hollywood movies than the critic rating group.
 
 
 
@@ -16,6 +27,8 @@ primary_genre_script_type_plot
 
 
 
+
+### FROM PROGRESS MEMO 2:
 # UNIVARIATE
 ## Exploration 1: How does the overall average opening weekend earning change over the years from 2007-2022?
 year_opening_success |> 
