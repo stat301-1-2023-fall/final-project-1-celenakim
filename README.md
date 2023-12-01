@@ -30,6 +30,10 @@ This repository contains an analysis of data collected on 1,967 movies from 2007
     -   `var5_figures/`: Plots and tables for the oscars variable analysis.
     
     -   `var6_figures/`: Plots and tables for the seasons analysis.
+    
+-   `Kim_Celena_final_report.qmd`: My complete final report, including the full EDA and explanations.
+    
+-   `Kim_Celena_executive_summary.qmd`: My complete executive summary for my EDA.
 
 -   `memos/`: This folder contains my Progress Memos 1 and 2
 
@@ -37,7 +41,7 @@ This repository contains an analysis of data collected on 1,967 movies from 2007
     
     -   `Kim_Celena_progress_memo_2_qmd`: This next memo demonstrates a start on my EDA through a cleaned/joined data set and initial uni/multivariate analyses.
 
--   `var_analyses/`: This folder contanis separate R scripts for each of my six variable analyses, as well as additional R scripts for extra explorations and writing out the png codes/explanations.
+-   `var_analyses/`: This folder contains separate R scripts for each of my six variable analyses, as well as additional R scripts for extra explorations and writing out the png codes/explanations.
 
     -   `1_polishing_figures_tables.R`: This R file contains the png codes for plots and tables from my analyses, as well as their explanations.
 
@@ -51,12 +55,6 @@ This repository contains an analysis of data collected on 1,967 movies from 2007
 
     -   `var4_budget_recovery_analysis.R`: Uni/multivariate analyses of the various variables pertaining to a movie's budget.
 
-    -   `var5_oscars_analysis.R`: Uni/multivariate analyses of the various variables pertaining to a movie's Oscar wins. to a movie's budget.
+    -   `var5_oscars_analysis.R`: Uni/multivariate analyses of the various variables pertaining to a movie's Oscar wins to a movie's budget.
 
     -   `var6_seasons_analysis.R`: Uni/multivariate analyses of the trends of movie successes by season.
-
-## Final Project
-
--   `Kim_Celena_final_report.qmd`: My complete final report, including the full EDA and explanations.
--   `Kim_Celena_executive_summary.qmd`: My complete executive summary for my EDA.
-
