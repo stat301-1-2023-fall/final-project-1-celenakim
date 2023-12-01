@@ -18,6 +18,12 @@ primary_genre_script_type_plot <- movie_data |>
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot")
 
+# Number of movies released in each season, seasonal_movie_count_table.png
+movie_data_with_season |> 
+  group_by(season) |> 
+  summarize(count = n()) |> 
+  arrange(desc(count)) |> 
+  DT::datatable()
 
 
 

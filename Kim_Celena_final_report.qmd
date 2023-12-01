@@ -123,6 +123,9 @@ In @fig-opening-wknd-by-budget, there is a clear positive association between a 
 ## Variable 5: Oscar wins
 
 ## Seasons Impact
+These analyses seek to explore how the five main variables above vary/are impacted by the seasons.
+
+#### Ratings:
 
 ## Conclusion
 text

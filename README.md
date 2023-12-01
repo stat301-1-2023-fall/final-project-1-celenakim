@@ -16,6 +16,7 @@ This repository contains an analysis of data collected on 1,967 movies from 2007
         
 
 -   `figures/`: Separate into seven subfolders for each of my six variable analyses and extra explorations, this folder contains pngs of all of the plots and tables used in my EDA.
+    -   `polishing_figures_tables.R`: This R file contains the png codes for plots and tables from my analyses, as well as their explanations.
 
     -   `extra_explos_figures/`: Plots and tables for the extra explorations.
     
@@ -41,9 +42,7 @@ This repository contains an analysis of data collected on 1,967 movies from 2007
     
     -   `Kim_Celena_progress_memo_2_qmd`: This next memo demonstrates a start on my EDA through a cleaned/joined data set and initial uni/multivariate analyses.
 
--   `var_analyses/`: This folder contains separate R scripts for each of my six variable analyses, as well as additional R scripts for extra explorations and writing out the png codes/explanations.
-
-    -   `1_polishing_figures_tables.R`: This R file contains the png codes for plots and tables from my analyses, as well as their explanations.
+-   `var_analyses/`: This folder contains separate R scripts for each of my six variable analyses, as well as an additional R script for extra explorations/
 
     -   `extra_exlp.R`: Here, I included extra explorations in addition to the 5 variable analyses, such as genre/script type distribution.
 
