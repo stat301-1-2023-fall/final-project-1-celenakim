@@ -26,5 +26,20 @@ movie_data_with_season |>
   DT::datatable()
 
 
+# Genre popularity of movies over the years
+movie_data |> 
+  group_by(year, primary_genre) |> 
+  filter(!is.na(primary_genre)) |> 
+  summarize(count = n()) |> 
+  ggplot(aes(x = year, y = count, color = primary_genre)) +
+  geom_line() +
+  labs(title = "Genre Trends Over Years",
+       x = "Year",
+       y = "Number of Movies",
+       color = "Primary Genre") +
+  theme_minimal() +
+  ylim(0, 30)
+
+
 
 

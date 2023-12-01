@@ -103,6 +103,3 @@ movie_data |>
        title = "Opening Weekend Earnings (millions) by IMDb Rating",
        subtitle = "There is an overall positive association between a movie's budget and it's opening weekend earnings.")
 
-
-### Exploration 7: Explore whether there are any patterns or trends in movie releases based on the release date. 
-

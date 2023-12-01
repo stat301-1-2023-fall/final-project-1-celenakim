@@ -57,10 +57,11 @@ ggplot(yearly_worldwide_gross, aes(x = year, y = mean_worldwide_gross)) +
        subtitle = "There is no worldwide gross data available for the year 2021.")
 
 
+
+
 ## Exploration 4: is there a relationship between domestic vs. foreign
 
 
-# Exploration 5: Check if certain months or seasons are associated with higher ratings or box office success.
 
 
 

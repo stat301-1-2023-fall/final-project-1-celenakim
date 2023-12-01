@@ -51,8 +51,8 @@ movie_data |>
 ### Exploration 4: Facet by script type
 movie_data |> 
   mutate(budget_recovered_millions = round(budget_million * (budget_recovered / 100))) |> 
-  ggplot(aes(x = budget_recovered_millions)) +
-  geom_bar(fill = script_type) 
+  ggplot(aes(x = budget_recovered_millions, fill = script)) +
+  geom_bar(stat = "identity") 
 
 
 

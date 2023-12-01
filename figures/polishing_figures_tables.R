@@ -23,7 +23,7 @@ seasonal_opening_wknd_plot
 
 seasonal_gross_plot
 # ![](figures/var6_figures/seasonal_gross_plot.png)
-# Highest worldwide gross for movies released in the Summer
+# Highest worldwide gross for movies released in the Summer. Perhaps this is due to the fact that in many countries around the world, kids are on summer vacation, and thus are more likely to go to the movies.
 
 seasonal_budget_plot
 # ![](figures/var6_figures/seasonal_budget_plot.png)
@@ -40,6 +40,7 @@ primary_genre_script_type_plot
 # ![](figures/extra_explos_figures/primary_genre_script_type_plot.png)
 
 
+# ![](figures/extra_explos_figures/seasonal_movie_count_table.png)
 
 
 
