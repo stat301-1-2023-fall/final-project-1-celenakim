@@ -121,47 +121,173 @@ In @fig-opening-wknd-by-budget, there is a clear positive association between a 
 
 ## Variable 3: Domestic, foreign, & worldwide gross
 
-## Variable 4: Budget recovery
+## Variable 4: Budget & budget recovery
 
 ## Variable 5: Oscar wins
 
 ## Seasons Impact
-These analyses seek to explore how the five main variables above vary/are impacted by the seasons.
+These analyses seek to explore how the five main variables above vary/are impacted by the season a movie is released in, and what seasonal release date trends may exist in influencing a movie's success rate.
 
 #### Ratings:
 ```{r}
 #| label: fig-seasonal_ratings
-#| fig-cap: caption...
+#| fig-cap: A comparison of the mean ratings of movies based on the season they were released in, between the critic and audience rating groups.
 
 seasonal_critics_plot <- movie_data |> 
   group_by(season)  |> 
-  summarise(avg_critic_rating = round(mean(average_critics, na.rm = TRUE)))  |> 
+  summarise(avg_critic_rating = round(mean(average_critics, 
+                                           na.rm = TRUE)))  |> 
   arrange(desc(avg_critic_rating))  |> 
-  ggplot(aes(x = season, y = avg_critic_rating, fill = season)) +
+  ggplot(aes(x = season, 
+             y = avg_critic_rating, 
+             fill = season)) +
   geom_bar(stat = "identity") +
-  labs(title = "Average Critic Ratings by Season",
+  labs(title = "Average Critic Ratings by Season 
+Movie was Released In",
+       subtitle = "Movies released in the Fall have the greatest
+average critic rating.",
        x = "Season",
        y = "Average Critic Rating",
        fill = "Season") +
   theme_minimal() +
-  ylim(0, 70)
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot") +
+  theme(axis.text.x = element_text(angle = 45, 
+                                   hjust = 1)) +
+  theme(legend.position = "none") +
+  ylim(0, 70) 
 
 seasonal_audience_plot <-  movie_data |>  
   group_by(season) |> 
-  summarise(avg_audience_rating = mean(average_audience, na.rm = TRUE)) |> 
+  summarise(avg_audience_rating = mean(average_audience, 
+                                       na.rm = TRUE)) |> 
   arrange(desc(avg_audience_rating)) |> 
-  ggplot(aes(x = season, y = avg_audience_rating, fill = season)) +
+  ggplot(aes(x = season, 
+             y = avg_audience_rating, 
+             fill = season)) +
   geom_bar(stat = "identity") +
-  labs(title = "Average Audience Ratings by Season",
+  labs(title = "Average Audience Ratings by Season 
+Movie was Released In",
+       subtitle = "Movies released in the Fall have the greatest
+average audience rating.",
        x = "Season",
        y = "Average Audience Rating",
        fill = "Season") +
   theme_minimal() +
-  ylim(0, 70)
-
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot") +
+  theme(axis.text.x = element_text(angle = 45, 
+                                   hjust = 1)) +
+  theme(legend.position = "none") +
+  ylim(0, 70) 
 
 seasonal_critics_plot + seasonal_audience_plot
 ```
+@fig-seasonal_ratings shows a comparison between the average ratings for each season between the critic and audience rating groups. There appears to be a similar pattern for both rating groups' seasonal average critic numbers, with the highest ratings given for movies released in the Fall, and the lowest ratings given for movies released in the Winter. This reveals a similarity in the seasonal patterns of movie ratings for the two rating groups. However, as Figure 1 revealed, the taller bar graphs show a disparity between the two groups' rating patterns in that the audience rating group gives higher ratings for these Hollywood movies than the critic rating group. This graph stands to visualize a way in which the rating patterns for these two groups are similar, and confirm a previous finding of a way that their patterns differ. An overall conclusion can be made that movies released in the Fall have the highest ratings, while movies released in the Winter have the lowest ratings.
+
+#### Opening weekend revenue:
+```{r}
+#| label: fig-seasonal_opening_wknd
+#| fig-cap: A comparison of the average opening weekend revenues in millions of dollars for movies based on what season they were relased in.
+
+movie_data |> 
+  group_by(season) |> 
+  summarise(avg_opening_rev = mean(opening_weekend_million, 
+                                   na.rm = TRUE)) |> 
+  arrange(desc(avg_opening_rev)) |> 
+  ggplot(aes(x = season, 
+             y = avg_opening_rev, 
+             fill = season)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Average Opening Weekend Revenue by Season Movie was Released In",
+       subtitle = "Movies released in the Spring have the greatest average opening weekend revenue.",
+       x = "Season",
+       y = "Average Opening Weekend Revenue (millions of $)",
+       fill = "Season") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot") +
+  theme(legend.position = "none")
+```
+In @fig-seasonal_opening_wknd, it is clear that movies with the highest average opening weekend revenue were released in the Spring. This could suggest that movies that are released in the Spring are more successful in terms of generating more earnings during their first weekend in theaters than movies released in other seasons.
+
+#### Domestic, foreign, and worldwide gross:
+```{r}
+#| label: fig-seasonal_gross
+#| fig-cap: The average total revenue generated by films from all sources globally by the season the film was released in.
+
+movie_data |> 
+  group_by(season) |> 
+  summarise(avg_worldwide_gross = mean(worldwide_gross_million, na.rm = TRUE)) |> 
+  arrange(desc(avg_worldwide_gross)) |> 
+  ggplot(aes(x = season, 
+             y = avg_worldwide_gross, 
+             fill = season)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Average Worldwide Gross Earnings by Season Movie was Released In",
+       subtitle = "Movies released in the summer have the greatest average worldwide gross.",
+       x = "Season",
+       y = "Worldwide Gross (millions of $)",
+       fill = "Season") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot") +
+  theme(legend.position = "none")
+```
+@fig-seasonal_gross shows that movies released during the Summer months have the highest average worldwide gross. This could be due to the fact that in many countries around the world, kids are on summer vacation during these months, and thus families are more likely to go to the movies and contribute to increased ticket sales.
+
+#### Budget & budget recovery:
+```{r}
+#| label: fig-seasonal_budget
+#| fig-cap: A comparison of the average production budget of movies based on what season they were released in.
+
+movie_data |> 
+  group_by(season) |> 
+  summarise(avg_budgets = mean(budget_million, na.rm = TRUE)) |> 
+  arrange(desc(avg_budgets)) |> 
+  ggplot(aes(x = season, 
+             y = avg_budgets, 
+             fill = season)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Average Movie Budgets by Season Movie was Released In",
+       subtitle = "Movies released in the Spring have the highest average movie budgets.",
+       x = "Season",
+       y = "Average Movie Budget (millions of $)",
+       fill = "Season") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot") +
+  theme(legend.position = "none")
+```
+@fig-seasonal_budget shows that movies released in the Spring have the highest average movie budgets. This directly aligns with previous findings in the EDA. In @fig-opening-wknd-by-budget, it was concluded that there exists a positive association between a Hollywood movie's budget and its opening weeked earnings. Therefore, since @fig-seasonal_opening_wknd revealed that the season of movies released with the highest average opening weekend revenue was Spring, then the season of movies released with the highest average movie budgets should also be the Spring, and that is what we see in this plot. This supports our finding of the positive correlation that exists between a movie's budget and opening weekend revenue.
+
+
+#### Oscar wins:
+```{r}
+#| label: fig-seasonal_oscars
+#| fig-cap: The distribution of Oscar wins based on what season the movie was released in.
+
+movie_data |> 
+  group_by(season) |> 
+  filter(!is.na(oscar_winners)) |> 
+  summarise(oscar_count = sum(oscar_winners)) |> 
+  arrange(desc(oscar_count)) |> 
+  ggplot(aes(x = season, 
+             y = oscar_count, 
+             fill = season)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Number of Oscar Wins by Season Movie was Released In",
+       subtitle = "Movies released in the Fall have the highest number of Oscar wins.",
+       x = "Season",
+       y = "Number of Oscar wins",
+       fill = "Season") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot") +
+  theme(legend.position = "none")
+```
+In @fig-seasonal_oscars, movies that were released in the Fall season won significantly more Oscars than movies released in other seasons. This is due to the fact that the Fall season is close to around the time when Oscar voting starts, and thus these films are more salient/relavent among the voters, but still enough time away for the films to gain enough popularity and traction before the awards are given out. From this, we can conclude that when defining a film's success solely defined by the number of Oscar wins, releasing the film during the Fall season will greatly increase its chances of being successful. 
+
 
 
 ## Conclusion

@@ -10,11 +10,28 @@ library(patchwork)
 var1_exp1_plot
 
 
+
 # VAR6_SEASONS_ANALYSIS
 seasonal_critics_plot + seasonal_audience_plot
 # ![](figures/var6_figures/seasonal_ratings_plot.png)
 # Same pattern for both rating groups: Both critic and audience rating groups gave the highest ratings for movies released in the Fall
 # As Figure 1 revealed, the audience rating group gives higher ratings for these Hollywood movies than the critic rating group.
+
+seasonal_opening_wknd_plot
+# ![](figures/var6_figures/seasonal_opening_wknd_plot.png)
+# Highest mean opening weekend revenue for movies released in the Spring
+
+seasonal_gross_plot
+# ![](figures/var6_figures/seasonal_gross_plot.png)
+# Highest worldwide gross for movies released in the Summer
+
+seasonal_budget_plot
+# ![](figures/var6_figures/seasonal_budget_plot.png)
+# Highest budgets for movies released in the Spring, directly aligns with previous findings.
+
+seasonal_oscar_plot
+# ![](figures/var6_figures/seasonal_oscar_plot.png)
+# Highest number of Oscar wins for movies released in the Fall, makes sense with past trends-- movies released later in the year are more likely to win an oscar.
 
 
 
