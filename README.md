@@ -31,11 +31,11 @@ This repository contains an analysis of data collected on 1,967 movies from 2007
     
     -   `var6_figures/`: Plots and tables for the seasons analysis.
 
--   `memos/`: This folder contains my Progress Memos 1 and 2,
-
-    -   `Kim_Celena_progress_memo_1_qmd`: This next memo demonstrates a start on my EDA through a cleaned/joined data set and initial uni/multivariate analyses.
+-   `memos/`: This folder contains my Progress Memos 1 and 2
 
     -   `Kim_Celena_progress_memo_1.qmd`: This memo is the first step in my project, in which I identified my data set and anticipated potential issues/next steps.
+    
+    -   `Kim_Celena_progress_memo_2_qmd`: This next memo demonstrates a start on my EDA through a cleaned/joined data set and initial uni/multivariate analyses.
 
 -   `var_analyses/`: This folder contanis separate R scripts for each of my six variable analyses, as well as additional R scripts for extra explorations and writing out the png codes/explanations.
 
