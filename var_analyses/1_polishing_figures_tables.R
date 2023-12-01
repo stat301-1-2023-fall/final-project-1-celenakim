@@ -7,6 +7,12 @@ var1_exp1_plot
 
 
 
+# ADDITIONAL EXPLORATIONS
+primary_genre_script_type_plot
+# ![](figures/extra_explos_figures/primary_genre_script_type_plot.png)
+
+
+
 
 
 

@@ -4,7 +4,7 @@ library(knitr)
 ## ADDITIONAL EXPLORATIONS
 
 # Distribution of Primary Genre for Each Script Type
-movie_data |> 
+primary_genre_script_type_plot <- movie_data |> 
   filter(!is.na(primary_genre) & !is.na(script_type)) |> 
   ggplot(aes(x = script_type, fill = primary_genre)) +
   geom_bar(position = "fill") +

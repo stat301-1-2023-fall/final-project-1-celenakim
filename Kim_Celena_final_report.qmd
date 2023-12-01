@@ -108,7 +108,7 @@ movie_data |>
   geom_smooth(method = "lm") +
   labs(x = "Movie Budget (millions of $)",
        y = "Opening Weekend Earnings (millions of $)",
-       title = "Opening Weekend Earnings by Movie Budget") +
+       title = "Opening weekend earnings increase as movie budget increases") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot")
@@ -134,6 +134,6 @@ text
 text
 
 ## Appendix: extra explorations
-
+![](figures/extra_explos_figures/primary_genre_script_type_plot.png)
 
 

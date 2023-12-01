@@ -359,69 +359,94 @@ movies from 2007-2022 and their success rate variables. The purpose of
 the analysis is to investigate what factors contribute to the “success”
 of a movie, as defined in various ways such as the critic score, opening
 weekend revenue, and Oscar wins.</p>
-</div>
-<div id="what-is-in-the-repo" class="section level2">
-<h2>What is in the Repo</h2>
-<p>Here is a brief overview of what you can find in the repo:</p>
+<div id="what-is-in-the-repo" class="section level3">
+<h3>What is in the Repo</h3>
 <ul>
-<li><code>data/</code>: Here you can find the data set I will be working
-with throughout this EDA: “movie_data”, a cleaned and joined version of
-the “Hollywood Hits and Flops” data set. Inside the <code>raw/</code>
-folder, you can find the original “Hollywood Hits and Flops” data set in
-its raw form of 16 separate files.</li>
-<li><code>figures/</code>: Separate into five subfolders, this folder
-contains pngs of all of the plots and tables used for each of my five
-variable analyses.</li>
-</ul>
-</div>
-<div id="r-scripts" class="section level2">
-<h2>R scripts</h2>
+<li><p><code>data/</code>: Here you can find the data set I will be
+working with throughout this EDA: “movie_data”, a cleaned and joined
+version of the “Hollywood Hits and Flops” data set. You can also find
+the R scripts that contain the process for reading in, joining, and
+cleaning the raw data set, as well as the codebook for movie_data.</p>
 <ul>
-<li><code>0a_data_collection.R</code>: This R file shows each of the 16
-files in the “Hollywood Hits and Flops” data set being read in and
-assigned to their own variables.</li>
-<li><code>0b_data_cleaning.R</code>: Here, the process of cleaning the
-16 data files, joining them into one data set (“movie_data”), and
-carrying out more post-join cleaning is shown.</li>
-<li><code>codebook_creation.R</code>: In this R file, I create the
-codebook for my variables.</li>
-<li><code>var1_ratings_analysis.R</code>: Uni/multivariate analyses of
-the various ratings/reviews variables in the data set.</li>
-<li><code>var2_opening_weekend_analysis.R</code>: Uni/multivariate
-analyses of the opening weekend revenue variables.</li>
-<li><code>var3_gross_analysis.R</code>: Uni/multivariate analyses of the
-domestic, foreign, and worldwide gross variables.</li>
-<li><code>var4_budget_recovery_analysis.R</code>: Uni/multivariate
-analyses of the various variables pertaining to a movie’s budget.</li>
-<li><code>var5_oscars_analysis.R</code>: Uni/multivariate analyses of
-the various variables pertaining to a movie’s Oscar wins. to a movie’s
-budget.</li>
-<li><code>var6_seasons_analysis.R</code>: Uni/multivariate analyses of
-the trends of movie successes by season.</li>
-<li><code>1_polishing_figures_tables.R</code>: This R file contains
-plots and tables from my analyses, as well as their explanations.</li>
-<li><code>extra_exlp.R</code>: Here, I included extra explorations in
-addition to the 5 variable analyses, such as genre/script type
-distribution.</li>
-</ul>
-</div>
-<div id="project-memos" class="section level2">
-<h2>Project Memos</h2>
+<li><p><code>0a_data_collection.R</code>: This R file shows each of the
+16 files in the “Hollywood Hits and Flops” data set being read in and
+assigned to their own variables.</p></li>
+<li><p><code>0b_data_cleaning.R</code>: Here, the process of cleaning
+the 16 data files, joining them into one data set (“movie_data”), and
+carrying out more post-join cleaning is shown.</p></li>
+<li><p><code>codebook_creation.R</code>: In this R file, I create the
+codebook for my variables.</p>
 <ul>
-<li><code>Kim_Celena_progress_memo_1.qmd</code>: This memo is the first
-step in my project, in which I identified my data set and anticipated
-potential issues/next steps.</li>
-<li><code>Kim_Celena_progress_memo_1_qmd</code>: This next memo
+<li>Inside the <code>raw/</code> folder, you can find the original
+“Hollywood Hits and Flops” data set in its raw form of 16 separate
+files.</li>
+</ul></li>
+</ul></li>
+<li><p><code>figures/</code>: Separate into seven subfolders for each of
+my six variable analyses and extra explorations, this folder contains
+pngs of all of the plots and tables used in my EDA.</p>
+<ul>
+<li><p><code>extra_explos_figures/</code>: Plots and tables for the
+extra explorations.</p></li>
+<li><p><code>var1_figures/</code>: Plots and tables for the ratings
+variable analysis.</p></li>
+<li><p><code>var2_figures/</code>: Plots and tables for the opening
+weekend revenue variable analysis.</p></li>
+<li><p><code>var3_figures/</code>: Plots and tables for the gross
+variable analysis.</p></li>
+<li><p><code>var4_figures/</code>: Plots and tables for the
+budget/budget recovery variable analysis.</p></li>
+<li><p><code>var5_figures/</code>: Plots and tables for the oscars
+variable analysis.</p></li>
+<li><p><code>var6_figures/</code>: Plots and tables for the seasons
+analysis.</p></li>
+</ul></li>
+<li><p><code>memos/</code>: This folder contains my Progress Memos 1 and
+2,</p>
+<ul>
+<li><p><code>Kim_Celena_progress_memo_1_qmd</code>: This next memo
 demonstrates a start on my EDA through a cleaned/joined data set and
-initial uni/multivariate analyses.</li>
+initial uni/multivariate analyses.</p></li>
+<li><p><code>Kim_Celena_progress_memo_1.qmd</code>: This memo is the
+first step in my project, in which I identified my data set and
+anticipated potential issues/next steps.</p></li>
+</ul></li>
+<li><p><code>var_analyses/</code>: This folder contanis separate R
+scripts for each of my six variable analyses, as well as additional R
+scripts for extra explorations and writing out the png
+codes/explanations.</p>
+<ul>
+<li><p><code>1_polishing_figures_tables.R</code>: This R file contains
+the png codes for plots and tables from my analyses, as well as their
+explanations.</p></li>
+<li><p><code>extra_exlp.R</code>: Here, I included extra explorations in
+addition to the 5 variable analyses, such as genre/script type
+distribution.</p></li>
+<li><p><code>var1_ratings_analysis.R</code>: Uni/multivariate analyses
+of the various ratings/reviews variables in the data set.</p></li>
+<li><p><code>var2_opening_weekend_analysis.R</code>: Uni/multivariate
+analyses of the opening weekend revenue variables.</p></li>
+<li><p><code>var3_gross_analysis.R</code>: Uni/multivariate analyses of
+the domestic, foreign, and worldwide gross variables.</p></li>
+<li><p><code>var4_budget_recovery_analysis.R</code>: Uni/multivariate
+analyses of the various variables pertaining to a movie’s
+budget.</p></li>
+<li><p><code>var5_oscars_analysis.R</code>: Uni/multivariate analyses of
+the various variables pertaining to a movie’s Oscar wins. to a movie’s
+budget.</p></li>
+<li><p><code>var6_seasons_analysis.R</code>: Uni/multivariate analyses
+of the trends of movie successes by season.</p></li>
+</ul></li>
 </ul>
+</div>
 </div>
 <div id="final-project" class="section level2">
 <h2>Final Project</h2>
 <ul>
 <li><code>Kim_Celena_final_report.qmd</code>: My complete final report,
 including the full EDA and explanations.</li>
-<li>executive summary . . .</li>
+<li><code>Kim_Celena_executive_summary.qmd</code>: My complete executive
+summary for my EDA.</li>
 </ul>
 </div>
 
