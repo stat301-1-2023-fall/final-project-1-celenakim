@@ -212,7 +212,7 @@ movie_data |>
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot")
 ```
-@fig-opening-wknd-oscar shows that Hollywood movies that have one at least won Oscar award or greater have an average opening weekend revenue that is actually less than movies that have not won any Oscars. This could suggest that the mean opening weekend success of a movie does not correlate with winning an Oscar, and these two variables are unrelated to one another. In other words, having a high opening weekend revenue may not increase a movie's chance of winning an Oscar.
+@fig-opening-wknd-oscar shows that Hollywood movies that have won at least one Oscar award or greater have an average opening weekend revenue that is actually less than movies that have not won any Oscars. This could suggest that the mean opening weekend success of a movie does not correlate with winning an Oscar, and these two variables are unrelated to one another. In other words, having a high opening weekend revenue may not increase a movie's chance of winning an Oscar.
 
 ```{r}
 #| label: fig-opening-wknd-dom-for
