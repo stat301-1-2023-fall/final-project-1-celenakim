@@ -88,16 +88,37 @@ year_opening_success <- movie_data |>
   summarize(mean_opening_success = round(mean(opening_weekend_million, na.rm = TRUE)))  |> 
   arrange(desc(mean_opening_success)) 
 
+potential_outliers <- year_opening_success |>
+  filter(mean_opening_success < 10)
+
 ggplot(year_opening_success, aes(x = year, y = mean_opening_success)) +
   geom_line() +
   geom_point() +
+  geom_text_repel(data = potential_outliers, 
+                  aes(label = "")) +
+  geom_label(data = data.frame(label = "COVID-19 Pandemic"),
+             aes(x = 2018.5, 
+                 y = 7, 
+                 label = label),
+             fill = "gray", 
+             alpha = 0.2, 
+             hjust = 0, 
+             vjust = 0) +
+  geom_point(data = potential_outliers, 
+             color = "red") +
+  geom_point(
+    data = potential_outliers,
+    color = "red", 
+    size = 3, 
+    shape = "circle open") +
   labs(x = "Year", 
        y = "Mean Opening Weekend Earnings (in millions of $)", 
-       title = "Average Opening Weekend Earnings for Hollywood Movies from 2007-2022") +
-  ylim(0, 28) +
+       title = "Average Opening Weekend Earnings for Hollywood Movies from 2007-2022",
+       subtitle = "The average opening weekend revenue for 2020 is heavily impacted by the COVID-19 pandemic.") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot")
+        plot.title.position = "plot") +
+  ylim(3, 28)
 ```
 @fig-yearly-opening-wknd visualizes the change in the mean opening weekend earnings (in millions) for Hollywood movies from 2007-2022. As can be seen by the graph, the years with the most successful opening weekends in terms of highest mean earnings are the years 2012 and 2014, closely tied with an average earning of 27 million dollars. The lowest point on the graph corresponds to 2020, with that year earning the least during opening weekend: 8 million dollars. This data definitely reflects the times/economy of the country during this year, as 2020 was the year that America was under quarantine and movie theaters were shut down, so they earned significantly less money than as compared to previous years. This is certainly something to keep in mind throughout this variable analysis, as the opening weekend revenue for 2020 is greatly impacted by the pandemic.
 
@@ -118,6 +139,60 @@ movie_data |>
 
 ```
 In @fig-opening-wknd-by-budget, there is a clear positive association between a Hollywood movie's budget and its opening weeked earnings. This suggests that, on average, movies with higher production budgets tend to achieve greater financial success during their initial release weekends. From this, it can be concluded that the variables of movie budget and opening weekend revenue are related to one another, in that the budget of a movie impacts it's opening weekend revenue earnings.
+
+```{r}
+#| label: fig-opening-wknd-by-genre-script-type
+#| fig-cap: caption
+genre_opening_wknd_plot <- movie_data |> 
+  group_by(genre) |> 
+  summarize(mean_opening_success = mean(opening_weekend_million)) |> 
+  arrange(desc(mean_opening_success)) |> 
+  slice_head(n = 5) |> 
+  ggplot(aes(x = fct_infreq(genre, 
+                             mean_opening_success), 
+             y = mean_opening_success,
+             fill = genre)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Top 5 Genres with Highest Opening 
+Weekend Earnings",
+       subtitle = "The sci-fi, fantasy genre combination has the highest 
+average opening weekend revenue.",
+       x = "Genre",
+       y = "Mean Opening Weekend Earnings (millions of $)") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot") +
+  theme(axis.text.x = element_text(angle = 45, 
+                                   hjust = 1)) +
+  theme(legend.position = "none") 
+
+scripttype_opening_wknd_plot <- movie_data |> 
+  group_by(script_type) |> 
+  summarize(mean_opening_success = mean(opening_weekend_million)) |> 
+  arrange(desc(mean_opening_success)) |> 
+  slice_head(n = 5) |> 
+  ggplot(aes(x = fct_infreq(script_type, 
+                             mean_opening_success), 
+             y = mean_opening_success,
+             fill = script_type)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Top 5 Script Types with Highest Opening 
+Weekend Earnings",
+       subtitle = "The sequel, adaptation script type combination has 
+the highest average opening weekend revenue.",
+       x = "Script Type",
+       y = "Mean Opening Weekend Earnings (millions of $)") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot") +
+  theme(axis.text.x = element_text(angle = 45, 
+                                   hjust = 1)) +
+  theme(legend.position = "none") +
+  scale_fill_viridis_d() 
+
+genre_opening_wknd_plot + scripttype_opening_wknd_plot
+```
+
 
 ## Variable 3: Domestic, foreign, & worldwide gross
 
