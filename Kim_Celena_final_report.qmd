@@ -48,7 +48,7 @@ text
 Within this dataset, the 3 main movie rating measures are the Rotten Tomatoes score (audience and critic), Metacritic score (audience and critic), and IMDb rating. 
 ```{r}
 #| label: fig-yearly-avg-ratings
-#| fig-cap: caption...
+#| fig-cap: A visualization of the change in audience and critic ratings of Hollywood movies from 2007-2022.
 
 movie_data |> 
   group_by(year) |> 
@@ -64,7 +64,7 @@ movie_data |>
                 color = "Audience"), 
             linetype = "dashed", 
             size = 1.5) +
-  labs(title = "Average Audience and Critic Ratings Over the Years",
+  labs(title = "Change in Average Audience and Critic Ratings from 2007-2022",
        subtitle = "Both the average audience and average critic ratings have increased 
 over the years overall. Critics seem to rate lower than audiences.",
        x = "Year",
@@ -81,7 +81,7 @@ over the years overall. Critics seem to rate lower than audiences.",
 A movie's opening weekend revenue refers to the total box office earnings that the film earned during its first weekend of release in theaters. 
 ```{r}
 #| label: fig-yearly-opening-wknd
-#| fig-cap: caption...
+#| fig-cap: A visualization of the change in yearly average opening weekend revenue for Hollywood movies from 2007-2022.
 
 year_opening_success <- movie_data |> 
   group_by(year) |> 
@@ -124,7 +124,7 @@ ggplot(year_opening_success, aes(x = year, y = mean_opening_success)) +
 
 ```{r}
 #| label: fig-opening-wknd-by-budget
-#| fig-cap: The correlation between a movie's production budget in millions of dollars and how much it earned during its opening weekend.
+#| fig-cap: The correlation between a Hollywood movie's production budget in millions of dollars and how much it earned during its opening weekend.
 
 movie_data |> 
   ggplot(aes(x = budget_million, y = opening_weekend_million)) +
@@ -132,7 +132,8 @@ movie_data |>
   geom_smooth(method = "lm") +
   labs(x = "Movie Budget (millions of $)",
        y = "Opening Weekend Earnings (millions of $)",
-       title = "Opening weekend earnings increase as movie budget increases") +
+       title = "Opening weekend earnings increase as movie budget increases",
+       subtitle = "There is a direct positive association between the two variables.") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot")
@@ -142,7 +143,7 @@ In @fig-opening-wknd-by-budget, there is a clear positive association between a 
 
 ```{r}
 #| label: fig-opening-wknd-by-genre-script-type
-#| fig-cap: caption
+#| fig-cap: The top 5 genres and script types of movies that earned the most revenue during their opening weekends.
 genre_opening_wknd_plot <- movie_data |> 
   group_by(genre) |> 
   summarize(mean_opening_success = mean(opening_weekend_million)) |> 
@@ -155,16 +156,17 @@ genre_opening_wknd_plot <- movie_data |>
   geom_bar(stat = "identity") +
   labs(title = "Top 5 Genres with Highest Opening 
 Weekend Earnings",
-       subtitle = "The sci-fi, fantasy genre combination has the highest 
+       subtitle = "The sci-fi, fantasy genre has the highest 
 average opening weekend revenue.",
        x = "Genre",
        y = "Mean Opening Weekend Earnings (millions of $)") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot") +
-  theme(axis.text.x = element_text(angle = 45, 
-                                   hjust = 1)) +
-  theme(legend.position = "none") 
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        axis.title.y = element_text(size = 6),
+        legend.position = "none") 
 
 scripttype_opening_wknd_plot <- movie_data |> 
   group_by(script_type) |> 
@@ -176,23 +178,81 @@ scripttype_opening_wknd_plot <- movie_data |>
              y = mean_opening_success,
              fill = script_type)) +
   geom_bar(stat = "identity") +
-  labs(title = "Top 5 Script Types with Highest Opening 
-Weekend Earnings",
-       subtitle = "The sequel, adaptation script type combination has 
-the highest average opening weekend revenue.",
+  labs(title = "Top 5 Script Types with 
+Highest Opening Weekend Earnings",
+       subtitle = "The sequel, adaptation script type has the 
+highest average opening weekend revenue.",
        x = "Script Type",
        y = "Mean Opening Weekend Earnings (millions of $)") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot") +
-  theme(axis.text.x = element_text(angle = 45, 
-                                   hjust = 1)) +
-  theme(legend.position = "none") +
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        axis.title.y = element_text(size = 6),
+        legend.position = "none")  +
   scale_fill_viridis_d() 
 
 genre_opening_wknd_plot + scripttype_opening_wknd_plot
 ```
+@fig-opening-wknd-by-genre-script-type displays that the genre combination that earned the greatest average revenue during its opening weekend of release is sci-fi & fantasy, and the script type combination that earned the greatest average revenue during its opening weekend of release is sequel & adaptation. This suggests that the movies categorized as a sci-fi fantasy genre hybrid earned more most during the first weekend of their release than other genre combinations, and movies categorized as a sequel adaptation script type hybrid also earned that title.
 
+```{r}
+#| label: fig-opening-wknd-oscar
+#| fig-cap: The mean opening weekend revenue for movies that have one at least won Oscar award is less than the mean for movies who have won 0 Oscars.
+movie_data |> 
+  filter(!is.na(oscar_winners)) |> 
+  ggplot(aes(x = opening_weekend_million, y = oscar_winners)) +
+  geom_boxplot() +
+  labs(title = "Opening Weekend Revenue by Oscar Wins",
+       subtitle = "Oscar winning movies have a lower average of opening weekend revenue earnings.",
+       x = "Opening Weekend Revenue (in millions of $)",
+       y = "Oscar Winner") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot")
+```
+@fig-opening-wknd-oscar shows that Hollywood movies that have one at least won Oscar award or greater have an average opening weekend revenue that is actually less than movies that have not won any Oscars. This could suggest that the mean opening weekend success of a movie does not correlate with winning an Oscar, and these two variables are unrelated to one another. In other words, having a high opening weekend revenue may not increase a movie's chance of winning an Oscar.
+
+```{r}
+#| label: fig-opening-wknd-dom-for
+#| fig-cap: There is a strong, positive correlation for both associations, but it is slightly stronger for domestic gross by opening weekend revenue.
+
+opening_wknd_domgross <- movie_data |> 
+  ggplot(aes(x = opening_weekend_million, 
+             y = domestic_gross_million)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Domestic Gross by Opening Weekend Revenue",
+       subtitle = "There is a strong positive association between the two 
+variables.",
+       x = "Opening Weekend Revenue (in millions of $)",
+       y = "Domestic Gross (in millions of $)") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold", 
+                                  size = 10.5),
+        plot.subtitle = element_text(size = 9),
+        plot.title.position = "plot")
+
+opening_wknd_forgross <- movie_data |> 
+  ggplot(aes(x = opening_weekend_million, 
+             y = foreign_gross_million)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = " Foreign Gross by Opening Weekend Revenue",
+       subtitle = " There is a strong positive association between the two 
+ variables.",
+       x = "Opening Weekend Revenue (in millions of $)",
+       y = "Foreign Gross (in millions of $)") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 10.5),
+        plot.subtitle = element_text(size = 9),
+        plot.title.position = "plot")
+
+opening_wknd_domgross + opening_wknd_forgross
+```
+@fig-opening-wknd-dom-for displays very strong, positive correlations for both associations of domestic gross by opening weekend revenue and foreign gross by opening weekend revenue. This suggests that a Hollywood movie's performance during its opening weekend of release has a direct positive association with its overall domestic and foreign grosses. That is, as opening weekend earnings success increases, so will domestic and foreign gross successes. Additionally, the correlation between opening weekend revenue and domestic gross seems to be slightly steeper than the correlation between opening weekend revenue and foreign gross, suggesting that opening weekend revenue performance has a slightly greater impact on its domestic gross performance than it does its foreign gross performance.
 
 ## Variable 3: Domestic, foreign, & worldwide gross
 
@@ -226,10 +286,10 @@ average critic rating.",
        fill = "Season") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot") +
-  theme(axis.text.x = element_text(angle = 45, 
-                                   hjust = 1)) +
-  theme(legend.position = "none") +
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        legend.position = "none") +
   ylim(0, 70) 
 
 seasonal_audience_plot <-  movie_data |>  
@@ -250,10 +310,10 @@ average audience rating.",
        fill = "Season") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot") +
-  theme(axis.text.x = element_text(angle = 45, 
-                                   hjust = 1)) +
-  theme(legend.position = "none") +
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        legend.position = "none") +
   ylim(0, 70) 
 
 seasonal_critics_plot + seasonal_audience_plot

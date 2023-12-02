@@ -33,10 +33,10 @@ average audience rating.",
        fill = "Season") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot") +
-  theme(axis.text.x = element_text(angle = 45, 
-                                   hjust = 1)) +
-  theme(legend.position = "none") +
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        legend.position = "none")
   ylim(0, 70) 
 
 seasonal_audience_table <-  movie_data |>  
@@ -63,10 +63,10 @@ average audience rating.",
        fill = "Season") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot") +
-  theme(axis.text.x = element_text(angle = 45, 
-                                   hjust = 1)) +
-  theme(legend.position = "none") +
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        legend.position = "none")
   ylim(0, 70) 
   
 seasonal_critics_plot + seasonal_audience_plot
@@ -92,10 +92,9 @@ seasonal_opening_wknd_plot <- movie_data |>
        fill = "Season") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot") +
-  theme(legend.position = "none")
+        plot.title.position = "plot",
+        legend.position = "none")
   # Highest mean opening weekend revenue for movies released in the Spring
-
 
 
 
@@ -130,10 +129,9 @@ seasonal_gross_plot <- movie_data |>
        fill = "Season") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot") +
-  theme(legend.position = "none")
+        plot.title.position = "plot",
+        legend.position = "none")
   # Highest worldwide gross for movies released in the Summer
-
 
 
 
@@ -154,8 +152,8 @@ seasonal_budget_plot <- movie_data |>
        fill = "Season") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot") +
-  theme(legend.position = "none")
+        plot.title.position = "plot",
+        legend.position = "none")
   
   # Highest budgets for movies released in the Spring
 
@@ -178,8 +176,8 @@ fall_budget_rcvry <- movie_data |>
        y = "Count") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot") +
-  theme(legend.position = "none")
+        plot.title.position = "plot",
+        legend.position = "none")
 
 movie_data |> 
   filter(season == "Fall" & budget_recovered < 1289066.67) |> 
@@ -191,8 +189,8 @@ movie_data |>
        y = "Count") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot") +
-  theme(legend.position = "none")
+        plot.title.position = "plot",
+        legend.position = "none")
 
 movie_data |> 
   filter(season == "Spring") |> 
@@ -203,8 +201,8 @@ movie_data |>
        y = "Count") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot") +
-  theme(legend.position = "none")
+        plot.title.position = "plot",
+        legend.position = "none")
 
 movie_data |> 
   filter(season == "Summer") |> 
@@ -215,8 +213,8 @@ movie_data |>
        y = "Count") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot") +
-  theme(legend.position = "none")
+        plot.title.position = "plot",
+        legend.position = "none")
 
 movie_data |> 
   filter(season == "Winter") |> 
@@ -227,8 +225,8 @@ movie_data |>
        y = "Count") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot") +
-  theme(legend.position = "none") 
+        plot.title.position = "plot",
+        legend.position = "none")
 
 
 seaonsal_budget_rcvry_no_outliers <- movie_data |> 
@@ -243,8 +241,8 @@ seaonsal_budget_rcvry_no_outliers <- movie_data |>
        y = "Count") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot") +
-  theme(legend.position = "none")
+        plot.title.position = "plot",
+        legend.position = "none")
 
 seasonal_budget_rcvry_table_no_outliers <- movie_data |> 
   filter(budget_recovered < 1289066.67) |> 
@@ -284,8 +282,8 @@ seasonal_oscar_plot <- movie_data |>
        fill = "Season") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot") +
-  theme(legend.position = "none")
+        plot.title.position = "plot",
+        legend.position = "none")
   
   # Movies released in the fall
 

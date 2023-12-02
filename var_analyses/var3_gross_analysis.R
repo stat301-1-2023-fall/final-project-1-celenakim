@@ -139,6 +139,17 @@ movie_data |>
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 
-
+# Revenue and Oscar Wins: Analyze the relationship between box office revenue and the number of Oscar wins.
+movie_data |> 
+  filter(!is.na(oscar_winners)) |> 
+  ggplot(aes(x = worldwide_gross_million, y = oscar_winners)) +
+  geom_boxplot() +
+  labs(title = "Box Office Revenue by Oscar Wins",
+       subtitle = "Oscar winning movies have a higher average worldwide gross.",
+       x = "Worldwide Gross (in millions)",
+       y = "Oscar Winners") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot")
 
 

@@ -9,6 +9,27 @@ library(patchwork)
 # VAR1_RATINGS_ANALYSIS
 var1_exp1_plot
 
+# VAR2_OPENING_WEEKEND_REV_ANALYSIS
+opening_wknd_yearly
+# ![](figures/var2_figures/opening_wknd_yearly_plot.png)
+# The opening weekend rev for 2020 is highly impacted by the pandemic.
+
+genre_opening_wknd_plot + scripttype_opening_wknd_plot
+# ![](figures/var2_figures/opening_wknd_genre_script_plot.png)
+# Top 5 opening weekend revenues by genre and script type.
+
+opening_wknd_budget_plot
+# ![](figures/var2_figures/opening_wknd_budget_plot.png)
+# There is a direct postive association.
+
+opening_wknd_oscar
+# ![](figures/var2_figures/opening_wknd_oscar_plot.png)
+# Movies who have won oscars have a lower average opening weekend revenue.
+
+opening_wknd_domgross + opening_wknd_forgross
+# ![](figures/var2_figures/opening_wknd_dom_for_plot.png)
+# Both plots have strong positive associations, very close to a correlation value of 1. 
+# However, the line is steeper for domestic gross, indicating a stronger/more positive correlation.
 
 
 # VAR6_SEASONS_ANALYSIS

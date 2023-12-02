@@ -45,16 +45,7 @@ rt_rating_oscar <- movie_data |>
   DT::datatable()
 rt_rating_oscar
 
-# Exploration 5: Revenue and Oscar Wins: Analyze the relationship between box office revenue and the number of Oscar wins.
-movie_data |> 
-  filter(!is.na(oscar_winners)) |> 
-  ggplot(aes(x = worldwide_gross_million, y = oscar_winners)) +
-  geom_boxplot() +
-  labs(title = "Box Office Revenue by Oscar Wins",
-       subtitle = "Oscar winning movies have a higher average worldwide gross.",
-       x = "Worldwide Gross (in millions)",
-       y = "Oscar Winners") +
-  theme_minimal()
+
 
 
 #Analyze the relationship between critic ratings and the number of Oscar wins.
