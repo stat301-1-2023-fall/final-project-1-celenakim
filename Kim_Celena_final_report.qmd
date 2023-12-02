@@ -117,7 +117,7 @@ movie_data |>
         plot.title.position = "plot")
 
 ```
-In @fig-opening-wknd-by-budget, there is a clear positive association between a Hollywood movie's budget and its opening weeked earnings. This suggests that, on average, movies with higher production budgets tend to achieve greater financial success during their initial release weekends. 
+In @fig-opening-wknd-by-budget, there is a clear positive association between a Hollywood movie's budget and its opening weeked earnings. This suggests that, on average, movies with higher production budgets tend to achieve greater financial success during their initial release weekends. From this, it can be concluded that the variables of movie budget and opening weekend revenue are related to one another, in that the budget of a movie impacts it's opening weekend revenue earnings.
 
 ## Variable 3: Domestic, foreign, & worldwide gross
 
@@ -183,7 +183,7 @@ average audience rating.",
 
 seasonal_critics_plot + seasonal_audience_plot
 ```
-@fig-seasonal_ratings shows a comparison between the average ratings for each season between the critic and audience rating groups. There appears to be a similar pattern for both rating groups' seasonal average critic numbers, with the highest ratings given for movies released in the Fall, and the lowest ratings given for movies released in the Winter. This reveals a similarity in the seasonal patterns of movie ratings for the two rating groups. However, as Figure 1 revealed, the taller bar graphs show a disparity between the two groups' rating patterns in that the audience rating group gives higher ratings for these Hollywood movies than the critic rating group. This graph stands to visualize a way in which the rating patterns for these two groups are similar, and confirm a previous finding of a way that their patterns differ. An overall conclusion can be made that movies released in the Fall have the highest ratings, while movies released in the Winter have the lowest ratings.
+@fig-seasonal_ratings shows a comparison between the average ratings for each season between the critic and audience rating groups. There appears to be a similar pattern for both rating groups' seasonal average critic numbers, with the highest ratings given for movies released in the Fall, and the lowest ratings given for movies released in the Winter. This reveals a similarity in the seasonal patterns of movie ratings for the two rating groups. However, the taller bar graphs in the plot on the right depict a disparity between the two groups' rating patterns in that the audience rating group gives out higher ratings than the critic rating group, as revealed in @fig-yearly-avg-ratings. @fig-seasonal_ratings stands to visualize a way in which the rating patterns for these two groups are similar, and confirm a previous finding of a way that their patterns differ. An overall conclusion can be made that movies released in the Fall have the highest ratings, while movies released in the Winter have the lowest ratings.
 
 #### Opening weekend revenue:
 ```{r}
@@ -236,7 +236,7 @@ movie_data |>
 ```
 @fig-seasonal_gross shows that movies released during the Summer months have the highest average worldwide gross. This could be due to the fact that in many countries around the world, kids are on summer vacation during these months, and thus families are more likely to go to the movies and contribute to increased ticket sales.
 
-#### Budget & budget recovery:
+#### Budget:
 ```{r}
 #| label: fig-seasonal_budget
 #| fig-cap: A comparison of the average production budget of movies based on what season they were released in.
@@ -288,8 +288,6 @@ movie_data |>
 ```
 In @fig-seasonal_oscars, movies that were released in the Fall season won significantly more Oscars than movies released in other seasons. This is due to the fact that the Fall season is close to around the time when Oscar voting starts, and thus these films are more salient/relavent among the voters, but there is still enough time away from the start of voting for the films to gain enough popularity and traction before the awards are given out. From this, we can conclude that when defining a film's success solely defined by the number of Oscar wins, releasing the film during the Fall season will greatly increase its chances of being successful. 
 
-
-
 ## Conclusion
 text
 
@@ -316,9 +314,7 @@ movie_data |>
        x = "Year",
        y = "Number of Movies",
        color = "Primary Genre")  +
-  theme_minimal() + 
-  theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot")
+  theme_minimal() +
   ylim(0, 30)
 ```
 
