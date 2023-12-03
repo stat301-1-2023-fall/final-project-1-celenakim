@@ -7,38 +7,143 @@ library(patchwork)
 # KEY TAKEAWAYS
 ## -heavily impacted by 2020 covid pandemic
 
-## Exploration 1: How does the foreign gross change over the years from 2007-2022?
-yearly_foreign_gross <- movie_data |> 
-  group_by(year) |> 
-  summarize(mean_foreign_gross = round(mean(foreign_gross_million, na.rm = TRUE)))  |> 
-  arrange(desc(mean_foreign_gross)) 
-yearly_foreign_gross
 
-ggplot(yearly_foreign_gross, aes(x = year, y = mean_foreign_gross)) +
+
+
+
+
+## Exploration 1: How does the domestic gross change over the years from 2007-2022?
+potential_outlier <- movie_data |>
+  filter(domestic_gross_million < 50)
+
+gross_dom_yearly <- movie_data |> 
+  group_by(year) |> 
+  summarize(mean_dom_gross = round(mean(domestic_gross_million, na.rm = TRUE)))  |> 
+  arrange(desc(mean_dom_gross)) |> 
+  ggplot(aes(x = year, 
+             y = mean_dom_gross)) +
   geom_line() +
   geom_point() +
+  geom_text_repel(data = potential_outlier, 
+                  aes(label = "")) +
+  geom_label(data = data.frame(label = "COVID-19 Pandemic"),
+             aes(x = 2018.5, 
+                 y = 7.8, 
+                 label = label),
+             fill = "gray", 
+             alpha = 0.2, 
+             hjust = 0, 
+             vjust = 0) +
+  geom_point(data = potential_outlier, 
+             color = "red") +
+  geom_point(
+    data = potential_outlier,
+    color = "red", 
+    size = 3, 
+    shape = "circle open") +
   labs(x = "Year", 
-       y = "Foreign Gross (millions)", 
-       title = "Average Foreign Gross in Millions for Hollywood Movies from 2007-2022",
+       y = "Domestic Gross (millions of $)", 
+       title = "Average Domestic Gross for Hollywood Movies from 2007-2022",
        subtitle = "There is no foreign gross data available for the year 2021.") +
-  ylim(0, 140)
+  ylim(0, 100)
 # there are no values of foreign gross for the year 2021. 
 # least foreign gross in 2020, the year of COVID when movie theaters were shut down. 
 # greatest foreign gross 
 
-## Exploration 2: How does the domestic gross change over the years from 2007-2022?
-yearly_domestic_gross <- movie_data |> 
-  group_by(year) |> 
-  summarize(mean_domestic_gross = round(mean(domestic_gross_million, na.rm = TRUE)))  |> 
-  arrange(desc(mean_domestic_gross)) 
-yearly_domestic_gross
+potential_outliers <- movie_data |>
+  filter(domestic_gross_million < 50)
 
-ggplot(yearly_domestic_gross, aes(x = year, y = mean_domestic_gross)) +
+year_dom_gross <- movie_data |> 
+  group_by(year) |> 
+  summarize(mean_dom_gross = round(mean(domestic_gross_million, na.rm = TRUE)))  |> 
+  ggplot(aes(x = year,
+             y = mean_dom_gross)) +
+  geom_line() +
+  geom_point() +
+  geom_text_repel(data = potential_outliers, 
+                  aes(label = "")) +
+  geom_label(data = data.frame(label = "COVID-19 Pandemic"),
+             aes(x = 2018.5, 
+                 y = 7.8, 
+                 label = label),
+             fill = "gray", 
+             alpha = 0.2, 
+             hjust = 0, 
+             vjust = 0) +
+  geom_point(data = potential_outliers, 
+             color = "red") +
+  geom_point(
+    data = potential_outliers,
+    color = "red", 
+    size = 3, 
+    shape = "circle open") +
+  labs(x = "Year", 
+       y = "Mean Domestic Gross (millions of $)", 
+       title = "Average Domestic Gross for Hollywood Movies from 2007-2022",
+       subtitle = "The average domestic gross revenue for 2020 is heavily impacted by the COVID-19 pandemic.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot") +
+  ylim(0, 100)
+gross_dom_yearly
+
+
+
+# Filter potential outliers
+potential_outlier <- movie_data %>%
+  filter(domestic_gross_million < 50)
+
+# Create a data frame for the label in geom_label
+label_data <- data.frame(label = "COVID-19 Pandemic", x = 2018.5, y = 7.8)
+
+# Plotting
+ggplot(data = year_dom_gross, aes(x = year, y = mean_dom_gross)) +
+  geom_line() +
+  geom_point() +
+  geom_text_repel(data = potential_outlier, aes(label = "Outlier")) +
+  geom_label(data = label_data,
+             aes(x = x, y = y, label = label),
+             fill = "gray", alpha = 0.2, hjust = 0, vjust = 0) +
+  geom_point(data = potential_outlier, color = "red") +
+  geom_point(data = potential_outlier, color = "red", size = 3, shape = "circle open") +
+  labs(x = "Year",
+       y = "Mean Domestic Gross (millions of $)",
+       title = "Average Domestic Gross for Hollywood Movies from 2007-2022",
+       subtitle = "The average domestic gross revenue for 2020 is heavily impacted by the COVID-19 pandemic.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot") +
+  ylim(0, 100)
+
+
+
+
+year_avg_dom_gross <- movie_data |> 
+  filter(!is.na(domestic_gross_million)) |> 
+  group_by(year) |> 
+  summarize(mean_avg_gross = round(mean(domestic_gross_million, na.rm = TRUE)))  |> 
+  arrange(desc(mean_avg_gross))
+
+potential_outlier <- year_avg_dom_gross |>
+  filter(mean_avg_gross < 50)
+
+gross_avg_dom_yearly <- ggplot(year_avg_dom_gross, 
+                               aes(x = year, 
+                                   y = mean_avg_gross)) +
   geom_line() +
   geom_point() +
   labs(x = "Year", 
-       y = "Domestic Gross (millions)", 
-       title = "Average Domestic Gross in Millions for Hollywood Movies from 2007-2022")
+       y = "Mean Opening Weekend Earnings (in millions of $)", 
+       title = "Average Opening Weekend Earnings for Hollywood Movies from 2007-2022",
+       subtitle = "The average opening weekend revenue for 2020 is heavily impacted by the COVID-19 pandemic.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot") +
+  ylim(3, 28)
+
+
+
+
 
 
 ## Exploration 3: How does the worldwide gross change over the years from 2007-2022?

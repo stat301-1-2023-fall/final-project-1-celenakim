@@ -15,6 +15,10 @@ critic_ratings_oscar_table
 # ![](figures/var2_figures/critic_ratings_oscar_table.png)
 # Movies who have won at least one Oscar have a higher mean rt critic rating than those who have not won any Oscars.
 
+rating_rt_critcs_opening_wknd
+# ![](figures/var2_figures/rating_rt_critcs_opening_wknd_plot.png)
+# Movies who have won at least one Oscar have a higher mea
+
 ratings_script_type_plot
 # ![](figures/var2_figures/ratings_script_type_plot.png)
 # A majority of script types do not have information available for the IMDb rating.

@@ -343,6 +343,34 @@ opening_wknd_domgross + opening_wknd_forgross
 @fig-opening-wknd-dom-for displays very strong, positive correlations for both associations of domestic gross by opening weekend revenue and foreign gross by opening weekend revenue. This suggests that a Hollywood movie's performance during its opening weekend of release has a direct positive association with its overall domestic and foreign grosses. That is, as opening weekend earnings success increases, so will domestic and foreign gross successes. Additionally, the correlation between opening weekend revenue and domestic gross seems to be slightly steeper than the correlation between opening weekend revenue and foreign gross, suggesting that opening weekend revenue performance has a slightly greater impact on its domestic gross performance than it does its foreign gross performance.
 
 ## Variable 3: Domestic, foreign, & worldwide gross
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+
+
+```{r}
+
+```
+
+
+
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+
+
 
 ## Variable 4: Budget & budget recovery
 
