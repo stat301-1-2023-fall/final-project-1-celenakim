@@ -93,12 +93,26 @@ movie_data |>
 @fig-critic-ratings-oscar makes use of two measures of movie success that are determined solely by movie critics: Oscar wins and average critic movie ratings. As can be seen in the table, Hollywood movies that have won at least one Oscar award have a higher average of Rotten Tomatoes and Metacritic critic ratings than those who have not won any Oscars. This correlations suggests a similar pattern between critical assessment and award recognition, in that movies who are praised enough to win an Oscar are also favored highly among Rotten Tomatoes and Metacritic critics.
 
 ```{r}
-#| label: fig-fill
-#| fig-cap: meow
+#| label: fig-rt-critic-opening-wknd
+#| fig-cap: There is a slight positive association between Rotten Tomatoes critic rating and opening weekend revenue, but it is not very strong.
 
-
+movie_data |> 
+  ggplot(aes(x = rotten_tomatoes_critics,
+             y = opening_weekend_million)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Rotten Tomatoes Critic Rating",
+       y = "Opening Weekend Earnings (millions of $)",
+       title = "Opening Weekend Earnings by Rotten Tomatoes Critic Rating",
+       subtitle = "There is a weak positive association between a movie's Rotten Tomatoes critic score and its opening 
+weekend revenue.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 90, hjust = 1),
+        legend.position = "top")
 ```
-Rotten Tomatoes critic ratings are typically released before the movie hits theaters. Thus, 
+A movie's Rotten Tomatoes critic rating is typically released before the movie hits theaters. Thus, I was interested in exploring the extent to which the success of this rating has on influencing the success of the movie's opening weekend revenue. @fig-rt-critic-opening-wknd shows, however, that the correlation between these two variables is not very strong. There is a very slight positive association, suggesting that to some extent, as a movie's Rotten Tomatoes critic rating increases, so does its opening weekend earnings. But, as this association is very weak, this means that the Rotten Tomatoes critic score does not have a drastic/direct impact on opening weekend revenue.
 
 ```{r}
 #| label: fig-ratings-script-type
