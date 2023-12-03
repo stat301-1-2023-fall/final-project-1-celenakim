@@ -8,8 +8,8 @@ year_opening_success <- movie_data |>
   summarize(mean_opening_success = round(mean(opening_weekend_million, na.rm = TRUE)))  |> 
   arrange(desc(mean_opening_success)) 
 
-year_opening_success |> 
-  DT::datatable()
+# year_opening_success |> 
+  #DT::datatable()
 
 potential_outliers <- year_opening_success |>
   filter(mean_opening_success < 10)
@@ -41,7 +41,8 @@ opening_wknd_yearly <- ggplot(year_opening_success, aes(x = year, y = mean_openi
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot") +
-  ylim(3, 28)
+  ylim(3, 28) +
+  scale_x_continuous(breaks = seq(min(year_opening_success$year), max(year_opening_success$year), by = 2))
 
 
 
