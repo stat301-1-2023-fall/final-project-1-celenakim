@@ -525,13 +525,17 @@ dom_gross_distributor + for_gross_distributor
 As a final comparison of movie preference behavior between domestic and foreign audiences, @fig-dom-for-gross-distributor explores the movie distributors with the top 5 highest average domestic and foreign gross revenues. For both US and foreign audiences, the movie distributor with the most successful gross performance is Walt Disney Studios. This reveals a similarity between domestic and foreign audiences in that movies distributed by Walt Disney Studios are more popular (generate more gross revenue) than movies released by other distributors.
 
 ```{r}
+#| label: fig-ww-gross-budget-rcvry
+#| fig-cap: A visualization of the relationship between a Hollywood movie's worldwide gross revenue and the percent of its production budget that was recovered.
+
 movie_data |> 
   filter(budget_recovered < 10000) |> 
   ggplot(aes(x = worldwide_gross_million,
              y = budget_recovered)) +
   geom_point() +
   geom_smooth(method = "lm") +
-  labs(title = "Relationship Between a Hollywood Movie's Worldwide Gross and the Percent of its Budget Recovered",
+  labs(title = "Relationship Between a Hollywood Movie's Worldwide Gross and the Percent 
+of its Budget Recovered",
        subtitle = "There is a positive association between the two variables.",
        x = "Worldwide Gross (in millions of $)",
        y = "Percent of Budget Recovered") +
@@ -539,8 +543,7 @@ movie_data |>
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot") 
 ```
-
-
+In @fig-ww-gross-budget-rcvry, there is a clear positive relationship between a movie's worldwide gross earnings and the percent of the its budget that is recovered. This suggests that the greater box office revenue a movie earns, the more of its budget will be able to be earned back following its production/release into theaters. 
 
 
 ## Variable 4: Budget & budget recovery

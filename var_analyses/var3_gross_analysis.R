@@ -270,7 +270,8 @@ ww_gross_budget_rcvry <- movie_data |>
              y = budget_recovered)) +
   geom_point() +
   geom_smooth(method = "lm") +
-  labs(title = "Relationship Between a Hollywood Movie's Worldwide Gross and the Percent of its Budget Recovered",
+  labs(title = "Relationship Between a Hollywood Movie's Worldwide Gross and the Percent of its
+Budget Recovered",
        subtitle = "There is a positive association between the two variables.",
        x = "Worldwide Gross (in millions of $)",
        y = "Percent of Budget Recovered") +
