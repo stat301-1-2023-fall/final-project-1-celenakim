@@ -3,7 +3,7 @@ library(scales)
 library(ggrepel)
 library(patchwork)
 
-# VAR1_RATINGS_ANALYSIS
+### VAR1_RATINGS_ANALYSIS
 ratings_yearly_plot
 # ![](figures/var2_figures/ratings_yearly_plot.png)
 # Average ratings for both groups increased over the years, critics rate lower than audiences.
@@ -22,7 +22,7 @@ ratings_script_type_plot
 
 
 
-# VAR2_OPENING_WEEKEND_REV_ANALYSIS
+### VAR2_OPENING_WEEKEND_REV_ANALYSIS
 opening_wknd_yearly
 # ![](figures/var2_figures/opening_wknd_yearly_plot.png)
 # The opening weekend rev for 2020 is highly impacted by the pandemic.
@@ -46,7 +46,7 @@ opening_wknd_domgross + opening_wknd_forgross
 
 
 
-# VAR3_GROSS_ANALYSIS
+### VAR3_GROSS_ANALYSIS
 gross_dom_yearly
 # ![](figures/var6_figures/gross_dom_yearly_plot.png)
 # Same pattern for opening wknd, 2020 is highly impacted by the pandemic.
@@ -63,7 +63,7 @@ gross_domestic_genre + gross_foreign_genre
 
 
 
-# VAR6_SEASONS_ANALYSIS
+### VAR6_SEASONS_ANALYSIS
 seasonal_critics_plot + seasonal_audience_plot
 # ![](figures/var6_figures/seasonal_ratings_plot.png)
 # Same pattern for both rating groups: Both critic and audience rating groups gave the highest ratings for movies released in the Fall

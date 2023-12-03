@@ -132,6 +132,8 @@ gross_domestic_genre + gross_foreign_genre
 
 
 
+# What is the correlation between variables such as `domestic_gross`, `foreign_gross`, `wordwide_gross`, and `budget_recovered`?
+
 
 
 

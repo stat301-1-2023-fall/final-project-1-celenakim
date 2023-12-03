@@ -352,7 +352,8 @@ opening_wknd_domgross + opening_wknd_forgross
 
 year_dom_gross <- movie_data |> 
   group_by(year) |> 
-  summarize(mean_dom_gross = round(mean(domestic_gross_million, na.rm = TRUE)))  |> 
+  summarize(mean_dom_gross = round(mean(domestic_gross_million, 
+                                        na.rm = TRUE)))  |> 
   arrange(desc(mean_dom_gross)) 
 
 potential_outlier <- year_dom_gross |>
@@ -420,7 +421,8 @@ gross_domestic_genre <- movie_data |>
   filter(!is.na(domestic_gross_million) & 
            !is.na(primary_genre) & 
            primary_genre != "")  |> 
-  ggplot(aes(x = fct_reorder(primary_genre, -domestic_gross_million), 
+  ggplot(aes(x = fct_reorder(primary_genre, 
+                             -domestic_gross_million), 
              y = domestic_gross_million, 
              fill = primary_genre)) +
   geom_boxplot() +
@@ -441,7 +443,8 @@ gross_foreign_genre <- movie_data |>
   filter(!is.na(foreign_gross_million) & 
            !is.na(primary_genre) & 
            primary_genre != "")  |> 
-  ggplot(aes(x = reorder(primary_genre, -foreign_gross_million), 
+  ggplot(aes(x = reorder(primary_genre, 
+                         -foreign_gross_million), 
              y = foreign_gross_million, 
              fill = primary_genre)) +
   geom_boxplot() +
@@ -465,8 +468,71 @@ gross_domestic_genre + gross_foreign_genre
 
 
 ```{r}
+#| label: fig-dom-for-gross-distributor
+#| fig-cap: A comparison of the top 5 movie distributors with the highest gross earnings between domestic and foreign gross.
 
+dom_gross_distributor <- movie_data |> 
+  filter(!is.na(distributor)) |> 
+  group_by(distributor) |> 
+  summarize(avg_dom_gross = mean(domestic_gross_million, 
+                                 na.rm = TRUE)) |> 
+  arrange(desc(avg_dom_gross)) |> 
+  slice_head(n = 5) |> 
+  ggplot(aes(x = reorder(distributor, 
+                         -avg_dom_gross), 
+             y = avg_dom_gross)) +
+  geom_bar(stat = "identity", 
+           fill = "skyblue") +
+  labs(title = "Top 5 Movie Distributors with the Highest 
+Domestic Gross",
+       subtitle = "Walt Disney Studios had the most successful domestic gross 
+performance.",
+       x = "Distributor",
+       y = "Average Domestic Gross (in millions of $)") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 12),
+        plot.subtitle = element_text(size = 9),
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        axis.title.y = element_text(size = 9)) +
+  ylim(0, 800)
+
+
+for_gross_distributor <- movie_data |> 
+  filter(!is.na(distributor)) |> 
+  group_by(distributor) |> 
+  summarize(avg_for_gross = mean(foreign_gross_million, 
+                                 na.rm = TRUE)) |> 
+  arrange(desc(avg_for_gross)) |> 
+  slice_head(n = 5) |> 
+  ggplot(aes(x = reorder(distributor, 
+                         -avg_for_gross), 
+             y = avg_for_gross)) +
+  geom_bar(stat = "identity", 
+           fill = "lightgreen") +
+  labs(title = "Top 5 Movie Distributors with the Highest 
+Foreign Gross",
+       subtitle = "Walt Disney Studios had the most successful foreign gross 
+performance.",
+       x = "Distributor",
+       y = "Average Foreign Gross (in millions of $)") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 12),
+        plot.subtitle = element_text(size = 9),
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        axis.title.y = element_text(size = 9)) +
+  ylim(0, 800)
+
+
+dom_gross_distributor + for_gross_distributor
 ```
+As a final comparison of movie preference behavior between domestic and foreign audiences, @fig-dom-for-gross-distributor explores the movie distributors with the top 5 highest average domestic and foreign gross revenues. For both US and foreign audiences, the movie distributor with the most successful gross performance is Walt Disney Studios. This reveals a similarity between domestic and foreign audiences in that movies distributed by Walt Disney Studios are more popular (generate more gross revenue) than movies released by other distributors.
+
 
 
 ```{r}
@@ -483,7 +549,6 @@ gross_domestic_genre + gross_foreign_genre
 ## Variable 6: Seasonal Release Date
 These analyses seek to explore how the five main variables above vary/are impacted by the season a movie is released in, and what seasonal release date trends may exist in influencing a movie's success rate.
 
-#### Ratings:
 ```{r}
 #| label: fig-seasonal_ratings
 #| fig-cap: A comparison of the mean ratings of movies based on the season they were released in, between the critic and audience rating groups.
@@ -540,7 +605,6 @@ seasonal_critics_plot + seasonal_audience_plot
 ```
 @fig-seasonal_ratings shows a comparison between the average ratings for each season between the critic and audience rating groups. There appears to be a similar pattern for both rating groups' seasonal average critic numbers, with the highest ratings given for movies released in the Fall, and the lowest ratings given for movies released in the Winter. This reveals a similarity in the seasonal patterns of movie ratings for the two rating groups. However, the taller bar graphs in the plot on the right depict a disparity between the two groups' rating patterns in that the audience rating group gives out higher ratings than the critic rating group, as revealed in @fig-yearly-avg-ratings. @fig-seasonal_ratings stands to visualize a way in which the rating patterns for these two groups are similar, and confirm a previous finding of a way that their patterns differ. An overall conclusion can be made that movies released in the Fall have the highest ratings, while movies released in the Winter have the lowest ratings.
 
-#### Opening weekend revenue:
 ```{r}
 #| label: fig-seasonal_opening_wknd
 #| fig-cap: A comparison of the average opening weekend revenues in millions of dollars for movies based on what season they were relased in.
@@ -566,7 +630,6 @@ movie_data |>
 ```
 In @fig-seasonal_opening_wknd, it is clear that movies with the highest average opening weekend revenue were released in the Spring. This could suggest that movies that are released in the Spring are more successful in terms of generating more earnings during their first weekend in theaters than movies released in other seasons.
 
-#### Domestic, foreign, and worldwide gross:
 ```{r}
 #| label: fig-seasonal_gross
 #| fig-cap: The average total revenue generated by films from all sources globally by the season the film was released in.
@@ -591,7 +654,6 @@ movie_data |>
 ```
 @fig-seasonal_gross shows that movies released during the Summer months have the highest average worldwide gross. This could be due to the fact that in many countries around the world, kids are on summer vacation during these months, and thus families are more likely to go to the movies and contribute to increased ticket sales.
 
-#### Budget:
 ```{r}
 #| label: fig-seasonal_budget
 #| fig-cap: A comparison of the average production budget of movies based on what season they were released in.
@@ -616,8 +678,6 @@ movie_data |>
 ```
 @fig-seasonal_budget shows that movies released in the Spring have the highest average movie budgets. This directly aligns with previous findings in the EDA. In @fig-opening-wknd-by-budget, it was concluded that there exists a positive association between a Hollywood movie's budget and its opening weeked earnings. Therefore, since @fig-seasonal_opening_wknd revealed that the season of movies released with the highest average opening weekend revenue was Spring, then the season of movies released with the highest average movie budgets should also be the Spring, and that is what we see in this plot. This supports our finding of the positive correlation that exists between a movie's budget and opening weekend revenue.
 
-
-#### Oscar wins:
 ```{r}
 #| label: fig-seasonal_oscars
 #| fig-cap: The distribution of Oscar wins based on what season the movie was released in.
