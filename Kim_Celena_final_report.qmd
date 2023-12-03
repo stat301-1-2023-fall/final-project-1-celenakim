@@ -158,7 +158,7 @@ movie_data |>
 ```
 @fig-ratings-script-type visualizes the average IMDb, Metacritic, and Rotten Tomatoes critic ratings for each of the unique script type combinations of Hollywood movies from 2007-2022. One chief idea to note is that the average IMDb rating is only available for 5 out of the 16 script types, revealing a great amount of missingness within this variable and making it difficult to reach a conlusion about the relationship between script type and average IMDb rating. For the other two rating variables, the script type with both the highest Metacritic and Rotten Tomatoes critic ratings is "documentary", suggesting that this script type is more favorable among critics than other script types. 
 
-## Variable 2: Opening weekend revenue
+## Variable 2: Opening Weekend Revenue
 A movie's opening weekend revenue refers to the total box office earnings that the film earned during its first weekend of release in theaters. 
 ```{r}
 #| label: fig-yearly-opening-wknd
@@ -166,20 +166,33 @@ A movie's opening weekend revenue refers to the total box office earnings that t
 
 year_opening_success <- movie_data |> 
   group_by(year) |> 
-  summarize(mean_opening_success = round(mean(opening_weekend_million, na.rm = TRUE)))  |> 
+  summarize(mean_opening_success = round(mean(opening_weekend_million,
+          na.rm = TRUE)))  |> 
   arrange(desc(mean_opening_success)) 
 
 potential_outliers <- year_opening_success |>
-  filter(mean_opening_success < 10)
+  filter(mean_opening_success == 20 | mean_opening_success == 9)
 
-ggplot(year_opening_success, aes(x = year, y = mean_opening_success)) +
+ggplot(year_opening_success,
+       aes(x = year, 
+           y = mean_opening_success)) +
   geom_line() +
   geom_point() +
   geom_text_repel(data = potential_outliers, 
                   aes(label = "")) +
-  geom_label(data = data.frame(label = "COVID-19 Pandemic"),
-             aes(x = 2018.5, 
-                 y = 7, 
+  geom_label(data = data.frame(label = "2008 Great 
+ Recession"),
+             aes(x = 2007, 
+                 y = 16.4, 
+                 label = label),
+             fill = "gray", 
+             alpha = 0.2, 
+             hjust = 0, 
+             vjust = 0) +
+  geom_label(data = data.frame(label = "COVID-19 
+ Pandemic"),
+             aes(x = 2018.9, 
+                 y = 5.4, 
                  label = label),
              fill = "gray", 
              alpha = 0.2, 
@@ -195,14 +208,18 @@ ggplot(year_opening_success, aes(x = year, y = mean_opening_success)) +
   labs(x = "Year", 
        y = "Mean Opening Weekend Earnings (in millions of $)", 
        title = "Average Opening Weekend Earnings for Hollywood Movies from 2007-2022",
-       subtitle = "The average opening weekend revenue for 2020 is heavily impacted by the COVID-19 pandemic.") +
+       subtitle = "2008 is heavily impacted by the Great Recession. 2020 is heavily impacted by the 
+COVID-19 pandemic.") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot") +
   ylim(3, 28) +
-  scale_x_continuous(breaks = seq(min(year_opening_success$year), max(year_opening_success$year), by = 2))
+  scale_x_continuous(breaks = seq(min(year_opening_success$year),
+                                  max(year_opening_success$year), 
+                                  by = 2))
+
 ```
-@fig-yearly-opening-wknd visualizes the change in the mean opening weekend earnings (in millions) for Hollywood movies from 2007-2022. As can be seen by the graph, the years with the most successful opening weekends in terms of highest mean earnings are the years 2012 and 2014, closely tied with an average earning of 27 million dollars. The lowest point on the graph corresponds to 2020, with that year earning the least during opening weekend: 8 million dollars. This data definitely reflects the times/economy of the country during this year, as 2020 was the year that America was under quarantine and movie theaters were shut down, so they earned significantly less money than as compared to other years. This is certainly something to keep in mind throughout this variable analysis, as the opening weekend revenue for 2020 is greatly impacted by the pandemic.
+@fig-yearly-opening-wknd visualizes the change in the mean opening weekend earnings (in millions) for Hollywood movies from 2007-2022. As can be seen by the graph, there are two distinct low points on the graph corresponding to the years 2008 and 2020, and these drops can be explained by the economic state of the country during those years. In 2008, the country experienced a Great Recession of economic downturn, greatly impacting the film industry. This economic crisis led to a dramatic decline in consumer spending and movie production, possibly leading to the drop in mean opening weekend earnings that we see in the graph for this year. In 2020, we see a significantly more drastic drop in mean opening weekend revenue, as the COVID-19 pandemic led to a nationwide shut down/capacity limit of movie theaters. With these conditions, there was a dramatic decline in movie theater ticket sales and thus a dramtic drop in the mean opening weekend revenue of movies released during the pandemic, as shown in the graph. These findings are certainly something to keep in mind throughout this variable analysis, as the opening weekend revenue is highly impacted by economic crises such as the 2008 Great Recession and the 2020 COVID-19 pandemic.
 
 ```{r}
 #| label: fig-opening-wknd-by-budget
@@ -336,28 +353,37 @@ opening_wknd_domgross + opening_wknd_forgross
 ```
 @fig-opening-wknd-dom-for displays very strong, positive correlations for both associations of domestic gross by opening weekend revenue and foreign gross by opening weekend revenue. This suggests that a Hollywood movie's performance during its opening weekend of release has a direct positive association with its overall domestic and foreign grosses. That is, as opening weekend earnings success increases, so will domestic and foreign gross successes. Additionally, the correlation between opening weekend revenue and domestic gross seems to be slightly steeper than the correlation between opening weekend revenue and foreign gross, suggesting that opening weekend revenue performance has a slightly greater impact on its domestic gross performance than it does its foreign gross performance.
 
-## Variable 3: Domestic, foreign, & worldwide gross
+## Variable 3: Domestic, Foreign, & Worldwide Gross
 ```{r}
 #| label: fig-yearly-dom-gross
 #| fig-cap: A visualization of the change in yearly domestic gross for Hollywood movies from 2007-2022.
 
 year_dom_gross <- movie_data |> 
   group_by(year) |> 
-  summarize(mean_dom_gross = round(mean(domestic_gross_million, 
-                                        na.rm = TRUE)))  |> 
+  summarize(mean_dom_gross = round(mean(domestic_gross_million, na.rm = TRUE)))  |> 
   arrange(desc(mean_dom_gross)) 
 
 potential_outlier <- year_dom_gross |>
-  filter(mean_dom_gross < 30)
+  filter(mean_dom_gross == 25 | mean_dom_gross == 62)
 
-gross_dom_yearly <- ggplot(year_dom_gross, aes(x = year, y = mean_dom_gross)) +
+ggplot(year_dom_gross, aes(x = year, y = mean_dom_gross)) +
   geom_line() +
   geom_point() +
   geom_text_repel(data = potential_outlier, 
                   aes(label = "")) +
-  geom_label(data = data.frame(label = "COVID-19 Pandemic"),
-             aes(x = 2018, 
-                 y = 16.5, 
+  geom_label(data = data.frame(label = "2008 Great 
+ Recession"),
+             aes(x = 2007, 
+                 y = 48, 
+                 label = label),
+             fill = "gray", 
+             alpha = 0.2, 
+             hjust = 0, 
+             vjust = 0) +
+  geom_label(data = data.frame(label = "COVID-19 
+ Pandemic"),
+             aes(x = 2019, 
+                 y = 10.5, 
                  label = label),
              fill = "gray", 
              alpha = 0.2, 
@@ -373,15 +399,14 @@ gross_dom_yearly <- ggplot(year_dom_gross, aes(x = year, y = mean_dom_gross)) +
   labs(x = "Year", 
        y = "Mean Domestic Gross (in millions of $)", 
        title = "Average Domestic Gross for Hollywood Movies from 2007-2022",
-       subtitle = "The average domestic gross for 2020 is heavily impacted by the COVID-19 pandemic.") +
+       subtitle = "There are significant drops in the years 2008 and 2020.") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot") +
   ylim(0, 100) +
   scale_x_continuous(breaks = seq(min(year_dom_gross$year), max(year_dom_gross$year), by = 2))
-gross_dom_yearly
 ```
-@fig-yearly-dom-gross visualizes the change in the yearly average domestic gross (in millions) for Hollywood movies from 2007-2022. Just as in @fig-yearly-opening-wknd, the lowest point on this graph also corresponds to the year 2020, revealing that in addition to opening weekend revenue, domestic gross was also affected by the 2020 COVID-19 pandemic. With the closing of movie theaters due to quarantine during that year, the average domestic gross was significantly lower than compared to other years. Like opening weekend revenue, the domestic gross for 2020 was greatly impacted by the pandemic.
+@fig-yearly-dom-gross visualizes the change in the yearly average domestic gross (in millions) for Hollywood movies from 2007-2022. Just as in @fig-yearly-opening-wknd, there are significant drops for the years 2008 and 2020, also due to the economy of the country during those years. With the 2008 Great Recession, declines in consumer spending due to the economic downturn directly impacted the total box office revenue of movies. With the 2020 COVID-19 pandemic, quarantining and the closing of movie theaters also led to declines in consumer spending and a direct decline in gross domestic revenue for movies. Like the opening weekend revenue variable, the domestic gross variable is heavily impacted by economic crises such as the 2008 Great Recession and the 2020 COVID-19 pandemic.
 
 ```{r}
 #| label: fig-gross-correlation
@@ -546,9 +571,114 @@ of its Budget Recovered",
 In @fig-ww-gross-budget-rcvry, there is a clear positive relationship between a movie's worldwide gross earnings and the percent of the its budget that is recovered. This suggests that the greater box office revenue a movie earns, the more of its budget will be able to be earned back following its production/release into theaters. 
 
 
-## Variable 4: Budget & budget recovery
+## Variable 4: Budget & Budget Recovery
+```{r}
+#| label: fig-yearly-movie-budget
+#| fig-cap: A visualization of the change in average production budgets for Hollywood movies from 2007-2022.
 
-## Variable 5: Oscar wins
+yearly_movie_budget <- movie_data |> 
+  group_by(year) |> 
+  summarize(mean_movie_budget = round(mean(budget_million, 
+                                           na.rm = TRUE)))  |> 
+  arrange(desc(mean_movie_budget)) 
+
+potential_budget_outliers <- yearly_movie_budget |>
+  filter(mean_movie_budget == 47 | mean_movie_budget == 49)
+
+ggplot(yearly_movie_budget, aes(x = year, 
+                                y = mean_movie_budget)) +
+  geom_line() +
+  geom_point() +
+  geom_text_repel(data = potential_budget_outliers, 
+                  aes(label = "")) +
+  geom_label(data = data.frame(label = "2008 Great 
+ Recession"),
+ aes(x = 2007, 
+     y = 39, 
+     label = label),
+ fill = "gray", 
+ alpha = 0.2, 
+ hjust = 0, 
+ vjust = 0) +
+  geom_label(data = data.frame(label = "COVID-19 
+ Pandemic"),
+ aes(x = 2019, 
+     y = 37, 
+     label = label),
+ fill = "gray", 
+ alpha = 0.2, 
+ hjust = 0, 
+ vjust = 0) +
+  geom_point(data = potential_budget_outliers, 
+             color = "red") +
+  geom_point(
+    data = potential_budget_outliers,
+    color = "red", 
+    size = 3, 
+    shape = "circle open") +
+  labs(x = "Year", 
+       y = "Mean Budget (in millions of $)", 
+       title = "Average Movie Budgets for Hollywood Movies from 2007-2022",
+       subtitle = "There are significant drops in the years 2008 and 2020.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot") +
+  ylim(0, 70) +
+  scale_x_continuous(breaks = seq(min(yearly_movie_budget$year),
+                                  max(yearly_movie_budget$year),
+                                  by = 2))
+```
+@fig-yearly-movie-budget follows the same patterns as @fig-yearly-opening-wknd and @fig-yearly-dom-gross, showing that the variable of movie budget is also highly impacted by economic crises. In this graph, there are also two distinct low points corresponding to the years 2008 and 2020. With the 2008 Great Recession, financial challenges could have resulted in cost-cutting measures and a more stringent approach to budgeting for movie distributors, leading to a lower average movie budget for that year. With the 2020 COVID-19 pandemic and quarantine, film studios may have altered their production strategies of their movies by delaying the start of filmmaking, leading to an overall decline in film production and thus a decline in mean budgets for that year. From these three similar variable findings, there seems to be a common trend that a movie's success is greatly impacted by the economy.
+
+
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+
+
+
+## Variable 5: Oscar Wins
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+
 
 ## Variable 6: Seasonal Release Date
 These analyses seek to explore how the five main variables above vary/are impacted by the season a movie is released in, and what seasonal release date trends may exist in influencing a movie's success rate.

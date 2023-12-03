@@ -19,15 +19,25 @@ year_dom_gross <- movie_data |>
   arrange(desc(mean_dom_gross)) 
 
 potential_outlier <- year_dom_gross |>
-  filter(mean_dom_gross < 30)
+  filter(mean_dom_gross == 25 | mean_dom_gross == 62)
 
 gross_dom_yearly <- ggplot(year_dom_gross, aes(x = year, y = mean_dom_gross)) +
   geom_line() +
   geom_point() +
   geom_text_repel(data = potential_outlier, 
                   aes(label = "")) +
-  geom_label(data = data.frame(label = "COVID-19 Pandemic"),
-             aes(x = 2018, 
+  geom_label(data = data.frame(label = "2008 Great 
+ Recession"),
+             aes(x = 2007, 
+                 y = 53.5, 
+                 label = label),
+             fill = "gray", 
+             alpha = 0.2, 
+             hjust = 0, 
+             vjust = 0) +
+  geom_label(data = data.frame(label = "COVID-19 
+ Pandemic"),
+             aes(x = 2019, 
                  y = 16.5, 
                  label = label),
              fill = "gray", 
@@ -44,7 +54,7 @@ gross_dom_yearly <- ggplot(year_dom_gross, aes(x = year, y = mean_dom_gross)) +
   labs(x = "Year", 
        y = "Mean Domestic Gross (in millions of $)", 
        title = "Average Domestic Gross for Hollywood Movies from 2007-2022",
-       subtitle = "The average domestic gross for 2020 is heavily impacted by the COVID-19 pandemic.") +
+       subtitle = "There are significant drops in the years 2008 and 2020.") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot") +
