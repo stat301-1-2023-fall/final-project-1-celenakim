@@ -30,7 +30,8 @@ over the years overall. Critics seem to rate lower than audiences.",
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot") +
-  ylim(0, 100)
+  ylim(0, 100) +
+  scale_x_continuous(breaks = seq(min(movie_data$year), max(movie_data$year), by = 2)) 
 ratings_yearly_plot
 
 

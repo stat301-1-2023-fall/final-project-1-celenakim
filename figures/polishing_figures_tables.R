@@ -3,9 +3,6 @@ library(scales)
 library(ggrepel)
 library(patchwork)
 
-
-
-
 # VAR1_RATINGS_ANALYSIS
 ratings_yearly_plot
 # ![](figures/var2_figures/ratings_yearly_plot.png)
@@ -22,6 +19,7 @@ rating_rt_critcs_opening_wknd
 ratings_script_type_plot
 # ![](figures/var2_figures/ratings_script_type_plot.png)
 # A majority of script types do not have information available for the IMDb rating.
+
 
 
 # VAR2_OPENING_WEEKEND_REV_ANALYSIS
@@ -45,6 +43,23 @@ opening_wknd_domgross + opening_wknd_forgross
 # ![](figures/var2_figures/opening_wknd_dom_for_plot.png)
 # Both plots have strong positive associations, very close to a correlation value of 1. 
 # However, the line is steeper for domestic gross, indicating a stronger/more positive correlation.
+
+
+
+# VAR3_GROSS_ANALYSIS
+gross_dom_yearly
+# ![](figures/var6_figures/gross_dom_yearly_plot.png)
+# Same pattern for opening wknd, 2020 is highly impacted by the pandemic.
+
+gross_rel_plot
+# ![](figures/var6_figures/gross_rel_plot.png)
+# There is a direct strong positive correlation, domestic and foreign audiences have similar behavior in movie favorability.
+
+gross_domestic_genre + gross_foreign_genre
+# ![](figures/var6_figures/gross_genre_plot.png)
+# Sci fi has best domestic gross performance, action and adventure are tied for the best foreign gross performance.
+
+
 
 
 

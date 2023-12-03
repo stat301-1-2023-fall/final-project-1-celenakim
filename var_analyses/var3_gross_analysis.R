@@ -13,22 +13,22 @@ library(patchwork)
 
 
 ## Exploration 1: How does the domestic gross change over the years from 2007-2022?
-potential_outlier <- movie_data |>
-  filter(domestic_gross_million < 50)
-
-gross_dom_yearly <- movie_data |> 
+year_dom_gross <- movie_data |> 
   group_by(year) |> 
   summarize(mean_dom_gross = round(mean(domestic_gross_million, na.rm = TRUE)))  |> 
-  arrange(desc(mean_dom_gross)) |> 
-  ggplot(aes(x = year, 
-             y = mean_dom_gross)) +
+  arrange(desc(mean_dom_gross)) 
+
+potential_outlier <- year_dom_gross |>
+  filter(mean_dom_gross < 30)
+
+gross_dom_yearly <- ggplot(year_dom_gross, aes(x = year, y = mean_dom_gross)) +
   geom_line() +
   geom_point() +
   geom_text_repel(data = potential_outlier, 
                   aes(label = "")) +
   geom_label(data = data.frame(label = "COVID-19 Pandemic"),
-             aes(x = 2018.5, 
-                 y = 7.8, 
+             aes(x = 2018, 
+                 y = 16.5, 
                  label = label),
              fill = "gray", 
              alpha = 0.2, 
@@ -42,107 +42,15 @@ gross_dom_yearly <- movie_data |>
     size = 3, 
     shape = "circle open") +
   labs(x = "Year", 
-       y = "Domestic Gross (millions of $)", 
+       y = "Mean Domestic Gross (in millions of $)", 
        title = "Average Domestic Gross for Hollywood Movies from 2007-2022",
-       subtitle = "There is no foreign gross data available for the year 2021.") +
-  ylim(0, 100)
-# there are no values of foreign gross for the year 2021. 
-# least foreign gross in 2020, the year of COVID when movie theaters were shut down. 
-# greatest foreign gross 
-
-potential_outliers <- movie_data |>
-  filter(domestic_gross_million < 50)
-
-year_dom_gross <- movie_data |> 
-  group_by(year) |> 
-  summarize(mean_dom_gross = round(mean(domestic_gross_million, na.rm = TRUE)))  |> 
-  ggplot(aes(x = year,
-             y = mean_dom_gross)) +
-  geom_line() +
-  geom_point() +
-  geom_text_repel(data = potential_outliers, 
-                  aes(label = "")) +
-  geom_label(data = data.frame(label = "COVID-19 Pandemic"),
-             aes(x = 2018.5, 
-                 y = 7.8, 
-                 label = label),
-             fill = "gray", 
-             alpha = 0.2, 
-             hjust = 0, 
-             vjust = 0) +
-  geom_point(data = potential_outliers, 
-             color = "red") +
-  geom_point(
-    data = potential_outliers,
-    color = "red", 
-    size = 3, 
-    shape = "circle open") +
-  labs(x = "Year", 
-       y = "Mean Domestic Gross (millions of $)", 
-       title = "Average Domestic Gross for Hollywood Movies from 2007-2022",
-       subtitle = "The average domestic gross revenue for 2020 is heavily impacted by the COVID-19 pandemic.") +
+       subtitle = "The average domestic gross for 2020 is heavily impacted by the COVID-19 pandemic.") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot") +
-  ylim(0, 100)
+  ylim(0, 100) +
+  scale_x_continuous(breaks = seq(min(year_dom_gross$year), max(year_dom_gross$year), by = 2))
 gross_dom_yearly
-
-
-
-# Filter potential outliers
-potential_outlier <- movie_data %>%
-  filter(domestic_gross_million < 50)
-
-# Create a data frame for the label in geom_label
-label_data <- data.frame(label = "COVID-19 Pandemic", x = 2018.5, y = 7.8)
-
-# Plotting
-ggplot(data = year_dom_gross, aes(x = year, y = mean_dom_gross)) +
-  geom_line() +
-  geom_point() +
-  geom_text_repel(data = potential_outlier, aes(label = "Outlier")) +
-  geom_label(data = label_data,
-             aes(x = x, y = y, label = label),
-             fill = "gray", alpha = 0.2, hjust = 0, vjust = 0) +
-  geom_point(data = potential_outlier, color = "red") +
-  geom_point(data = potential_outlier, color = "red", size = 3, shape = "circle open") +
-  labs(x = "Year",
-       y = "Mean Domestic Gross (millions of $)",
-       title = "Average Domestic Gross for Hollywood Movies from 2007-2022",
-       subtitle = "The average domestic gross revenue for 2020 is heavily impacted by the COVID-19 pandemic.") +
-  theme_minimal() +
-  theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot") +
-  ylim(0, 100)
-
-
-
-
-year_avg_dom_gross <- movie_data |> 
-  filter(!is.na(domestic_gross_million)) |> 
-  group_by(year) |> 
-  summarize(mean_avg_gross = round(mean(domestic_gross_million, na.rm = TRUE)))  |> 
-  arrange(desc(mean_avg_gross))
-
-potential_outlier <- year_avg_dom_gross |>
-  filter(mean_avg_gross < 50)
-
-gross_avg_dom_yearly <- ggplot(year_avg_dom_gross, 
-                               aes(x = year, 
-                                   y = mean_avg_gross)) +
-  geom_line() +
-  geom_point() +
-  labs(x = "Year", 
-       y = "Mean Opening Weekend Earnings (in millions of $)", 
-       title = "Average Opening Weekend Earnings for Hollywood Movies from 2007-2022",
-       subtitle = "The average opening weekend revenue for 2020 is heavily impacted by the COVID-19 pandemic.") +
-  theme_minimal() +
-  theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot") +
-  ylim(3, 28)
-
-
-
 
 
 
@@ -165,36 +73,65 @@ ggplot(yearly_worldwide_gross, aes(x = year, y = mean_worldwide_gross)) +
 
 
 ## Exploration 4: is there a relationship between domestic vs. foreign
-
-
-
-
+gross_rel_plot <- movie_data |> 
+  ggplot(aes(x = domestic_gross_million,
+             y = foreign_gross_million)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Relationship Between a Hollywood Movie's Domestic and Foreign Gross",
+       subtitle = "There is a strong positive correlation between the two variables.",
+       x = "Domestic Gross (in millions of $)",
+       y = "Foreign Gross (in millions of $)") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot") 
 
 ## Exploration 6: Genre-Specific Domestic and Foreign Gross Performance
-movie_data |> 
-  filter(!is.na(foreign_gross_million) & !is.na(primary_genre) & primary_genre != "")  |> 
-  ggplot(aes(x = primary_genre, y = foreign_gross_million, fill = primary_genre)) +
-  geom_boxplot() +
-  labs(title = "Genre-specific Foreign Gross Performance",
-       subtitle = "The action and adventure categories have the best performance.",
-       x = "Primary Genre",
-       y = "Foreign Gross (in millions)",
-       fill = "Primary Genre") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-
-movie_data |> 
-  filter(!is.na(domestic_gross_million) & !is.na(primary_genre) & primary_genre != "")  |> 
-  ggplot(aes(x = primary_genre, y = domestic_gross_million, fill = primary_genre)) +
+gross_domestic_genre <- movie_data |> 
+  filter(!is.na(domestic_gross_million) & 
+           !is.na(primary_genre) & 
+           primary_genre != "")  |> 
+  ggplot(aes(x = fct_reorder(primary_genre, -domestic_gross_million), 
+             y = domestic_gross_million, 
+             fill = primary_genre)) +
   geom_boxplot() +
   labs(title = "Genre-specific Domestic Gross Performance",
        subtitle = "The sci-fi category has the best performance.",
-       x = "Primary Genre",
-       y = "Domestic Gross (in millions)",
+       x = "Genre",
+       y = "Domestic Gross (in millions of $)",
        fill = "Primary Genre") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        legend.position = "none")
+
+gross_foreign_genre <- movie_data |> 
+  filter(!is.na(foreign_gross_million) & 
+           !is.na(primary_genre) & 
+           primary_genre != "")  |> 
+  ggplot(aes(x = reorder(primary_genre, -foreign_gross_million), 
+             y = foreign_gross_million, 
+             fill = primary_genre)) +
+  geom_boxplot() +
+  labs(title = "Genre-specific Foreign Gross Performance",
+       subtitle = "The action and adventure categories have the best performance.",
+       x = "Genre",
+       y = "Foreign Gross (in millions of $)",
+       fill = "Primary Genre") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        legend.position = "none") +
+  ylim(0, 800)
+
+gross_domestic_genre + gross_foreign_genre
+
+
+
 
 
 
