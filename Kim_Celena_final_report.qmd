@@ -158,15 +158,6 @@ movie_data |>
 ```
 @fig-ratings-script-type visualizes the average IMDb, Metacritic, and Rotten Tomatoes critic ratings for each of the unique script type combinations of Hollywood movies from 2007-2022. One chief idea to note is that the average IMDb rating is only available for 5 out of the 16 script types, revealing a great amount of missingness within this variable and making it difficult to reach a conlusion about the relationship between script type and average IMDb rating. For the other two rating variables, the script type with both the highest Metacritic and Rotten Tomatoes critic ratings is "documentary", suggesting that this script type is more favorable among critics than other script types. 
 
-```{r}
-#| label: fig-fill-second
-#| fig-cap: meow
-
-
-```
-
-
-
 ## Variable 2: Opening weekend revenue
 A movie's opening weekend revenue refers to the total box office earnings that the film earned during its first weekend of release in theaters. 
 ```{r}
@@ -533,10 +524,20 @@ dom_gross_distributor + for_gross_distributor
 ```
 As a final comparison of movie preference behavior between domestic and foreign audiences, @fig-dom-for-gross-distributor explores the movie distributors with the top 5 highest average domestic and foreign gross revenues. For both US and foreign audiences, the movie distributor with the most successful gross performance is Walt Disney Studios. This reveals a similarity between domestic and foreign audiences in that movies distributed by Walt Disney Studios are more popular (generate more gross revenue) than movies released by other distributors.
 
-
-
 ```{r}
-
+movie_data |> 
+  filter(budget_recovered < 10000) |> 
+  ggplot(aes(x = worldwide_gross_million,
+             y = budget_recovered)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Relationship Between a Hollywood Movie's Worldwide Gross and the Percent of its Budget Recovered",
+       subtitle = "There is a positive association between the two variables.",
+       x = "Worldwide Gross (in millions of $)",
+       y = "Percent of Budget Recovered") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot") 
 ```
 
 

@@ -119,7 +119,7 @@ rating_rt_critcs_opening_wknd <- movie_data |>
   geom_point() +
   geom_smooth(method = "lm") +
   labs(x = "Rotten Tomatoes Critic Rating",
-       y = "Opening Weekend Earnings (millions of $)",
+       y = "Opening Weekend Revenue (millions of $)",
        title = "Opening Weekend Earnings by Rotten Tomatoes Critic Rating",
        subtitle = "There is a slight positive association between a movie's Rotten Tomatoes critic score and its opening 
 weekend revenue.") +

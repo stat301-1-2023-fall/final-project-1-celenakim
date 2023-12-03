@@ -59,8 +59,13 @@ gross_domestic_genre + gross_foreign_genre
 # ![](figures/var6_figures/gross_genre_plot.png)
 # Sci fi has best domestic gross performance, action and adventure are tied for the best foreign gross performance.
 
+dom_gross_distributor + for_gross_distributor
+# ![](figures/var6_figures/gross_distributor_plot.png)
+# Walt Disney Studios has the most successful gross performance for both domestic and foreign.
 
-
+ww_gross_budget_rcvry
+# ![](figures/var6_figures/ww_gross_budget_rcvry_plot.png)
+# There is an overall positive association between a movie's ww gross performance and budget recovery percentage 
 
 
 ### VAR6_SEASONS_ANALYSIS

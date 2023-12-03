@@ -132,8 +132,13 @@ gross_domestic_genre + gross_foreign_genre
 
 
 
-# What is the correlation between variables such as `domestic_gross`, `foreign_gross`, `wordwide_gross`, and `budget_recovered`?
-
+# What is the correlation between `wordwide_gross` and `budget_recovered`?
+movie_data |> 
+  filter(budget_recovered < 30000) |> 
+  ggplot(aes(x = worldwide_gross_million,
+             y = budget_recovered)) +
+  geom_point() +
+  geom_smooth(method = "lm")
 
 
 
@@ -183,6 +188,67 @@ movie_data |>
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 
+dom_gross_distributor <- movie_data |> 
+  filter(!is.na(distributor)) |> 
+  group_by(distributor) |> 
+  summarize(avg_dom_gross = mean(domestic_gross_million, 
+                                 na.rm = TRUE)) |> 
+  arrange(desc(avg_dom_gross)) |> 
+  slice_head(n = 5) |> 
+  ggplot(aes(x = reorder(distributor, 
+                         -avg_dom_gross), 
+             y = avg_dom_gross)) +
+  geom_bar(stat = "identity", 
+           fill = "skyblue") +
+  labs(title = "Top 5 Movie Distributors with the Highest 
+Domestic Gross",
+       subtitle = "Walt Disney Studios had the most successful domestic gross 
+performance.",
+       x = "Distributor",
+       y = "Average Domestic Gross (in millions of $)") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 12),
+        plot.subtitle = element_text(size = 9),
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        axis.title.y = element_text(size = 9)) +
+  ylim(0, 800)
+
+
+for_gross_distributor <- movie_data |> 
+  filter(!is.na(distributor)) |> 
+  group_by(distributor) |> 
+  summarize(avg_for_gross = mean(foreign_gross_million, 
+                                 na.rm = TRUE)) |> 
+  arrange(desc(avg_for_gross)) |> 
+  slice_head(n = 5) |> 
+  ggplot(aes(x = reorder(distributor, 
+                         -avg_for_gross), 
+             y = avg_for_gross)) +
+  geom_bar(stat = "identity", 
+           fill = "lightgreen") +
+  labs(title = "Top 5 Movie Distributors with the Highest 
+Foreign Gross",
+       subtitle = "Walt Disney Studios had the most successful foreign gross 
+performance.",
+       x = "Distributor",
+       y = "Average Foreign Gross (in millions of $)") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 12),
+        plot.subtitle = element_text(size = 9),
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        axis.title.y = element_text(size = 9)) +
+  ylim(0, 800)
+
+
+dom_gross_distributor + for_gross_distributor
+
+
 # Revenue and Oscar Wins: Analyze the relationship between box office revenue and the number of Oscar wins.
 movie_data |> 
   filter(!is.na(oscar_winners)) |> 
@@ -195,5 +261,22 @@ movie_data |>
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot")
+
+
+# Analyze the relationship between worldwide gross and budget recovery
+ww_gross_budget_rcvry <- movie_data |> 
+  filter(budget_recovered < 10000) |> 
+  ggplot(aes(x = worldwide_gross_million,
+             y = budget_recovered)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Relationship Between a Hollywood Movie's Worldwide Gross and the Percent of its Budget Recovered",
+       subtitle = "There is a positive association between the two variables.",
+       x = "Worldwide Gross (in millions of $)",
+       y = "Percent of Budget Recovered") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot") 
+
 
 
