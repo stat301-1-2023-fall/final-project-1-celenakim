@@ -43,6 +43,8 @@ As an avid movie lover, I have always been curious about what factors play into 
 ## Data Overview and Quality
 text
 
+there were many variables not conducive to perform an analysis on, such as being character type vars and the oscar not being a bool
+
 # Explorations: What variables contribute to a movie's overall success rate?
 ## Variable 1: Ratings
 Within this dataset, the 3 main movie rating measures are the Rotten Tomatoes score (audience and critic), Metacritic score (audience and critic), and IMDb rating. 
@@ -76,6 +78,78 @@ over the years overall. Critics seem to rate lower than audiences.",
   ylim(0, 100)
 ```
 @fig-yearly-avg-ratings visualizes how the average of Rotten Tomatoes and Metacritic scores have changed over the years, separated by audience and critic rating groups. Overall, it appears that these ratings as a whole have increased since 2007. Additionally, the audience rating group seems to consistenly give higher ratings than the critic rating group. This analysis of ratings over the years serves to help us understand how much the numbers for the two rating groups of audience and critics differ, as well as visualizing the overall pattern of critic ratings over the years.
+
+```{r}
+#| label: fig-critic-ratings-oscar
+#| fig-cap: The average of Rotten Tomatoes critic ratings and Metacritic critic ratings for movies that have won at least one Oscar and movies who have not won any Oscars.
+
+movie_data |> 
+  filter(!is.na(oscar_winners)) |> 
+  group_by(oscar_winners) |> 
+  summarize(mean_critic_rating = round(mean(average_critics, 
+                                               na.rm = TRUE))) |> 
+  DT::datatable()
+```
+@fig-critic-ratings-oscar makes use of two measures of movie success that are determined solely by movie critics: Oscar wins and average critic movie ratings. As can be seen in the table, Hollywood movies that have won at least one Oscar award have a higher average of Rotten Tomatoes and Metacritic critic ratings than those who have not won any Oscars. This correlations suggests a similar pattern between critical assessment and award recognition, in that movies who are praised enough to win an Oscar are also favored highly among Rotten Tomatoes and Metacritic critics.
+
+```{r}
+#| label: fig-fill
+#| fig-cap: meow
+
+
+```
+Rotten Tomatoes critic ratings are typically released before the movie hits theaters. Thus, 
+
+```{r}
+#| label: fig-ratings-script-type
+#| fig-cap: The average IMDb, Metacritic, and Rotten Tomatoes critic ratings for each unique script type combination of Hollywood movies.
+
+movie_data |> 
+  filter(!is.na(script_type)) |> 
+  group_by(script_type) |> 
+  summarize(avg_rotten_tomatoes_critics = mean(rotten_tomatoes_critics, 
+                                               na.rm = TRUE),
+            avg_metacritc_critics = mean(metacritic_critics, 
+                                         na.rm = TRUE),
+            avg_im_db_rating = mean(im_db_rating, 
+                                    na.rm = TRUE)) |> 
+  gather(key = "rating_type", 
+         value = "average_rating", 
+         -script_type) |> 
+  ggplot(aes(x = script_type, 
+             y = average_rating, 
+             fill = rating_type)) +
+  geom_bar(stat = "identity", 
+           position = "dodge", 
+           color = "white",
+           width = 1) +
+  labs(title = "Average IMDb, Metacritic, and Rotten Tomatoes Critic Ratings by Script Type",
+       subtitle = "A majority of script types are missing information about their average IMDb rating.",
+       x = "Script Type",
+       y = "Average Rating",
+       fill = "Rating Type") +
+  scale_fill_manual(values = c("avg_rotten_tomatoes_critics" = "salmon", 
+                               "avg_metacritc_critics" = "lightblue", 
+                               "avg_im_db_rating" = "lightgreen"),
+                    labels = c(avg_rotten_tomatoes_critics = "Rotten Tomatoes Critics",
+                               avg_metacritc_critics = "Metacritic Critics",
+                               avg_im_db_rating = "IMDb")) +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 90, hjust = 1),
+        legend.position = "top")
+```
+@fig-ratings-script-type visualizes the average IMDb, Metacritic, and Rotten Tomatoes critic ratings for each of the unique script type combinations of Hollywood movies from 2007-2022. One chief idea to note is that the average IMDb rating is only available for 5 out of the 16 script types, revealing a great amount of missingness within this variable and making it difficult to reach a conlusion about the relationship between script type and average IMDb rating. For the other two rating variables, the script type with both the highest Metacritic and Rotten Tomatoes critic ratings is "documentary", suggesting that this script type is more favorable among critics than other script types. 
+
+```{r}
+#| label: fig-fill-second
+#| fig-cap: meow
+
+
+```
+
+
 
 ## Variable 2: Opening weekend revenue
 A movie's opening weekend revenue refers to the total box office earnings that the film earned during its first weekend of release in theaters. 
@@ -139,7 +213,7 @@ movie_data |>
         plot.title.position = "plot")
 
 ```
-In @fig-opening-wknd-by-budget, there is a clear positive association between a Hollywood movie's budget and its opening weeked earnings. This suggests that, on average, movies with higher production budgets tend to achieve greater financial success during their initial release weekends. From this, it can be concluded that the variables of movie budget and opening weekend revenue are related to one another, in that the budget of a movie impacts it's opening weekend revenue earnings.
+In @fig-opening-wknd-by-budget, there is a clear positive association between a Hollywood movie's budget and its opening weeked earnings. This suggests that, on average, movies with higher production budgets tend to achieve greater financial success during their initial release weekends. From this, it can be concluded that the variables of movie budget and opening weekend revenue are related to one another, in that as the budget of movies increases, their opening weekend revenue earnings also increase.
 
 ```{r}
 #| label: fig-opening-wknd-by-genre-script-type
@@ -195,7 +269,7 @@ highest average opening weekend revenue.",
 
 genre_opening_wknd_plot + scripttype_opening_wknd_plot
 ```
-@fig-opening-wknd-by-genre-script-type displays that the genre combination that earned the greatest average revenue during its opening weekend of release is sci-fi & fantasy, and the script type combination that earned the greatest average revenue during its opening weekend of release is sequel & adaptation. This suggests that the movies categorized as a sci-fi fantasy genre hybrid earned more most during the first weekend of their release than other genre combinations, and movies categorized as a sequel adaptation script type hybrid also earned that title.
+@fig-opening-wknd-by-genre-script-type displays that the genre combination that earned the greatest average revenue during its opening weekend of release is sci-fi & fantasy, and the script type combination that earned the greatest average revenue during its opening weekend of release is sequel & adaptation. This suggests that the movies categorized as a sci-fi fantasy genre hybrid earned more during the first weekend of their release than other genre combinations, and movies categorized as a sequel adaptation script type hybrid also earned that title.
 
 ```{r}
 #| label: fig-opening-wknd-oscar

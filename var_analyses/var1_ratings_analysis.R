@@ -7,7 +7,7 @@ library(patchwork)
 
 
 ## Exploration 1: Average critic and audience ratings over the years
-var1_exp1_plot <- movie_data |> 
+ratings_yearly_plot <- movie_data |> 
   group_by(year) |> 
   summarize(avg_critics_ratings = mean(average_critics, 
                                        na.rm = TRUE),
@@ -31,7 +31,7 @@ over the years overall. Critics seem to rate lower than audiences.",
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot") +
   ylim(0, 100)
-var1_exp1_plot
+ratings_yearly_plot
 
 
 
@@ -79,20 +79,25 @@ ggplot(yearly_mc_critic_rating, aes(x = year, y = mean_mc_rating)) +
 
 
 ### Exploration 5: Do movies that have won Oscars have better Rotten Tomatoes critic ratings?
-rt_rating_oscar <- movie_data |> 
+critic_ratings_oscar_table <- movie_data |> 
+  filter(!is.na(oscar_winners)) |> 
   group_by(oscar_winners) |> 
-  summarize(mean_rt_critic_rating = round(mean(rotten_tomatoes_critics, na.rm = TRUE))) |> 
+  summarize(mean_critic_rating = round(mean(average_critics, 
+                                            na.rm = TRUE))) |> 
   DT::datatable()
-rt_rating_oscar
+
 
 ### Exploration 6: Which distributor has the highest IMDb rating?
 imdb_rating_by_dist <- movie_data |> 
   group_by(distributor) |> 
-  summarize(mean_distr_imdb = mean(im_db_rating, na.rm = TRUE)) |> 
-  arrange(desc(mean_distr_imdb)) |> 
+  summarize(mean_imdb = mean(im_db_rating, na.rm = TRUE),
+            mean_opening_wknd_rev = mean(opening_weekend_million, na.rm = TRUE),
+            mean_worldwide_gross = mean(worldwide_gross_million, na.rm = TRUE)) |> 
+  arrange(desc(mean_imdb)) |> 
   slice_head(n = 3) |> 
   DT::datatable()
 imdb_rating_by_dist
+
 
 
 ### Exploration 7: What is the correlation between a movie's IMDb rating and opening weekend success?
@@ -109,20 +114,40 @@ movie_data |>
 
 
 ## Explore the average ratings (critics and audience) for each primary genre.
-movie_data %>%
-  group_by(script_type) %>%
-  summarize(avg_rotten_tomatoes_critics = mean(rotten_tomatoes_critics, na.rm = TRUE),
-            avg_rotten_tomatoes_audience = mean(rotten_tomatoes_audience, na.rm = TRUE),
-            avg_im_db_rating = mean(im_db_rating, na.rm = TRUE)) %>%
-  gather(key = "rating_type", value = "average_rating", -script_type) %>%
-  ggplot(aes(x = script_type, y = average_rating, fill = rating_type)) +
-  geom_bar(stat = "identity", position = "dodge", color = "white") +
-  labs(title = "Average Ratings by Genre",
-       x = "Primary Genre",
-       y = "Average Rating") +
+ratings_script_type_plot <- movie_data |> 
+  filter(!is.na(script_type)) |> 
+  group_by(script_type) |> 
+  summarize(avg_rotten_tomatoes_critics = mean(rotten_tomatoes_critics, 
+                                               na.rm = TRUE),
+            avg_metacritc_critics = mean(metacritic_critics, 
+                                         na.rm = TRUE),
+            avg_im_db_rating = mean(im_db_rating, 
+                                    na.rm = TRUE)) |> 
+  gather(key = "rating_type", 
+         value = "average_rating", 
+         -script_type) |> 
+  ggplot(aes(x = script_type, 
+             y = average_rating, 
+             fill = rating_type)) +
+  geom_bar(stat = "identity", 
+           position = "dodge", 
+           color = "white",
+           width = 1) +
+  labs(title = "Average IMDb, Metacritic, and Rotten Tomatoes Critic Ratings by Script Type",
+       subtitle = "A majority of script types are missing information about their average IMDb rating.",
+       x = "Script Type",
+       y = "Average Rating",
+       fill = "Rating Type") +
+  scale_fill_manual(values = c("avg_rotten_tomatoes_critics" = "salmon", 
+                               "avg_metacritc_critics" = "lightblue", 
+                               "avg_im_db_rating" = "lightgreen"),
+                    labels = c(avg_rotten_tomatoes_critics = "Rotten Tomatoes Critics",
+                               avg_metacritc_critics = "Metacritic Critics",
+                               avg_im_db_rating = "IMDb")) +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 90, hjust = 1),
+        legend.position = "top")
 
 
