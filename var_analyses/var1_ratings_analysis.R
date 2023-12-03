@@ -111,6 +111,42 @@ movie_data |>
        subtitle = "There is an overall positive association between a movie's budget and it's opening weekend earnings.")
 
 
+## How do rotten tomato critic ratings influence its opening weekend rev?
+rating_rt_critcs_opening_wknd <- movie_data |> 
+  ggplot(aes(x = rotten_tomatoes_critics,
+             y = opening_weekend_million)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Rotten Tomatoes Critic Rating",
+       y = "Opening Weekend Earnings (millions of $)",
+       title = "Opening Weekend Earnings by Rotten Tomatoes Critic Rating",
+       subtitle = "There is a slight positive association between a movie's Rotten Tomatoes critic score and its opening 
+weekend revenue.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 90, hjust = 1),
+        legend.position = "top")
+
+
+# Which distributor has the highest rotten tomato critic rating? How do its opening weekend rev and worldwide gross compare to other distributors# 
+movie_data |> 
+  group_by(distributor) |> 
+  summarize(mean_rt_critics = mean(rotten_tomatoes_critics, na.rm = TRUE)) |> 
+  arrange(desc(mean_rt_critics)) |> 
+  slice_head(n = 5) |> 
+  DT::datatable()
+
+movie_data |> 
+  filter(distributor == "Cinereach" | distributor == "Sony Pictures Classics" | distributor == "A24") |>
+  group_by(distributor) |> 
+  summarize(mean_imdb = mean(im_db_rating, na.rm = TRUE),
+            mean_opening_wknd_rev = mean(opening_weekend_million, na.rm = TRUE),
+            mean_worldwide_gross = mean(worldwide_gross_million, na.rm = TRUE))
+
+summarize(mean_imdb = mean(im_db_rating, na.rm = TRUE),
+          mean_opening_wknd_rev = mean(opening_weekend_million, na.rm = TRUE),
+          mean_worldwide_gross = mean(worldwide_gross_million, na.rm = TRUE))
 
 
 ## Explore the average ratings (critics and audience) for each primary genre.
