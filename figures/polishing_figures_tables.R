@@ -5,19 +5,19 @@ library(patchwork)
 
 ### VAR1_RATINGS_ANALYSIS
 ratings_yearly_plot
-# ![](figures/var2_figures/ratings_yearly_plot.png)
+# ![](figures/var1_figures/ratings_yearly_plot.png)
 # Average ratings for both groups increased over the years, critics rate lower than audiences.
 
 critic_ratings_oscar_table
-# ![](figures/var2_figures/critic_ratings_oscar_table.png)
+# ![](figures/var1_figures/critic_ratings_oscar_table.png)
 # Movies who have won at least one Oscar have a higher mean rt critic rating than those who have not won any Oscars.
 
 rating_rt_critcs_opening_wknd
-# ![](figures/var2_figures/rating_rt_critcs_opening_wknd_plot.png)
+# ![](figures/var1_figures/rating_rt_critcs_opening_wknd_plot.png)
 # Movies who have won at least one Oscar have a higher mea
 
 ratings_script_type_plot
-# ![](figures/var2_figures/ratings_script_type_plot.png)
+# ![](figures/var1_figures/ratings_script_type_plot.png)
 # A majority of script types do not have information available for the IMDb rating.
 
 
@@ -25,7 +25,7 @@ ratings_script_type_plot
 ### VAR2_OPENING_WEEKEND_REV_ANALYSIS
 opening_wknd_yearly
 # ![](figures/var2_figures/opening_wknd_yearly_plot.png)
-# The opening weekend rev for 2020 is highly impacted by the pandemic.
+# The opening weekend rev for 2020 is highly impacted by the pandemic, 2008 by the great recession.
 
 genre_opening_wknd_plot + scripttype_opening_wknd_plot
 # ![](figures/var2_figures/opening_wknd_genre_script_plot.png)
@@ -48,24 +48,39 @@ opening_wknd_domgross + opening_wknd_forgross
 
 ### VAR3_GROSS_ANALYSIS
 gross_dom_yearly
-# ![](figures/var6_figures/gross_dom_yearly_plot.png)
-# Same pattern for opening wknd, 2020 is highly impacted by the pandemic.
+# ![](figures/var3_figures/gross_dom_yearly_plot.png)
+# Same pattern for opening wknd, 2020 is highly impacted by the pandemic, 2008 by great recession.
 
 gross_rel_plot
-# ![](figures/var6_figures/gross_rel_plot.png)
+# ![](figures/var3_figures/gross_rel_plot.png)
 # There is a direct strong positive correlation, domestic and foreign audiences have similar behavior in movie favorability.
 
 gross_domestic_genre + gross_foreign_genre
-# ![](figures/var6_figures/gross_genre_plot.png)
+# ![](figures/var3_figures/gross_genre_plot.png)
 # Sci fi has best domestic gross performance, action and adventure are tied for the best foreign gross performance.
 
 dom_gross_distributor + for_gross_distributor
-# ![](figures/var6_figures/gross_distributor_plot.png)
+# ![](figures/var3_figures/gross_distributor_plot.png)
 # Walt Disney Studios has the most successful gross performance for both domestic and foreign.
 
 ww_gross_budget_rcvry
-# ![](figures/var6_figures/ww_gross_budget_rcvry_plot.png)
+# ![](figures/var3_figures/ww_gross_budget_rcvry_plot.png)
 # There is an overall positive association between a movie's ww gross performance and budget recovery percentage 
+
+
+
+### VAR4_BUDGET_ANALYSIS
+budget_yearly
+# ![](figures/var4_figures/budget_yearly_plot.png)
+# Same pattern, 2020 is highly impacted by the pandemic, 2008 by great recession.
+
+
+
+### VAR5_OSCAR_ANALYSIS
+
+
+
+
 
 
 ### VAR6_SEASONS_ANALYSIS
