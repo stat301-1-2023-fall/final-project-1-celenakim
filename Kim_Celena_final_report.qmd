@@ -1041,7 +1041,25 @@ text
 text
 
 ## Appendix: extra explorations
-![](figures/extra_explos_figures/primary_genre_script_type_plot.png)
+```{r}
+#| label: fig-genre-script-type
+#| fig-cap: A visualization of the genres present in each category of movie script type.
+
+movie_data |> 
+  filter(!is.na(primary_genre) & !is.na(script_type)) |> 
+  ggplot(aes(x = script_type, fill = primary_genre)) +
+  geom_bar() +
+  theme(legend.position = "bottom") +
+  labs(title = "Genre Makeup of Each Script Type",
+       subtitle = "Remakes are solely made up of western movies.",
+       x = "Script Type",
+       y = "Count",
+       fill = "Genre") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot")
+```
+
 
 ```{r}
 #| label: fig-genre-trends
@@ -1054,10 +1072,14 @@ movie_data |>
   ggplot(aes(x = year, y = count, color = primary_genre)) +
   geom_line() +
   labs(title = "Popularity of Genres Over Years",
+       subtitle = "Most movies are categorized as action.",
        x = "Year",
        y = "Number of Movies",
        color = "Primary Genre")  +
   theme_minimal() +
-  ylim(0, 30)
+  ylim(0, 30)  +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot")
 ```
 

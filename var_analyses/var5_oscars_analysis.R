@@ -12,6 +12,16 @@ library(patchwork)
 # relationship between budget and the number of Oscar wins.
 # Oscar detail analysis– which oscar award category has the highest budget? Highest worldwide gross? Highest opening weekend rev? Highest ratings?
   
+# yearly oscars
+movie_data |> 
+  group_by(year) |> 
+  summarize(oscar_count = sum(oscar_winners)) |> 
+  arrange(desc(oscar_count)) |> 
+  ggplot(aes(x = year, y = oscar_count)) +
+  geom_line() +
+  geom_point() +
+  ylim(0, 8) +
+  scale_x_continuous(breaks = seq(min(movie_data$year), max(movie_data$year), by = 2))
 
 
 
@@ -135,6 +145,32 @@ movie_data |>
   geom_boxplot() 
 
 
+# which oscar award has the highest ratings?
+movie_data |> 
+  filter(!is.na(oscar_detail)) |> 
+  group_by(oscar_detail) |> 
+  summarize(mean_rt_critic_rating = mean(rotten_tomatoes_critics, na.rm = TRUE),
+            mean_rt_audience_rating = mean(rotten_tomatoes_audience, na.rm = TRUE),
+            mean_metacritic_critic_rating = mean(metacritic_critics, na.rm = TRUE),
+            mean_metacritic_audience_rating = mean(metacritic_audience, na.rm = TRUE)) |> 
+  DT::datatable()
+
+movie_data |> 
+  filter(!is.na(oscar_detail)) |> 
+  group_by(oscar_detail) |> 
+  summarize(mean_critic = mean(average_critics, na.rm = TRUE)) |>
+  arrange(desc(mean_critic)) |> 
+  slice_head(n = 10) |> 
+  DT::datatable()
+
+# which distributor has the highest oscar wins
+movie_data |> 
+  filter(!is.na(oscar_winners) | !is.na(distributor)) |> 
+  group_by(distributor) |> 
+  summarize(oscar_count = sum(oscar_winners, na.rm = TRUE)) |> 
+  arrange(desc(oscar_count))
+
+
 
 ### Exploration 3: Do movies that have won Oscars have better Rotten Tomatoes critic ratings?
 rt_rating_oscar <- movie_data |> 
@@ -173,8 +209,6 @@ movie_data |>
 
 
 
-script type, won oscars
-distributor, won oscras
 
 movie_data |> 
   group_by(script_type) |> 
@@ -229,4 +263,23 @@ movie_data |>
   summarize(mean_budget = mean(budget_million)) |> 
   arrange(desc(mean_budget)) |> 
   slice_head(n = 1)
+
+
+
+movie_data |> 
+  filter(!is.na(primary_genre) & !is.na(script_type)) |> 
+  ggplot(aes(x = script_type, fill = primary_genre)) +
+  geom_bar() +
+  theme(legend.position = "bottom") +
+  labs(title = "Genre Makeup of Each Script Type",
+       subtitle = "Remakes are solely made up of western movies.",
+       x = "Script Type",
+       y = "Count",
+       fill = "Genre") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot")
+
+distinct(oscar_detail$movie_data)
+
 
