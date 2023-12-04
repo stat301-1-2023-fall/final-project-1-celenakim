@@ -5,23 +5,94 @@ library(patchwork)
 
 # Oscars: Oscar wins
 
+# Which genre has the highest Oscar wins? Which script type has the highest Oscar wins?
+# relationship between worldwide gross and the number of Oscar wins.
+# relationship between critic ratings and the number of Oscar wins.
+# relationship between opening weekend rev and the number of Oscar wins.
+# relationship between budget and the number of Oscar wins.
+# Oscar detail analysis– which oscar award category has the highest budget? Highest worldwide gross? Highest opening weekend rev? Highest ratings?
+  
+
+
+
 ### Exploration 1: Which genre has the highest Oscar wins?
+### Exploration 2: Which script type has the highest Oscar wins?
 genre_oscar_counts <- movie_data |> 
   group_by(genre) |> 
   summarize(oscar_count = sum(oscar_winners)) |> 
   arrange(desc(oscar_count)) |> 
-  slice_head(n = 3)|> 
+  slice_head(n = 5)|> 
   DT::datatable()
-genre_oscar_counts
 
-### Exploration 2: Which script type has the highest Oscar wins?
+
 scripttype_oscar_counts <- movie_data |> 
+  filter(script_type != "") |> 
   group_by(script_type) |> 
   summarize(st_oscar_count = sum(oscar_winners, na.rm = TRUE)) |> 
   arrange(desc(st_oscar_count)) |> 
-  slice_head(n = 3)|> 
+  slice_head(n = 4)|> 
   DT::datatable()
-scripttype_oscar_counts
+
+
+
+genre_oscar_counts <- movie_data |> 
+  filter(genre != "Action, Adventure, Mystery, Thriller, Fantasy, Comedy, Romance, Animation, Family, Musical") |> 
+  group_by(genre) |> 
+  summarize(oscar_count = sum(oscar_winners)) |> 
+  arrange(desc(oscar_count)) |> 
+  slice_head(n = 5)
+
+genre_oscar_wins <- genre_oscar_counts |> 
+  ggplot(aes(x = fct_reorder(genre, -oscar_count), 
+             y = oscar_count, 
+             fill = genre)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Top 5 Movies with the Most Oscar Wins by Genre",
+       subtitle = "The 'biography & history' genre combination has the most Oscars.",
+       x = "Genre",
+       y = "Number of Oscar Wins") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 10),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 9),
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        legend.position = "none")
+
+
+script_type_oscar_counts <- movie_data |> 
+  filter(script_type != "") |> 
+  group_by(script_type) |> 
+  summarize(st_oscar_count = sum(oscar_winners, 
+                                 na.rm = TRUE)) |> 
+  arrange(desc(st_oscar_count)) |> 
+  slice_head(n = 5)
+
+script_type_oscar_wins <- script_type_oscar_counts |> 
+  ggplot(aes(x = fct_reorder(script_type, -st_oscar_count), 
+             y = st_oscar_count, 
+             fill = script_type)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Top 5 Movies with the Most Oscar Wins by Script Type",
+       subtitle = "The 'original screenplay' script type has the most Oscars.",
+       x = "Script Type",
+       y = "Number of Oscar Wins") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 10),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 9),
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        legend.position = "none") +
+  scale_y_continuous(breaks = seq(0, 
+                                  max(script_type_oscar_counts$st_oscar_count), 
+                                  by = 5)) +
+  scale_fill_viridis_d() 
+
+genre_oscar_wins + script_type_oscar_wins
+
 
 # makes sense, based on script type trends over years
 movie_data |> 

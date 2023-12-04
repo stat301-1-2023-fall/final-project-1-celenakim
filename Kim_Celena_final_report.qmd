@@ -223,7 +223,7 @@ COVID-19 pandemic.") +
 
 ```{r}
 #| label: fig-budget-rcvry-opening-wknd
-#| fig-cap: A
+#| fig-cap: The relationship between a movie's earnings during the first weekend of its release and its budget recovery earnings.
 
 movie_data |> 
   mutate(budget_recovered_millions = round(budget_million * (budget_recovered / 100))) |> 
@@ -238,6 +238,8 @@ movie_data |>
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot")
 ```
+@fig-budget-rcvry-opening-wknd explores the relationship between a movie's opening weekend revenue and how much it earns to recover it's production cost (budget recovery). There is a clear strong, positive correlation between the two variables, suggesting that as the amount of money a movie earns during the first weekend of its release in theaters increases, the the amount of money it will earn to recover its budget will also increase.
+
 
 ```{r}
 #| label: fig-opening-wknd-by-genre-script-type
@@ -771,8 +773,70 @@ budget_critic + budget_audience + budget_imdb
 
 ## Variable 5: Oscar Wins
 ```{r}
+#| label: fig-genre-script-type-oscars
+#| fig-cap: The top 5 movies with the most Oscar wins, by genre and script type.
 
+genre_oscar_counts <- movie_data |> 
+  filter(genre != "Action, Adventure, Mystery, Thriller, Fantasy, Comedy, Romance, Animation, Family, Musical") |> 
+  group_by(genre) |> 
+  summarize(oscar_count = sum(oscar_winners)) |> 
+  arrange(desc(oscar_count)) |> 
+  slice_head(n = 5)
+
+genre_oscar_wins <- genre_oscar_counts |> 
+  ggplot(aes(x = fct_reorder(genre, 
+                             -oscar_count), 
+             y = oscar_count, 
+             fill = genre)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Top 5 Movies with the Most Oscar Wins by Genre",
+       subtitle = "The biography & history genre combination has the most Oscars.",
+       x = "Genre",
+       y = "Number of Oscar Wins") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 9),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 8),
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1), 
+        legend.position = "none")
+
+
+script_type_oscar_counts <- movie_data |> 
+  filter(script_type != "") |> 
+  group_by(script_type) |> 
+  summarize(st_oscar_count = sum(oscar_winners, 
+                                 na.rm = TRUE)) |> 
+  arrange(desc(st_oscar_count)) |> 
+  slice_head(n = 5)
+
+script_type_oscar_wins <- script_type_oscar_counts |> 
+  ggplot(aes(x = fct_reorder(script_type, 
+                             -st_oscar_count), 
+             y = st_oscar_count, 
+             fill = script_type)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Top 5 Movies with the Most Oscar Wins by Script Type",
+       subtitle = "The original screenplay script type has the most Oscars.",
+       x = "Script Type",
+       y = "Number of Oscar Wins") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 9),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 8),
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        legend.position = "none") +
+  scale_y_continuous(breaks = seq(0,
+                                  max(script_type_oscar_counts$st_oscar_count), 
+                                  by = 5)) +
+  scale_fill_viridis_d() 
+
+genre_oscar_wins + script_type_oscar_wins
 ```
+@fig-genre-script-type-oscars displays that the genre combination with the most Oscar wins is "biography, history", and the script type with the most Oscar wins is "original screenplay". This suggests that the movies categorized as "biography, history" or "original screenplay" are more successful among Oscar voters.
 
 
 ```{r}

@@ -93,7 +93,25 @@ budget_critic + budget_audience + budget_imdb
 
 
 ### VAR5_OSCAR_ANALYSIS
+genre_oscar_wins + script_type_oscar_wins
+# ![](figures/var5_figures/oscars_genre_script_type_plot.png)
+#
 
+plot
+# ![](figures/var5_figures/_plot.png)
+#
+
+plot
+# ![](figures/var5_figures/_plot.png)
+#
+
+plot
+# ![](figures/var5_figures/_plot.png)
+#
+
+plot
+# ![](figures/var5_figures/_plot.png)
+#
 
 
 
