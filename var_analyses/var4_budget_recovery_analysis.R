@@ -60,15 +60,37 @@ budget_yearly <- ggplot(yearly_movie_budget, aes(x = year, y = mean_movie_budget
 
 
 ### Exploration 2: What is the correlation between a movie's budget and opening weekend success?
-movie_data |> 
+budget_opening_wknd <- movie_data |> 
   ggplot(aes(x = budget_million, y = opening_weekend_million)) +
   geom_point() +
   geom_smooth(method = "lm") +
-  labs(x = "Movie Budget (millions)",
-       y = "Opening Weekend Earnings (millions)",
-       title = "Opening Weekend Earnings by Movie Budget (millions)",
-       subtitle = "There is an overall positive association between a movie's budget and it's opening weekend earnings.")
+  labs(x = "Movie Budget (millions of $)",
+       y = "Opening Weekend Earnings (millions of $)",
+       title = "Movie Budget by Opening Weekend Revenue",
+       subtitle = "There is a direct positive association between the 
+two variables.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold", 
+                                  size = 12),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 11))
 
+budget_ww_gross <- movie_data |> 
+  ggplot(aes(x = budget_million, y = worldwide_gross_million)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Movie Budget (millions of $)",
+       y = "Worldwide Gross (millions of $)",
+       title = "Movie Budget by Worldwide Gross",
+       subtitle = "There is a direct positive association between the 
+two variables.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 12),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 11))
+
+budget_opening_wknd + budget_ww_gross
 
 
 ### Exploration 3: What is the correlation between a movie's opening weekend revenue and its budget recovered during opening weekend?
@@ -86,18 +108,93 @@ budget_rcvry_opening_wknd <- movie_data |>
         plot.title.position = "plot")
 
 
+### budget and avg critic and audience ratings
+budget_critic <- movie_data |> 
+  ggplot(aes(x = budget_million, y = average_critics)) +
+  geom_point(alpha = 0.25) +
+  geom_smooth(method = "lm",
+              se = FALSE) +
+  labs(x = "Budget (millions of $)",
+       y = "Average Critic Rating",
+       title = "Critic Ratings by Movie Budget",
+       subtitle = "There is a very weak association between 
+the two variables.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 10),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 9))
 
-### Exploration 4: Facet by script type
-movie_data |> 
-  mutate(budget_recovered_millions = round(budget_million * (budget_recovered / 100))) |> 
-  ggplot(aes(x = budget_recovered_millions, fill = script)) +
-  geom_bar(stat = "identity") 
+budget_audience <- movie_data |> 
+  ggplot(aes(x = budget_million, y = average_audience)) +
+  geom_point(alpha = 0.25) +
+  geom_smooth(method = "lm",
+              se = FALSE) +
+  labs(x = "Budget (millions of $)",
+       y = "Average Audience Rating",
+       title = "Audience Ratings by Movie Budget",
+       subtitle = "There is a very weak association between 
+the two variables.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 10),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 9))
 
+budget_imdb <- movie_data |> 
+  ggplot(aes(x = budget_million, y = im_db_rating)) +
+  geom_point(alpha = 0.25) +
+  geom_smooth(method = "lm",
+              se = FALSE) +
+  labs(x = "Budget (millions of $)",
+       y = "IMDb Rating",
+       title = "IMDb Ratings by Movie Budget",
+       subtitle = "There is a very weak association between 
+the two variables.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 10),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 9))
+
+budget_critic + budget_audience + budget_imdb
+
+
+
+### Exploration 4: Facet by genre
+budget_by_genre <- movie_data |> 
+  filter(!is.na(budget_million) & 
+           !is.na(primary_genre) & 
+           primary_genre != "")  |> 
+  ggplot(aes(x = reorder(primary_genre, 
+                         -budget_million), 
+             y = budget_million, 
+             fill = primary_genre)) +
+  geom_boxplot() +
+  labs(title = "Genre-specific Movie Budgets",
+subtitle = "The fantasy genre has the highest average production budget.",
+x = "Genre",
+y = "Average Budget (millions of $)",
+fill = "Primary Genre") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        legend.position = "none")
 
 
 ### Exploration 5: budget vs. oscar wins
-
-
-
+budget_oscars <- movie_data |> 
+  filter(!is.na(oscar_winners)) |> 
+  ggplot(aes(x = budget_million, y = oscar_winners)) +
+  geom_boxplot() +
+  labs(title = "Distribution of Movie Budget by Oscar Wins",
+       subtitle = "Oscar winning movies have a lower average budget.",
+       x = "Production Budget (millions of $)",
+       y = "Oscar Winner") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot")
 
 

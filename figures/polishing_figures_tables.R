@@ -31,9 +31,9 @@ genre_opening_wknd_plot + scripttype_opening_wknd_plot
 # ![](figures/var2_figures/opening_wknd_genre_script_plot.png)
 # Top 5 opening weekend revenues by genre and script type.
 
-opening_wknd_budget_plot
-# ![](figures/var2_figures/opening_wknd_budget_plot.png)
-# There is a direct postive association.
+budget_rcvry_opening_wknd
+# ![](figures/var2_figures/budget_rcvry_opening_wknd_plot.png)
+# There is a very strong positive asociation between the two variables
 
 opening_wknd_oscar
 # ![](figures/var2_figures/opening_wknd_oscar_plot.png)
@@ -73,6 +73,22 @@ ww_gross_budget_rcvry
 budget_yearly
 # ![](figures/var4_figures/budget_yearly_plot.png)
 # Same pattern, 2020 is highly impacted by the pandemic, 2008 by great recession.
+
+budget_opening_wknd + budget_ww_gross
+# ![](figures/var4_figures/budget_opening_wknd_ww_gross_plot.png)
+# There is a direct postive association.
+
+budget_by_genre
+# ![](figures/var4_figures/budget_by_genre_plot.png)
+# Fantasy genre has the highest production budget.
+
+budget_oscars
+# ![](figures/var4_figures/budget_oscars_plot.png)
+# Fantasy genre has the highest production budget.
+
+budget_critic + budget_audience + budget_imdb
+# ![](figures/var4_figures/budget_ratings_plot.png)
+# Weak positive associations for all graphs
 
 
 

@@ -297,7 +297,7 @@ genre_opening_wknd_plot + scripttype_opening_wknd_plot
 
 ```{r}
 #| label: fig-opening-wknd-oscar
-#| fig-cap: The disribution of opening weekend revenue for movies that have one at least won Oscar award and movies who have won 0 Oscars.
+#| fig-cap: The disribution of opening weekend revenue for movies that have won at least one Oscar award and movies who have won 0 Oscars.
 movie_data |> 
   filter(!is.na(oscar_winners)) |> 
   ggplot(aes(x = opening_weekend_million, y = oscar_winners)) +
@@ -667,20 +667,106 @@ In @fig-opening-wknd-by-budget, there is a clear positive association between a 
 
 
 ```{r}
+#| label: fig-budget-genre
+#| fig-cap: The distribution of movie budgets for each genre category.
 
+movie_data |> 
+  filter(!is.na(budget_million) & 
+           !is.na(primary_genre) & 
+           primary_genre != "")  |> 
+  ggplot(aes(x = reorder(primary_genre, 
+                         -budget_million), 
+             y = budget_million, 
+             fill = primary_genre)) +
+  geom_boxplot() +
+  labs(title = "Genre-Specific Movie Budgets",
+subtitle = "The fantasy genre has the highest average production budget.",
+x = "Genre",
+y = "Average Budget (millions of $)",
+fill = "Primary Genre") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        legend.position = "none")
 ```
-
+@fig-budget-genre visualizes the distribution of movie production budgets for each of the genre categories, with the fantasy genre having the highest average budget. This could be due to the fact that the production of fantasy movies usually involves elaborate visual effects, intricate makeup/costumes, computer-generated imagery (CGI), and other advanced technologies to create mythical worlds and landscapes, thus requiring substantial financial investment in technology, skilled artists, and post-production processes that contribute to an overall high average budget.
 
 ```{r}
+#| label: fig-budget-oscars
+#| fig-cap: The distribution of budget for movies that have won at lease one Oscar award and movies who have won 0 Oscars.
+
+movie_data |> 
+  filter(!is.na(oscar_winners)) |> 
+  ggplot(aes(x = budget_million, y = oscar_winners)) +
+  geom_boxplot() +
+  labs(title = "Distribution of Movie Budget by Oscar Wins",
+       subtitle = "Oscar winning movies have a lower average budget.",
+       x = "Production Budget (millions of $)",
+       y = "Oscar Winner") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot")
 
 ```
-
+Similar to @fig-opening-wknd-oscar, @fig-budget-oscars shows that Hollywood movies that have won at least one Oscar award have an average production that is actually less than movies with no Oscar wins. This could suggest that having a high production budget does not relate to or increase the chances of a movie winning an Oscar, and that having a high production budget may not be a factor taken into account when voting for Oscars.
 
 ```{r}
+#| label: fig-budget-ratings
+#| fig-cap: The associations of movie budget with 3 movie rating measures of the average of Rotten Tomatoes and Metacritic critic ratings, the average of Rotten Tomatoes and Metacritic audience ratings, and IMDb ratings.
 
+budget_critic <- movie_data |> 
+  ggplot(aes(x = budget_million, y = average_critics)) +
+  geom_point(alpha = 0.25) +
+  geom_smooth(method = "lm",
+              se = FALSE) +
+  labs(x = "Budget (millions of $)",
+       y = "Average Critic Rating",
+       title = "Critic Ratings by Movie Budget",
+       subtitle = "There is a very weak association between 
+the two variables.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 10),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 9))
+
+budget_audience <- movie_data |> 
+  ggplot(aes(x = budget_million, y = average_audience)) +
+  geom_point(alpha = 0.25) +
+  geom_smooth(method = "lm",
+              se = FALSE) +
+  labs(x = "Budget (millions of $)",
+       y = "Average Audience Rating",
+       title = "Audience Ratings by Movie Budget",
+       subtitle = "There is a very weak association between 
+the two variables.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 10),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 9))
+
+budget_imdb <- movie_data |> 
+  ggplot(aes(x = budget_million, y = im_db_rating)) +
+  geom_point(alpha = 0.25) +
+  geom_smooth(method = "lm",
+              se = FALSE) +
+  labs(x = "Budget (millions of $)",
+       y = "IMDb Rating",
+       title = "IMDb Ratings by Movie Budget",
+       subtitle = "There is a very weak association between 
+the two variables.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 10),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 9))
+
+budget_critic + budget_audience + budget_imdb
 ```
-
-
+@fig-budget-ratings seeks to explore how a movie's production budget is correlated with three rating measures: the average of Rotten Tomatoes and Metacritic critic scores, the average of Rotten Tomatoes and Metacritic audience scores, and IMDb ratings. For all three graphs, there seems to be very weak positive correlations as the data points are very spread out from each other. This could suggest that there is a slight tendency for movies with higher budgets to receive slightly higher ratings, but the relationship is not very strong, and movie budget is not a direct determinant of rating success. 
 
 
 ## Variable 5: Oscar Wins
