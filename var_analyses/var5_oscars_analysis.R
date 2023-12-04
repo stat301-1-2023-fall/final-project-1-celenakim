@@ -109,6 +109,33 @@ movie_data |>
 
 
 
+## worldwide gross and oscar wins
+oscar_win_ww_gross <- movie_data |> 
+  filter(!is.na(oscar_winners)) |> 
+  ggplot(aes(x = worldwide_gross_million, 
+             y = oscar_winners)) +
+  geom_boxplot() +
+  labs(title = "Worldwide Gross by Oscar Wins",
+       subtitle = "Oscar winning movies have a higher average worldwide gross.",
+       x = "Worldwide Gross (millions of $)",
+       y = "Oscar Winner") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot")
+
+
+movie_data |> 
+  filter(!is.na(oscar_winners)) |> 
+  ggplot(aes(x = domestic_gross_million, y = oscar_winners)) +
+  geom_boxplot() 
+
+movie_data |> 
+  filter(!is.na(oscar_winners)) |> 
+  ggplot(aes(x = foreign_gross_million, y = oscar_winners)) +
+  geom_boxplot() 
+
+
+
 ### Exploration 3: Do movies that have won Oscars have better Rotten Tomatoes critic ratings?
 rt_rating_oscar <- movie_data |> 
   group_by(oscar_winners) |> 

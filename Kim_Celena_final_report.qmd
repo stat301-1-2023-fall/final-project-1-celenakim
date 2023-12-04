@@ -840,9 +840,23 @@ genre_oscar_wins + script_type_oscar_wins
 
 
 ```{r}
+#| label: fig-oscars-ww-gross
+#| fig-cap: The disribution of worldwide gross revenue for movies that have won at least one Oscar award and movies who have won 0 Oscars.
 
+movie_data |> 
+  filter(!is.na(oscar_winners)) |> 
+  ggplot(aes(x = worldwide_gross_million, 
+             y = oscar_winners)) +
+  geom_boxplot() +
+  labs(title = "Worldwide Gross by Oscar Wins",
+       subtitle = "Oscar winning movies have a higher average worldwide gross.",
+       x = "Worldwide Gross (millions of $)",
+       y = "Oscar Winner") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot")
 ```
-
+@fig-oscars-ww-gross shows that Hollywood movies that have won at least one Oscar award have an average of worldwide gross earnings that is greater than movies that have not won any Oscars. This could suggest a link between these two variables in that movies that have won an Oscar also have a better worldwide box office revenue performance than movies that have not won any Oscars.
 
 ```{r}
 

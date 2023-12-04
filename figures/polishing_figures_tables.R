@@ -97,9 +97,9 @@ genre_oscar_wins + script_type_oscar_wins
 # ![](figures/var5_figures/oscars_genre_script_type_plot.png)
 #
 
-plot
-# ![](figures/var5_figures/_plot.png)
-#
+oscar_win_ww_gross
+# ![](figures/var5_figures/oscar_win_ww_gross_plot.png)
+# Movies that have won at least one Oscar have a higher average ww gross.
 
 plot
 # ![](figures/var5_figures/_plot.png)
