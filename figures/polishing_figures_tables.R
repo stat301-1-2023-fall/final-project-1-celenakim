@@ -76,6 +76,8 @@ rt_audience_by_opening_wknd
 # ![](figures/var2_figures/rt_audience_by_opening_wknd_plot.png)
 # Positive relationship
 
+
+
 ### VAR3_GROSS_ANALYSIS
 gross_dom_yearly
 # ![](figures/var3_figures/gross_dom_yearly_plot.png)
@@ -89,6 +91,10 @@ gross_domestic_genre + gross_foreign_genre
 # ![](figures/var3_figures/gross_genre_plot.png)
 # Sci fi has best domestic gross performance, action and adventure are tied for the best foreign gross performance.
 
+gross_domestic_script_type + gross_foreign_script_type
+# ![](figures/var3_figures/gross_script_type_plot.png)
+# sequel, adaptation is the most successful among both audiences.
+
 dom_gross_distributor + for_gross_distributor
 # ![](figures/var3_figures/gross_distributor_plot.png)
 # Walt Disney Studios has the most successful gross performance for both domestic and foreign.
@@ -96,6 +102,14 @@ dom_gross_distributor + for_gross_distributor
 ww_gross_budget_rcvry
 # ![](figures/var3_figures/ww_gross_budget_rcvry_plot.png)
 # There is an overall positive association between a movie's ww gross performance and budget recovery percentage 
+
+genre_prcnt_earned_abroad
+# ![](figures/var3_figures/genre_prcnt_earned_abroad_plot.png)
+# Sci-fi category has the highest proportion of its earnings from abroad audiences.
+
+script_type_prcnt_earned_abroad
+# ![](figures/var3_figures/script_type_prcnt_earned_abroad_plot.png)
+# Based on a true story, remake hybrid has highest proportion of its earnings from abroad audiences.
 
 
 

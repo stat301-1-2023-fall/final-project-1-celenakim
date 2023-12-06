@@ -292,12 +292,106 @@ Budget Recovered",
 
 
 # which genre earned the most abroad
-# genre that is most well received by foreign audiences
-movie_data |> 
+
+# genre that is more popular in foreign audiences than domestic
+genre_prcnt_earned_abroad <- movie_data |> 
   filter(!is.na(primary_genre) & !is.na(of_gross_earned_abroad)) |> 
   group_by(primary_genre) |> 
   summarize(avg_pcnt_abroad = mean(of_gross_earned_abroad, na.rm = TRUE)) |> 
-  arrange(desc(avg_pcnt_abroad))
+  arrange(desc(avg_pcnt_abroad)) |> 
+  slice_head(n = 10) |> 
+  ggplot(aes(x = reorder(primary_genre,
+                         -avg_pcnt_abroad),
+             y = avg_pcnt_abroad,
+             fill = primary_genre)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Top 10 Genres with the Most Percentage of Gross Earned Abroad",
+       subtitle = "The 'sci-fi' category earns the most of its gross from foreign audiences.",
+       x = "Genre",
+       y = "% of Gross Earned Abroad") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 12),
+        plot.subtitle = element_text(size = 9),
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        legend.position = "none")
 
 
 
+script_type_prcnt_earned_abroad <- movie_data |> 
+  filter(!is.na(script_type) & !is.na(of_gross_earned_abroad)) |> 
+  group_by(script_type) |> 
+  summarize(avg_pcnt_abroad = mean(of_gross_earned_abroad, na.rm = TRUE)) |> 
+  arrange(desc(avg_pcnt_abroad)) |> 
+  slice_head(n = 10) |> 
+  ggplot(aes(x = reorder(script_type,
+                         -avg_pcnt_abroad),
+             y = avg_pcnt_abroad,
+             fill = script_type)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Top 10 Script Types with the Most Percentage of Gross Earned Abroad",
+       subtitle = "The 'based on a true story, remake' & 'sequel, adaptation' script types both earn the highest proportion of their gross from foreign audiences.",
+       x = "Script Type",
+       y = "% of Gross Earned Abroad") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 12),
+        plot.subtitle = element_text(size = 8.7),
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1,
+                                   size = 6.5),
+        legend.position = "none")
+
+
+
+# Dom For gross by script type
+gross_domestic_script_type <- movie_data |> 
+  filter(!is.na(domestic_gross_million) & 
+           !is.na(script_type) & 
+           script_type != "")  |> 
+  ggplot(aes(x = fct_reorder(script_type, 
+                             -domestic_gross_million), 
+             y = domestic_gross_million, 
+             fill = script_type)) +
+  geom_boxplot() +
+  labs(title = "Domestic Gross Performance by Script Type",
+subtitle = "The 'sequel, adaption' script type has the best performance.",
+x = "Script Type",
+y = "Domestic Gross (millions of $)",
+fill = "Script Type") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 11),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 9),
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        legend.position = "none")
+
+gross_foreign_script_type <- movie_data |> 
+  filter(!is.na(foreign_gross_million) & 
+           !is.na(script_type) & 
+           script_type != "")  |> 
+  ggplot(aes(x = reorder(script_type, 
+                         -foreign_gross_million), 
+             y = foreign_gross_million, 
+             fill = script_type)) +
+  geom_boxplot() +
+  labs(title = "Foreign Gross Performance by Script Type",
+subtitle = "The 'sequel, adaptation' script type has the best performance.",
+x = "Script Type",
+y = "Foreign Gross (millions of $)",
+fill = "Script Type") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 11),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 9),
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        legend.position = "none") 
+
+gross_domestic_script_type + gross_foreign_script_type
