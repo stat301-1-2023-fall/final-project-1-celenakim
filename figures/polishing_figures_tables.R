@@ -126,6 +126,10 @@ budget_by_script_type
 # ![](figures/var4_figures/budget_by_script_type_plot.png)
 # Sequel, adaptation script type has the highest production budget.
 
+distr_budget
+# ![](figures/var4_figures/distr_budget_plot.png)
+# Walt Disney Studios has the highest budget.
+
 budget_oscars
 # ![](figures/var4_figures/budget_oscars_plot.png)
 # Fantasy genre has the highest production budget.

@@ -131,7 +131,36 @@ budget_by_scripttype <- movie_data |>
         legend.position = "none")
 
 
-## Exploration 5: budget vs. oscar wins
+
+## Exploration 5: facet by distributor
+distr_budget <- movie_data |> 
+  filter(!is.na(budget_million) & 
+           !is.na(distributor)) |> 
+  group_by(distributor) |> 
+  summarize(mean_budget = round(mean(budget_million, 
+                                     na.rm = TRUE))) |> 
+  arrange(desc(mean_budget)) |>  
+  slice_head(n = 10) |> 
+  ggplot(aes(x = reorder(distributor,
+                         -mean_budget),
+             y = mean_budget,
+             fill = distributor)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Distributor",
+       y = "Average Budget (millions of $)",
+       title = "Top 10 Distributors with Highest Average Movie Budgets",
+       subtitle = "Walt Disney Studios has the highest average production budget.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1,
+                                   size = 7),
+        legend.position = "none")
+
+
+
+## Exploration 6: budget vs. oscar wins
 budget_oscars <- movie_data |> 
   filter(!is.na(oscar_winners)) |> 
   ggplot(aes(x = budget_million, y = oscar_winners)) +
@@ -146,7 +175,7 @@ budget_oscars <- movie_data |>
 
 
 
-## Exploration 6: Relationship between budget and avg critic & audience ratings, IMDb
+## Exploration 7: Relationship between budget and avg critic & audience ratings, IMDb
 budget_critic <- movie_data |> 
   ggplot(aes(x = budget_million, y = average_critics)) +
   geom_point(alpha = 0.25) +
@@ -199,26 +228,12 @@ budget_critic + budget_audience + budget_imdb
 
 
 
+
+
+
+
+
 ## Exploration 7: Is budget recovered during opening weekend a determinant of overall success?
-
-
-
-
-
-## Exploration 8: facet by distributor
-movie_data |> 
-  filter(!is.na(budget_million) & 
-         !is.na(domestic_gross_million) & 
-         !is.na(foreign_gross_million) &
-         !is.na(distributor)) |> 
-  group_by(distributor) |> 
-  summarize(mean_budget = round(mean(budget_million, na.rm = TRUE)),
-            mean_dom_gross = round(mean(domestic_gross_million, na.rm = TRUE)),
-            mean_for_gross = round(mean(foreign_gross_million, na.rm = TRUE))) |> 
-  arrange(desc(mean_budget)) |>  
-  slice_head(n = 10) |> 
-  DT::datatable()
-
 
 
 
