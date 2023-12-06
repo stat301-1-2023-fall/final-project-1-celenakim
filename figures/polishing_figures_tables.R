@@ -36,8 +36,9 @@ critic_ratings_distributor + aud_ratings_distributor
 # ![](figures/var1_figures/critic_vs_aud_distr_plot.png)
 # A24 has highest critic ratings, atlas has highest aud ratings.
 
-
-
+critic_pcnt_abroad + aud_pcnt_abroad
+# ![](figures/var1_figures/critic_vs_aud_abroad_plot.png)
+# No correlation
 
 
 ### VAR2_OPENING_WEEKEND_REV_ANALYSIS
@@ -45,8 +46,9 @@ opening_wknd_yearly
 # ![](figures/var2_figures/opening_wknd_yearly_plot.png)
 # The opening weekend rev for 2020 is highly impacted by the pandemic, 2008 by the great recession.
 
-opening_wknd_budget_rcvry_genre 
-
+genre_opening_wknd_plot
+# ![](figures/var2_figures/genre_opening_wknd_plot_plot.png)
+# The sci-fi, fantasy genre combination has the highest average opening weekend revenue."
 
 opening_wknd_budget_rcvry_script_type
 # ![](figures/var2_figures/budget_rcvry_opening_wknd_plot.png)

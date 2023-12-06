@@ -247,7 +247,7 @@ two variables.",
         plot.title.position = "plot",
         plot.subtitle = element_text(size = 8.5),
         legend.position = "bottom",
-        legend.text = element_text(size = 6.6),   
+        legend.text = element_text(size = 5),   
         legend.title = element_text(size = 7.5),
         axis.text.x = element_text(size = 9),
         axis.text.y = element_text(size = 9))+
@@ -278,7 +278,7 @@ two variables.",
         plot.title.position = "plot",
         plot.subtitle = element_text(size = 8.5),
         legend.position = "bottom",
-        legend.text = element_text(size = 6.6),   
+        legend.text = element_text(size = 5),   
         legend.title = element_text(size = 7.5),
         axis.text.x = element_text(size = 9),
         axis.text.y = element_text(size = 9)) +
@@ -347,7 +347,47 @@ Rotten Tomatoes & Metacritic Critic Ratings",
 
 critic_ratings_distributor + aud_ratings_distributor
 ```
-@fig-critic-vs-aud-distributor displays the  movie distributors with the highest averages Rotten Tomatoes and Metacritic ratings, for both audience and critic rating groups. The movie distributing company with the highest average critic rating is "A24", and the distributor company with the highest average audience rating is "Atlas Distribution Company". This could suggest that movies released by A24 were favored the most among critics, and movies released by Atlas Distribution Company were favored the most among audiences.
+@fig-critic-vs-aud-distributor displays the movie distributors with the highest average Rotten Tomatoes and Metacritic ratings, for both audience and critic rating groups. The movie distributing company with the highest average critic rating is "A24", and the highest average audience rating was received b "Atlas Distribution Company". This could suggest that movies released by A24 were favored the most among critics, and movies released by Atlas Distribution Company were favored the most among audiences.
+
+```{r}
+#| label: fig-critic-aud-pcnt-abroad
+#| fig-cap: A comparison of the relationships between critic and audiences ratings with the percent that a movie's revenue is earned from abroad audiences.
+
+# ratings by percent earned abroad
+critic_pcnt_abroad <- movie_data |> 
+  ggplot(aes(x = average_critics, y = of_gross_earned_abroad)) +
+  geom_point() +
+  geom_smooth(method = "lm",
+              se = FALSE) +
+  labs(x = "Average Critic Rating",
+       y = "% of Gross Earned Abroad",
+       title = "Percent of Gross Earned Abroad by Critic Ratings",
+       subtitle = "There is no correlation between the two variables.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 10),
+        plot.subtitle = element_text(size = 9),
+        plot.title.position = "plot")
+
+aud_pcnt_abroad <- movie_data |> 
+  ggplot(aes(x = average_audience, 
+             y = of_gross_earned_abroad)) +
+  geom_point() +
+  geom_smooth(method = "lm",
+              se = FALSE) +
+  labs(x = "Average Audience Rating",
+       y = "% of Gross Earned Abroad",
+       title = "Percent of Gross Earned Abroad by Audience Ratings",
+       subtitle = "There is no correlation between the two variables.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 10),
+        plot.subtitle = element_text(size = 9),
+        plot.title.position = "plot")
+
+critic_pcnt_abroad + aud_pcnt_abroad
+```
+In @fig-critic-aud-pcnt-abroad, the potential relationship of the audience and critic rating groups with the percent of a movie's gross earnings that are earned abroad is explored. However, we see that there is virtually no correlation between the variables, although there is the slighest positive correlation between audience ratings and the percent of a movie's gross earned abroad. This could suggest that audience and critic ratings have practically no link with the percent that a movie earns in its theaters abroad, although the audience ratings do seem to have a slightly stronger correlation with the percent earned abroad variable, suggesting that audience ratings may have the slightest connection to this variable, but it is not to a significant degree.
 
 
 ## Variable 2: Opening Weekend Revenue
