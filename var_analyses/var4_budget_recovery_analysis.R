@@ -1,11 +1,4 @@
-library(tidyverse)
-library(scales)
-library(ggrepel)
-library(patchwork)
-
 # Budget recovery: Budget recovered, and during opening weekend alone
-# KEY TAKEAWAYS
-## -heavily impacted by 2020 covid pandemic
 
 ## Exploration 1: How do the overall movie budgets change over the years from 2007-2022?
 yearly_movie_budget <- movie_data |> 
@@ -58,8 +51,7 @@ budget_yearly <- ggplot(yearly_movie_budget, aes(x = year, y = mean_movie_budget
 
 
 
-
-### Exploration 2: What is the correlation between a movie's budget and opening weekend success?
+## Exploration 2: What is the correlation between a movie's budget and opening weekend success? Worldwide gross?
 budget_opening_wknd <- movie_data |> 
   ggplot(aes(x = budget_million, y = opening_weekend_million)) +
   geom_point() +
@@ -93,22 +85,68 @@ two variables.") +
 budget_opening_wknd + budget_ww_gross
 
 
-### Exploration 3: What is the correlation between a movie's opening weekend revenue and its budget recovered during opening weekend?
-budget_rcvry_opening_wknd <- movie_data |> 
-  mutate(budget_recovered_millions = round(budget_million * (budget_recovered / 100))) |> 
-  ggplot(aes(x = opening_weekend_million, y = budget_recovered_millions)) +
-  geom_point() +
-  geom_smooth(method = "lm") +
-  labs(x = "Opening Weekend Earnings (millions of $)",
-       y = "Budget Recovery Earnings (millions of $)",
-       title = "Opening Weekend Earnings by Budget Recovery",
-       subtitle = "There is an overall strong positive association between the two variables.") +
+
+## Exploration 3: Facet by genre
+budget_by_genre <- movie_data |> 
+  filter(!is.na(budget_million) & 
+           !is.na(primary_genre) & 
+           primary_genre != "")  |> 
+  ggplot(aes(x = reorder(primary_genre, 
+                         -budget_million), 
+             y = budget_million, 
+             fill = primary_genre)) +
+  geom_boxplot() +
+  labs(title = "Genre-specific Movie Budgets",
+       subtitle = "The fantasy genre has the highest average production budget.",
+       x = "Genre",
+       y = "Average Budget (millions of $)",
+       fill = "Primary Genre") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        legend.position = "none")
+
+
+## Exploration 4: Facet by script type
+budget_by_scripttype <- movie_data |> 
+  filter(!is.na(budget_million) & 
+           !is.na(script_type) & 
+           script_type != "")  |> 
+  ggplot(aes(x = reorder(script_type, 
+                         -budget_million), 
+             y = budget_million, 
+             fill = script_type)) +
+  geom_boxplot() +
+  labs(title = "Movie Budgets by Script Type",
+       subtitle = "The 'sequel, adaptation' script type has the highest average production budget.",
+       x = "Script Type",
+       y = "Average Budget (millions of $)") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        legend.position = "none")
+
+
+## Exploration 5: budget vs. oscar wins
+budget_oscars <- movie_data |> 
+  filter(!is.na(oscar_winners)) |> 
+  ggplot(aes(x = budget_million, y = oscar_winners)) +
+  geom_boxplot() +
+  labs(title = "Distribution of Movie Budget by Oscar Wins",
+       subtitle = "Oscar winning movies have a lower average budget.",
+       x = "Production Budget (millions of $)",
+       y = "Oscar Winner") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot")
 
 
-### budget and avg critic and audience ratings
+
+## Exploration 6: Relationship between budget and avg critic & audience ratings, IMDb
 budget_critic <- movie_data |> 
   ggplot(aes(x = budget_million, y = average_critics)) +
   geom_point(alpha = 0.25) +
@@ -161,40 +199,42 @@ budget_critic + budget_audience + budget_imdb
 
 
 
-### Exploration 4: Facet by genre
-budget_by_genre <- movie_data |> 
+## Exploration 7: Is budget recovered during opening weekend a determinant of overall success?
+
+
+
+
+
+## Exploration 8: facet by distributor
+movie_data |> 
   filter(!is.na(budget_million) & 
-           !is.na(primary_genre) & 
-           primary_genre != "")  |> 
-  ggplot(aes(x = reorder(primary_genre, 
-                         -budget_million), 
-             y = budget_million, 
-             fill = primary_genre)) +
-  geom_boxplot() +
-  labs(title = "Genre-specific Movie Budgets",
-subtitle = "The fantasy genre has the highest average production budget.",
-x = "Genre",
-y = "Average Budget (millions of $)",
-fill = "Primary Genre") +
-  theme_minimal() +
-  theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot",
-        axis.text.x = element_text(angle = 45, 
-                                   hjust = 1),
-        legend.position = "none")
+         !is.na(domestic_gross_million) & 
+         !is.na(foreign_gross_million) &
+         !is.na(distributor)) |> 
+  group_by(distributor) |> 
+  summarize(mean_budget = round(mean(budget_million, na.rm = TRUE)),
+            mean_dom_gross = round(mean(domestic_gross_million, na.rm = TRUE)),
+            mean_for_gross = round(mean(foreign_gross_million, na.rm = TRUE))) |> 
+  arrange(desc(mean_budget)) |>  
+  slice_head(n = 10) |> 
+  DT::datatable()
 
 
-### Exploration 5: budget vs. oscar wins
-budget_oscars <- movie_data |> 
-  filter(!is.na(oscar_winners)) |> 
-  ggplot(aes(x = budget_million, y = oscar_winners)) +
-  geom_boxplot() +
-  labs(title = "Distribution of Movie Budget by Oscar Wins",
-       subtitle = "Oscar winning movies have a lower average budget.",
-       x = "Production Budget (millions of $)",
-       y = "Oscar Winner") +
+
+
+
+
+
+## What is the correlation between a movie's opening weekend revenue and its budget recovered during opening weekend?
+budget_rcvry_opening_wknd <- movie_data |> 
+  mutate(budget_recovered_millions = round(budget_million * (budget_recovered / 100))) |> 
+  ggplot(aes(x = opening_weekend_million, y = budget_recovered_millions)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Opening Weekend Earnings (millions of $)",
+       y = "Budget Recovery Earnings (millions of $)",
+       title = "Opening Weekend Earnings by Budget Recovery",
+       subtitle = "There is an overall strong positive association between the two variables.") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot")
-
-

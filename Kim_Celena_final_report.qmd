@@ -1009,8 +1009,7 @@ movie_data |>
                                    size = 6.5),
         legend.position = "none")
 ```
-In examining the top script types based on their domestic vs. foreign gross revenue makeups, @fig-genres-pcnt-earned-abroad reveals that the
-"based on a true story, remake" and "sequel, adaptation" script types are tied for having the highest proportion of their gross being contributed from foreign audiences. This suggests that movies with these script type categories earn more abroad than domestically compared to the other script types.
+In examining the top script types based on their domestic vs. foreign gross revenue makeups, @fig-script-type-pcnt-earned-abroad reveals that the "based on a true story, remake" and "sequel, adaptation" script types are tied for having the highest proportion of their gross being contributed from foreign audiences. This suggests that movies with these script type categories earn more abroad than domestically compared to the other script types.
 
 ## Variable 4: Budget & Budget Recovery
 ```{r}
@@ -1139,6 +1138,32 @@ fill = "Primary Genre") +
 @fig-budget-genre visualizes the distribution of movie production budgets for each of the genre categories, with the fantasy genre having the highest average budget. This could be due to the fact that the production of fantasy movies usually involves elaborate visual effects, intricate makeup/costumes, computer-generated imagery (CGI), and other advanced technologies to create mythical worlds and landscapes, thus requiring substantial financial investment in technology, skilled artists, and post-production processes that contribute to an overall high average budget.
 
 ```{r}
+#| label: fig-budget-script-type
+#| fig-cap: The distribution of movie budgets for each script type category.
+
+movie_data |> 
+  filter(!is.na(budget_million) & 
+           !is.na(script_type) & 
+           script_type != "")  |> 
+  ggplot(aes(x = reorder(script_type, 
+                         -budget_million), 
+             y = budget_million, 
+             fill = script_type)) +
+  geom_boxplot() +
+  labs(title = "Movie Budgets by Script Type",
+       subtitle = "The 'sequel, adaptation' script type has the highest average production budget.",
+       x = "Script Type",
+       y = "Average Budget (millions of $)") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        legend.position = "none")
+```
+@fig-budget-script-type shows the distributions of movie budgets for each script type category of Hollywood movies, with the "sequel, adaptation" having the highest average movie budget. So far, this script type category has won superlatives for many of the analyses in this EDA-- for example, @fig-gross-scripttype-dist revealed that the "sequel, adaptation" has the greatest average domestic and foreign gross, and @fig-opening-wknd-by-genre-script-type revealed that this same category earned the greatest average revenue during its opening weekend of its release. Given our previous findings and established understandings of the correlations between budget and the opening weekend revenue and gross variables, these findings make sense. In @fig-opening-wknd-by-budget, it was concluded that there exists a direct, positive association between a Hollywood movie's budget and its gross earnings, both during opening weekend and worldwide (foreign + gross). Thus, if the "sequel, adaptation" has the highest average movie budget, then it should also have the title of greatest domestic and foreign gross and opening weekend revenue, and that is exactly what has been found thus far.
+
+```{r}
 #| label: fig-budget-oscars
 #| fig-cap: The distribution of budget for movies that have won at lease one Oscar award and movies who have won 0 Oscars.
 
@@ -1173,9 +1198,9 @@ budget_critic <- movie_data |>
 the two variables.") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold",
-                                  size = 10),
+                                  size = 9),
         plot.title.position = "plot",
-        plot.subtitle = element_text(size = 9))
+        plot.subtitle = element_text(size = 8))
 
 budget_audience <- movie_data |> 
   ggplot(aes(x = budget_million, y = average_audience)) +
@@ -1189,9 +1214,9 @@ budget_audience <- movie_data |>
 the two variables.") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold",
-                                  size = 10),
+                                  size = 9),
         plot.title.position = "plot",
-        plot.subtitle = element_text(size = 9))
+        plot.subtitle = element_text(size = 8))
 
 budget_imdb <- movie_data |> 
   ggplot(aes(x = budget_million, y = im_db_rating)) +
@@ -1205,9 +1230,9 @@ budget_imdb <- movie_data |>
 the two variables.") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold",
-                                  size = 10),
+                                  size = 9),
         plot.title.position = "plot",
-        plot.subtitle = element_text(size = 9))
+        plot.subtitle = element_text(size = 8))
 
 budget_critic + budget_audience + budget_imdb
 ```

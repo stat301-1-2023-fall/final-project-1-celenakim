@@ -89,7 +89,7 @@ gross_domestic_genre + gross_foreign_genre
 
 gross_domestic_script_type + gross_foreign_script_type
 # ![](figures/var3_figures/gross_script_type_plot.png)
-# sequel, adaptation is the most successful among both audiences.
+# Sequel, adaptation is the most successful among both audiences.
 
 dom_gross_distributor + for_gross_distributor
 # ![](figures/var3_figures/gross_distributor_plot.png)
@@ -121,6 +121,10 @@ budget_opening_wknd + budget_ww_gross
 budget_by_genre
 # ![](figures/var4_figures/budget_by_genre_plot.png)
 # Fantasy genre has the highest production budget.
+
+budget_by_script_type
+# ![](figures/var4_figures/budget_by_script_type_plot.png)
+# Sequel, adaptation script type has the highest production budget.
 
 budget_oscars
 # ![](figures/var4_figures/budget_oscars_plot.png)
