@@ -45,7 +45,7 @@ text
 
 there were many variables not conducive to perform an analysis on, such as being character type vars and the oscar not being a bool
 
-# Explorations: What variables contribute to a movie's overall success rate?
+# Explorations: What variables contribute to a movie's overall success rate? How do these variables interact with eachother?
 ## Variable 1: Ratings
 Within this dataset, the 3 main movie rating measures are the Rotten Tomatoes score (audience and critic), Metacritic score (audience and critic), and IMDb rating. 
 ```{r}
@@ -355,7 +355,8 @@ critic_ratings_distributor + aud_ratings_distributor
 
 # ratings by percent earned abroad
 critic_pcnt_abroad <- movie_data |> 
-  ggplot(aes(x = average_critics, y = of_gross_earned_abroad)) +
+  ggplot(aes(x = average_critics, 
+             y = of_gross_earned_abroad)) +
   geom_point() +
   geom_smooth(method = "lm",
               se = FALSE) +
@@ -387,7 +388,7 @@ aud_pcnt_abroad <- movie_data |>
 
 critic_pcnt_abroad + aud_pcnt_abroad
 ```
-In @fig-critic-aud-pcnt-abroad, the potential relationship of the audience and critic rating groups with the percent of a movie's gross earnings that are earned abroad is explored. However, we see that there is virtually no correlation between the variables, although there is the slighest positive correlation between audience ratings and the percent of a movie's gross earned abroad. This could suggest that audience and critic ratings have practically no link with the percent that a movie earns in its theaters abroad, although the audience ratings do seem to have a slightly stronger correlation with the percent earned abroad variable, suggesting that audience ratings may have the slightest connection to this variable, but it is not to a significant degree.
+In @fig-critic-aud-pcnt-abroad, the potential relationship of the audience and critic rating groups with the percent of a movie's gross earnings that are earned abroad is explored. However, we see that there is virtually no correlation between the variables, although there is the slighest positive correlation between audience ratings and the percent of a movie's gross earned abroad. This could suggest that critic ratings have practically no link with the percent that a movie earns in its theaters abroad, but the audience ratings do seem to have a slightly stronger correlation with the percent earned abroad variable, suggesting that audience ratings may have the slightest connection to this variable, but it is not to a significant degree.
 
 
 ## Variable 2: Opening Weekend Revenue
@@ -514,7 +515,7 @@ Recovery for Each Script Type",
 
 opening_wknd_budget_rcvry_genre + opening_wknd_budget_rcvry_script_type
 ```
-@fig-budget-rcvry-opening-wknd explores the relationship between a movie's opening weekend revenue and how much it earns to recover it's production cost (budget recovery), categorized by script type and genre. Overall, there is a clear strong, positive correlation between opening weekend revenue and budget recovery, suggesting that as the amount of money a movie earns during the first weekend of its release in theaters increases, the the amount of money it will earn to recover its budget will also increase. However, this correlation varies between each specific genre and script type. In examining genre, the 'adventure' category has the highest correlation. This may suggest that out of all movie genres, the adventure category earns more of its budget back as their opening weekend increases. In examining script type relationships, the 'remake' script type has the highest correlation, also suggesting that remakes earn a higher amount to recover its budget as their openign weekend earnings increase.
+@fig-budget-rcvry-opening-wknd explores the relationship between a movie's opening weekend revenue and how much it earns to recover it's production cost (budget recovery), categorized by script type and genre. Overall, there is a clear strong, positive correlation between opening weekend revenue and budget recovery, suggesting that as the amount of money a movie earns during the first weekend of its release in theaters increases, the the amount of money it will earn to recover its budget will also increase. However, this correlation varies between each specific genre and script type. In examining genre, the 'adventure' category has the highest correlation. This may suggest that out of all movie genres, the adventure category earns more of its budget back as their opening weekend increases. In examining script type relationships, the 'remake' script type has the highest correlation, also suggesting that remakes earn a higher amount to recover its budget as their opening weekend earnings increase.
 
 
 ```{r}
@@ -629,6 +630,36 @@ opening_wknd_forgross <- movie_data |>
 opening_wknd_domgross + opening_wknd_forgross
 ```
 @fig-opening-wknd-dom-for displays very strong, positive correlations for both associations of domestic gross by opening weekend revenue and foreign gross by opening weekend revenue. This suggests that a Hollywood movie's performance during its opening weekend of release has a direct positive association with its overall domestic and foreign grosses. That is, as opening weekend earnings success increases, so will domestic and foreign gross successes. Additionally, the correlation between opening weekend revenue and domestic gross seems to be slightly steeper than the correlation between opening weekend revenue and foreign gross, suggesting that opening weekend revenue performance has a slightly greater impact on its domestic gross performance than it does its foreign gross performance.
+
+```{r}
+#| label: fig-distr-opening-wknd-success
+#| fig-cap: The top 10 most successful movie distribution companies in terms of average opening weekend revenue success.
+
+movie_data |> 
+  filter(!is.na(distributor)) |> 
+  group_by(distributor) |> 
+  summarize(avg_opening_wnkd = mean(opening_weekend_million, na.rm = TRUE)) |> 
+  arrange(desc(avg_opening_wnkd)) |> 
+  slice_head(n = 10) |> 
+  ggplot(aes(x = reorder(distributor, 
+                         -avg_opening_wnkd),
+             y = avg_opening_wnkd,
+             fill = distributor)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Top 10 Movie Distributors with Greatest Average Opening Weekend Success",
+       subtitle = "Walt Disney Studios has the most opening weekend earnings.",
+       x = "Distributor",
+       y = "Average Opening Weekend Revenue (millions of $)") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        legend.position = "none",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        axis.title.y = element_text(size = 9))
+```
+In examining the top distribution companies based on opening weekend performance, @fig-distr-opening-wknd-success displays that the "Walt Disney Studios" movie distribution company has earned a mean opening weekend revenue that is significantly greater than other movie distributors. This suggests that movies that are released by this company have earned revenue during their opening weekends of being in theaters at a rate significantly greater than movies released by other companies.
+
 
 ## Variable 3: Domestic, Foreign, & Worldwide Gross
 ```{r}
