@@ -41,6 +41,7 @@ critic_pcnt_abroad + aud_pcnt_abroad
 # No correlation
 
 
+
 ### VAR2_OPENING_WEEKEND_REV_ANALYSIS
 opening_wknd_yearly
 # ![](figures/var2_figures/opening_wknd_yearly_plot.png)
@@ -67,7 +68,13 @@ opening_wknd_domgross + opening_wknd_forgross
 # Both plots have strong positive associations, very close to a correlation value of 1. 
 # However, the line is steeper for domestic gross, indicating a stronger/more positive correlation.
 
+distr_opening_wknd
+# ![](figures/var2_figures/distr_opening_wknd_plot.png)
+# Walt Disney Studios is the most successful.
 
+rt_audience_by_opening_wknd
+# ![](figures/var2_figures/rt_audience_by_opening_wknd_plot.png)
+# Positive relationship
 
 ### VAR3_GROSS_ANALYSIS
 gross_dom_yearly
@@ -138,8 +145,6 @@ plot
 
 
 
-
-
 ### VAR6_SEASONS_ANALYSIS
 seasonal_critics_plot + seasonal_audience_plot
 # ![](figures/var6_figures/seasonal_ratings_plot.png)
@@ -172,9 +177,11 @@ primary_genre_script_type_plot
 # ![](figures/extra_explos_figures/seasonal_movie_count_table.png)
 
 
-# 
-# 
-# 
+
+
+
+
+
 # ### FROM PROGRESS MEMO 2:
 # # UNIVARIATE
 # ## Exploration 1: How does the overall average opening weekend earning change over the years from 2007-2022?

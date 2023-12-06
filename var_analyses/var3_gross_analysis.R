@@ -291,3 +291,13 @@ Budget Recovered",
 
 
 
+# which genre earned the most abroad
+# genre that is most well received by foreign audiences
+movie_data |> 
+  filter(!is.na(primary_genre) & !is.na(of_gross_earned_abroad)) |> 
+  group_by(primary_genre) |> 
+  summarize(avg_pcnt_abroad = mean(of_gross_earned_abroad, na.rm = TRUE)) |> 
+  arrange(desc(avg_pcnt_abroad))
+
+
+

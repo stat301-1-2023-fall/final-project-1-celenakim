@@ -660,6 +660,25 @@ movie_data |>
 ```
 In examining the top distribution companies based on opening weekend performance, @fig-distr-opening-wknd-success displays that the "Walt Disney Studios" movie distribution company has earned a mean opening weekend revenue that is significantly greater than other movie distributors. This suggests that movies that are released by this company have earned revenue during their opening weekends of being in theaters at a rate significantly greater than movies released by other companies.
 
+```{r}
+#| label: fig-opening-wknd-audience
+#| fig-cap: A visualization of the change in yearly domestic gross for Hollywood movie
+
+movie_data |> 
+  ggplot(aes(x = opening_weekend_million,
+             y = rotten_tomatoes_audience)) +
+  geom_point() +
+  geom_smooth(method = "lm",
+              se = FALSE) +
+  labs(title = "Opening Weekend Revenue by Rotten Tomatoes Audience Score",
+       subtitle = "There is a positive relationship between the two variables.",
+       x = "Opening Weekend (millions of $)",
+       y = "Rotten Tomatoes Audience Score") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot")
+```
+In @fig-rt-critic-opening-wknd, the relationship between the Rotten Tomatoes critic rating and a movie's opening weekend success was explored, as Rotten Tomatoes critic ratings are usually revealed before the release of a movie. Now, @fig-opening-wknd-audience follows this analysis by exploring how the opening weekend success of a movie correlates with its Rotten Tomatoes audience ratings, as audience ratings are typically made after a movie hits the theaters. While there was not a very discernible relationship between the two variables in @fig-rt-critic-opening-wknd, @fig-opening-wknd-audience shows a distinct, positive relationship between opening weekend revenue and Rotten Tomatoes audience score, suggesting that the more successful the opening weekend of a movie is, the higher the movie's Rotten Tomatoes audience score will be. This establishes a relationship with opening weekend revenue and Rotten Tomatoes audience score, while the relationship of Rotten Tomatoes critic score with opening weekend revenue is definitely not as significant.
 
 ## Variable 3: Domestic, Foreign, & Worldwide Gross
 ```{r}
