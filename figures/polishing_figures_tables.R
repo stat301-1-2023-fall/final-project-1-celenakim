@@ -47,10 +47,6 @@ opening_wknd_yearly
 # ![](figures/var2_figures/opening_wknd_yearly_plot.png)
 # The opening weekend rev for 2020 is highly impacted by the pandemic, 2008 by the great recession.
 
-genre_opening_wknd_plot
-# ![](figures/var2_figures/genre_opening_wknd_plot_plot.png)
-# The sci-fi, fantasy genre combination has the highest average opening weekend revenue."
-
 opening_wknd_budget_rcvry_script_type
 # ![](figures/var2_figures/budget_rcvry_opening_wknd_plot.png)
 # There is a very strong positive association between the two variables. For movie genres, adventure has the steepest correlation, for script type remake has the steepest correlation.

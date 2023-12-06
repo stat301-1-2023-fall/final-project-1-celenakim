@@ -1,6 +1,5 @@
 # Opening weekend revenue: Opening weekend revenue
-# KEY TAKEAWAYS
-## -heavily impacted by 2020 covid pandemic
+
 
 ## Exploration 1: How do the overall average opening weekend earnings change over the years from 2007-2022?
 year_opening_success <- movie_data |> 
@@ -8,9 +7,6 @@ year_opening_success <- movie_data |>
   summarize(mean_opening_success = round(mean(opening_weekend_million, 
                                               na.rm = TRUE)))  |> 
   arrange(desc(mean_opening_success)) 
-
-# year_opening_success |> 
-  #DT::datatable()
 
 potential_outliers <- year_opening_success |>
   filter(mean_opening_success == 20 | mean_opening_success == 9)
@@ -62,10 +58,63 @@ COVID-19 pandemic.") +
 
 
 
+## Exploration 2: Relationship of opening weekend and budget recovery, by genre and script type
+opening_wknd_budget_rcvry_genre <- movie_data |> 
+  filter(!is.na(primary_genre)) |> 
+  mutate(budget_recovered_millions = round(budget_million * (budget_recovered / 100))) |> 
+  ggplot(aes(x = opening_weekend_million, 
+             y = budget_recovered_millions,
+             color = primary_genre)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm",
+              se = FALSE) +
+  labs(x = "Opening Weekend Earnings (millions of $)",
+       y = "Budget Recovery Earnings (millions of $)",
+       title = "Opening Weekend Earnings by Budget Recovery for 
+Each Genre",
+subtitle = "The 'adventure' genre has the steepest correlation.",
+color = "Genre") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 9),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 7),
+        legend.text = element_text(size = 7),
+        legend.title = element_text(size = 6),
+        axis.title.x = element_text(size = 6),
+        axis.title.y = element_text(size = 6))
 
 
+opening_wknd_budget_rcvry_script_type <- movie_data |> 
+  filter(!is.na(script_type)) |> 
+  mutate(budget_recovered_millions = round(budget_million * (budget_recovered / 100))) |> 
+  ggplot(aes(x = opening_weekend_million, 
+             y = budget_recovered_millions,
+             color = script_type)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm",
+              se = FALSE) +
+  labs(x = "Opening Weekend Earnings (millions of $)",
+       y = "Budget Recovery Earnings (millions of $)",
+       title = "Opening Weekend Earnings by Budget Recovery for 
+Each Script Type",
+subtitle = "The 'remake' script type has the steepest correlation.",
+color = "Script Type") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 9),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 7),
+        legend.text = element_text(size = 7),
+        legend.title = element_text(size = 6),
+        axis.title.x = element_text(size = 6),
+        axis.title.y = element_text(size = 6))
 
-### Exploration 2: Which genre has the highest mean opening weekend earning? 
+opening_wknd_budget_rcvry_genre + opening_wknd_budget_rcvry_script_type
+
+
+### Exploration 3: Which genre has the highest mean opening weekend earning? 
+#                  Which script type has the highest mean opening weekend earning? 
 genre_opening_wknd_table <- movie_data |> 
   group_by(genre) |> 
   summarize(mean_opening_success = mean(opening_weekend_million)) |> 
@@ -97,7 +146,6 @@ average opening weekend revenue.",
         axis.title.y = element_text(size = 7),
         legend.position = "none") 
 
-### Exploration 3: Which script type has the highest mean opening weekend earning? 
 scripttype_opening_wknd_table <- movie_data |> 
   group_by(script_type) |> 
   summarize(mean_opening_success = round(mean(opening_weekend))) |> 
@@ -134,7 +182,7 @@ genre_opening_wknd_plot + scripttype_opening_wknd_plot
 
 
 
-# Revenue and Oscar Wins: Analyze the relationship between opening wknd revenue and the number of Oscar wins.
+## Exploration 4: Revenue and Oscar Wins: Analyze the relationship between opening wknd revenue and the number of Oscar wins.
 opening_wknd_oscar <- movie_data |> 
   filter(!is.na(oscar_winners)) |> 
   ggplot(aes(x = opening_weekend_million, y = oscar_winners)) +
@@ -147,7 +195,7 @@ opening_wknd_oscar <- movie_data |>
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot")
 
-# Correlation between opening weekend rev and gross
+## Exploration 5: Correlation between opening weekend revenue and domestic gross, foreign gross
 opening_wknd_domgross <- movie_data |> 
   ggplot(aes(x = opening_weekend_million, 
              y = domestic_gross_million)) +
@@ -178,7 +226,53 @@ opening_wknd_forgross <- movie_data |>
 
 opening_wknd_domgross + opening_wknd_forgross
 
-## Exploration 4: How do the different critic ratings correlate with opening weekend success?
+
+
+## Exploration 6: Top 10 distributors with highest average opening weekend successes
+distr_opening_wknd <- movie_data |> 
+  filter(!is.na(distributor)) |> 
+  group_by(distributor) |> 
+  summarize(avg_opening_wnkd = mean(opening_weekend_million, na.rm = TRUE)) |> 
+  arrange(desc(avg_opening_wnkd)) |> 
+  slice_head(n = 10) |> 
+  ggplot(aes(x = reorder(distributor, 
+                         -avg_opening_wnkd),
+             y = avg_opening_wnkd,
+             fill = distributor)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Top 10 Movie Distributors with Greatest Average Opening Weekend Success",
+       subtitle = "Walt Disney Studios has the most opening weekend earnings.",
+       x = "Distributor",
+       y = "Average Opening Weekend Revenue (millions of $)") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        legend.position = "none",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        axis.title.y = element_text(size = 9))
+
+
+
+## Exploration 7: Rotten tomatoes audience score by Opening weekend success
+rt_audience_by_opening_wknd <- movie_data |> 
+  ggplot(aes(x = opening_weekend_million,
+             y = rotten_tomatoes_audience)) +
+  geom_point() +
+  geom_smooth(method = "lm",
+              se = FALSE) +
+  labs(title = "Opening Weekend Revenue by Rotten Tomatoes Audience Score",
+       subtitle = "There is a positive relationship between the two variables.",
+       x = "Opening Weekend (millions of $)",
+       y = "Rotten Tomatoes Audience Score") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot")
+
+
+
+# EXTRA EXPLORATIONS
+# How do the different critic ratings correlate with opening weekend success?
 rt_critic_success_cor <- movie_data |> 
   ggplot(aes(x = rotten_tomatoes_critics, y = opening_weekend_million)) +
   geom_point() +
@@ -242,7 +336,7 @@ mc_audience_success_cor
 rt_critic_success_cor + mc_critic_success_cor
 
 
-### Exploration 5: What is the correlation between a movie's budget and opening weekend success?
+# What is the correlation between a movie's budget and opening weekend success?
 opening_wknd_budget_plot <- movie_data |> 
   ggplot(aes(x = budget_million, y = opening_weekend_million)) +
   geom_point() +
@@ -256,7 +350,7 @@ opening_wknd_budget_plot <- movie_data |>
         plot.title.position = "plot")
 
 
-### Exploration 6: What is the correlation between a movie's IMDb rating and opening weekend success?
+# What is the correlation between a movie's IMDb rating and opening weekend success?
 movie_data |> 
   ggplot(aes(x = im_db_rating, y = opening_weekend_million)) +
   geom_point() +
@@ -265,167 +359,3 @@ movie_data |>
        y = "Opening Weekend Earnings (millions)",
        title = "Opening Weekend Earnings (millions) by IMDb Rating",
        subtitle = "There is an overall positive association between a movie's budget and it's opening weekend earnings.")
-
-
-
-
-
-
-
-## Exploration 2 by genre
-opening_wknd_budget_rcvry_genre <- movie_data |> 
-  filter(!is.na(primary_genre)) |> 
-  mutate(budget_recovered_millions = round(budget_million * (budget_recovered / 100))) |> 
-  ggplot(aes(x = opening_weekend_million, 
-             y = budget_recovered_millions,
-             color = primary_genre)) +
-  geom_point(alpha = 0.5) +
-  geom_smooth(method = "lm",
-              se = FALSE) +
-  labs(x = "Opening Weekend Earnings (millions of $)",
-       y = "Budget Recovery Earnings (millions of $)",
-       title = "Opening Weekend Earnings by Budget Recovery for 
-Each Genre",
-       subtitle = "The 'adventure' genre has the steepest correlation.",
-       color = "Genre") +
-  theme_minimal() +
-  theme(plot.title = element_text(face = "bold",
-                                  size = 9),
-        plot.title.position = "plot",
-        plot.subtitle = element_text(size = 7),
-        legend.text = element_text(size = 7),
-        legend.title = element_text(size = 6),
-        axis.title.x = element_text(size = 6),
-        axis.title.y = element_text(size = 6))
-
-
-opening_wknd_budget_rcvry_script_type <- movie_data |> 
-  filter(!is.na(script_type)) |> 
-  mutate(budget_recovered_millions = round(budget_million * (budget_recovered / 100))) |> 
-  ggplot(aes(x = opening_weekend_million, 
-             y = budget_recovered_millions,
-             color = script_type)) +
-  geom_point(alpha = 0.5) +
-  geom_smooth(method = "lm",
-              se = FALSE) +
-  labs(x = "Opening Weekend Earnings (millions of $)",
-       y = "Budget Recovery Earnings (millions of $)",
-       title = "Opening Weekend Earnings by Budget Recovery for 
-Each Script Type",
-       subtitle = "The 'remake' script type has the steepest correlation.",
-       color = "Script Type") +
-  theme_minimal() +
-  theme(plot.title = element_text(face = "bold",
-                                  size = 9),
-        plot.title.position = "plot",
-        plot.subtitle = element_text(size = 7),
-        legend.text = element_text(size = 7),
-        legend.title = element_text(size = 6),
-        axis.title.x = element_text(size = 6),
-        axis.title.y = element_text(size = 6))
-
-opening_wknd_budget_rcvry_genre + opening_wknd_budget_rcvry_script_type
-
-
-
-
-
-
-## Exploration 2 by genre
-opening_wknd_budget_rcvry_genre <- movie_data |> 
-  filter(!is.na(primary_genre)) |> 
-  mutate(budget_recovered_millions = round(budget_million * (budget_recovered / 100))) |> 
-  ggplot(aes(x = opening_weekend_million, 
-             y = budget_recovered_millions,
-             color = primary_genre)) +
-  geom_point(alpha = 0.5) +
-  geom_smooth(method = "lm",
-              se = FALSE) +
-  labs(x = "Opening Weekend Earnings (millions of $)",
-       y = "Budget Recovery Earnings (millions of $)",
-       title = "Opening Weekend Earnings by Budget Recovery for 
-Each Genre",
-subtitle = "The 'adventure' genre has the steepest correlation.",
-color = "Genre") +
-  theme_minimal() +
-  theme(plot.title = element_text(face = "bold",
-                                  size = 9),
-        plot.title.position = "plot",
-        plot.subtitle = element_text(size = 7),
-        legend.text = element_text(size = 7),
-        legend.title = element_text(size = 6),
-        axis.title.x = element_text(size = 6),
-        axis.title.y = element_text(size = 6))
-
-
-opening_wknd_budget_rcvry_script_type <- movie_data |> 
-  filter(!is.na(script_type)) |> 
-  mutate(budget_recovered_millions = round(budget_million * (budget_recovered / 100))) |> 
-  ggplot(aes(x = opening_weekend_million, 
-             y = budget_recovered_millions,
-             color = script_type)) +
-  geom_point(alpha = 0.5) +
-  geom_smooth(method = "lm",
-              se = FALSE) +
-  labs(x = "Opening Weekend Earnings (millions of $)",
-       y = "Budget Recovery Earnings (millions of $)",
-       title = "Opening Weekend Earnings by Budget Recovery for 
-Each Script Type",
-subtitle = "The 'remake' script type has the steepest correlation.",
-color = "Script Type") +
-  theme_minimal() +
-  theme(plot.title = element_text(face = "bold",
-                                  size = 9),
-        plot.title.position = "plot",
-        plot.subtitle = element_text(size = 7),
-        legend.text = element_text(size = 7),
-        legend.title = element_text(size = 6),
-        axis.title.x = element_text(size = 6),
-        axis.title.y = element_text(size = 6))
-
-opening_wknd_budget_rcvry_genre + opening_wknd_budget_rcvry_script_type
-
-
-
-
-# distributor with highest average opening weekend successes
-distr_opening_wknd <- movie_data |> 
-  filter(!is.na(distributor)) |> 
-  group_by(distributor) |> 
-  summarize(avg_opening_wnkd = mean(opening_weekend_million, na.rm = TRUE)) |> 
-  arrange(desc(avg_opening_wnkd)) |> 
-  slice_head(n = 10) |> 
-  ggplot(aes(x = reorder(distributor, 
-                         -avg_opening_wnkd),
-             y = avg_opening_wnkd,
-             fill = distributor)) +
-  geom_bar(stat = "identity") +
-  labs(title = "Top 10 Movie Distributors with Greatest Average Opening Weekend Success",
-       subtitle = "Walt Disney Studios has the most opening weekend earnings.",
-       x = "Distributor",
-       y = "Average Opening Weekend Revenue (millions of $)") +
-  theme_minimal() +
-  theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot",
-        legend.position = "none",
-        axis.text.x = element_text(angle = 45, 
-                                   hjust = 1),
-        axis.title.y = element_text(size = 9))
-
-
-# opening wknd success by rotten tomatoes audience
-rt_audience_by_opening_wknd <- movie_data |> 
-  ggplot(aes(x = opening_weekend_million,
-             y = rotten_tomatoes_audience)) +
-  geom_point() +
-  geom_smooth(method = "lm",
-              se = FALSE) +
-  labs(title = "Opening Weekend Revenue by Rotten Tomatoes Audience Score",
-       subtitle = "There is a positive relationship between the two variables.",
-       x = "Opening Weekend (millions of $)",
-       y = "Rotten Tomatoes Audience Score") +
-  theme_minimal() +
-  theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot")
-
-

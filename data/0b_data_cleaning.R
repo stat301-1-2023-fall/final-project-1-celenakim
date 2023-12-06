@@ -65,6 +65,9 @@ movie_data$release_date_us <- as.Date(strptime(movie_data$release_date_us, "%B %
 movie_data$budget_recovered <- as.numeric(sub("%", "", movie_data$budget_recovered))
 movie_data$budget_recovered_opening_weekend <- as.numeric(sub("%", "", movie_data$budget_recovered_opening_weekend))
 
+# Drop % and convert 'of_gross_earned_abroad' variable to numeric
+movie_data$of_gross_earned_abroad <- as.numeric(sub("%", "", movie_data$of_gross_earned_abroad))
+
 # Replace NA values in 'genre' with values from 'primary_genre'
 movie_data <- movie_data |> 
   mutate(genre = ifelse(is.na(genre) | 

@@ -745,7 +745,7 @@ movie_data |>
              y = foreign_gross_million)) +
   geom_point() +
   geom_smooth(method = "lm") +
-  labs(title = "Domestic Gross by Foreign Gross",
+  labs(title = "Relationship Between Domestic and Foreign Gross",
        subtitle = "There is a strong positive correlation between the two variables.",
        x = "Domestic Gross (millions of $)",
        y = "Foreign Gross (millions of $)") +

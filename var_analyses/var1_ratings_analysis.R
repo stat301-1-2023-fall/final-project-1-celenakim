@@ -36,83 +36,23 @@ ratings_yearly_plot
 
 
 
-## Exploration 2: What is the distribution of average critic ratings?
-movie_data |> 
-  ggplot(aes(x = average_critics)) +
-  geom_histogram(binwidth = 4) +
-  labs(x = "Average Rotten Tomatoes and Metacritic Critic Rating",
-       y = "Count",
-       title = "Distribution of Average Rotten Tomatoes and Metacritic Critic Rating")
-
-
-## Exploration 3: How do the overall average rotten tomato critic ratings change over the years from 2007-2022?
-yearly_rt_critic_rating <- movie_data |> 
-  group_by(year) |> 
-  summarize(mean_rt_rating = round(mean(rotten_tomatoes_critics, na.rm = TRUE)))  |> 
-  arrange(desc(mean_rt_rating)) 
-
-yearly_rt_critic_rating |> 
-  DT::datatable()
-
-ggplot(yearly_rt_critic_rating, aes(x = year, y = mean_rt_rating)) +
-  geom_line() +
-  geom_point() +
-  labs(x = "Year", 
-       y = "Rotten Tomatoes Critic Ratings", 
-       title = "Average Rotten Tomatoes Critic Ratings for Hollywood Movies from 2007-2022") 
-
-
-## Exploration 4: How do the overall average metacritic critic ratings change over the years from 2007-2022?
-yearly_mc_critic_rating <- movie_data |> 
-  group_by(year) |> 
-  summarize(mean_mc_rating = round(mean(metacritic_critics, na.rm = TRUE)))  |> 
-  arrange(desc(mean_mc_rating)) 
-
-yearly_mc_critic_rating |> 
-  DT::datatable()
-
-ggplot(yearly_mc_critic_rating, aes(x = year, y = mean_mc_rating)) +
-  geom_line() +
-  geom_point() +
-  labs(x = "Year", 
-       y = "Metacritic Critic Ratings", 
-       title = "Average Metacritic Critic Ratings for Hollywood Movies from 2007-2022") 
-
-
-### Exploration 5: Do movies that have won Oscars have better Rotten Tomatoes critic ratings?
-critic_ratings_oscar_table <- movie_data |> 
+### Exploration 2: Do movies that have won Oscars have better Rotten Tomatoes critic ratings?
+critic_ratings_oscar <- movie_data |> 
   filter(!is.na(oscar_winners)) |> 
-  group_by(oscar_winners) |> 
-  summarize(mean_critic_rating = round(mean(average_critics, 
-                                            na.rm = TRUE))) |> 
-  DT::datatable()
-
-
-### Exploration 6: Which distributor has the highest IMDb rating?
-imdb_rating_by_dist <- movie_data |> 
-  group_by(distributor) |> 
-  summarize(mean_imdb = mean(im_db_rating, na.rm = TRUE),
-            mean_opening_wknd_rev = mean(opening_weekend_million, na.rm = TRUE),
-            mean_worldwide_gross = mean(worldwide_gross_million, na.rm = TRUE)) |> 
-  arrange(desc(mean_imdb)) |> 
-  slice_head(n = 3) |> 
-  DT::datatable()
-imdb_rating_by_dist
+  ggplot(aes(x = average_critics, y = oscar_winners)) +
+  geom_boxplot() +
+  labs(x = "Average Critic Rating",
+       y = "Oscar Winner",
+       title = "Distribution of Critic Ratings by Oscar Wins",
+       subtitle = "Oscar winning movies have a higher mean critic rating.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        legend.position = "top")
 
 
 
-### Exploration 7: What is the correlation between a movie's IMDb rating and opening weekend success?
-movie_data |> 
-  ggplot(aes(x = im_db_rating, y = opening_weekend_million)) +
-  geom_point() +
-  geom_smooth(method = "lm") +
-  labs(x = "IMDb Rating",
-       y = "Opening Weekend Earnings (millions)",
-       title = "Opening Weekend Earnings (millions) by IMDb Rating",
-       subtitle = "There is an overall positive association between a movie's budget and it's opening weekend earnings.")
-
-
-## How do rotten tomato critic ratings influence its opening weekend rev?
+## Exploration 3: How do rotten tomato critic ratings influence its opening weekend rev?
 rating_rt_critcs_opening_wknd <- movie_data |> 
   ggplot(aes(x = rotten_tomatoes_critics,
              y = opening_weekend_million)) +
@@ -130,27 +70,8 @@ weekend revenue.") +
         legend.position = "top")
 
 
-# Which distributor has the highest rotten tomato critic rating? How do its opening weekend rev and worldwide gross compare to other distributors# 
-movie_data |> 
-  group_by(distributor) |> 
-  summarize(mean_rt_critics = mean(rotten_tomatoes_critics, na.rm = TRUE)) |> 
-  arrange(desc(mean_rt_critics)) |> 
-  slice_head(n = 5) |> 
-  DT::datatable()
 
-movie_data |> 
-  filter(distributor == "Cinereach" | distributor == "Sony Pictures Classics" | distributor == "A24") |>
-  group_by(distributor) |> 
-  summarize(mean_imdb = mean(im_db_rating, na.rm = TRUE),
-            mean_opening_wknd_rev = mean(opening_weekend_million, na.rm = TRUE),
-            mean_worldwide_gross = mean(worldwide_gross_million, na.rm = TRUE))
-
-summarize(mean_imdb = mean(im_db_rating, na.rm = TRUE),
-          mean_opening_wknd_rev = mean(opening_weekend_million, na.rm = TRUE),
-          mean_worldwide_gross = mean(worldwide_gross_million, na.rm = TRUE))
-
-
-## Explore the average ratings (critics and audience) for each primary genre.
+## Exploration 4: Explore the average ratings (critics and audience) for each primary genre.
 ratings_script_type_plot <- movie_data |> 
   filter(!is.na(script_type)) |> 
   group_by(script_type) |> 
@@ -188,23 +109,8 @@ ratings_script_type_plot <- movie_data |>
         legend.position = "top")
 
 
-critic_ratings_oscar <- movie_data |> 
-  filter(!is.na(oscar_winners)) |> 
-  ggplot(aes(x = average_critics, y = oscar_winners)) +
-  geom_boxplot() +
-  labs(x = "Average Critic Rating",
-       y = "Oscar Winner",
-       title = "Distribution of Critic Ratings by Oscar Wins",
-       subtitle = "Oscar winning movies have a higher mean critic rating.") +
-  theme_minimal() +
-  theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot",
-        legend.position = "top")
 
-
-
-
-# audience vs critics deviance by genre
+## Exploration 5: Audience vs critics ratings deviance by genre
 ratings_deviance_genre <- movie_data |> 
   filter(!is.na(primary_genre)) |> 
   group_by(primary_genre) |> 
@@ -228,11 +134,13 @@ the 'sci-fi' genre.") +
                                    hjust = 1)) 
 
 
+
+## Exploration 6: Rotten Tomatoes vs Metacritics audience ratings deviance by genre
 rt_metacritic_deviance_genre <- movie_data |> 
   filter(!is.na(primary_genre)) |> 
   group_by(primary_genre) |> 
   summarize(aveg_dev = mean(rotten_tomatoes_vs_metacritic_deviance, 
-                                    na.rm = TRUE)) |> 
+                            na.rm = TRUE)) |> 
   ggplot(aes(x = reorder(primary_genre, 
                          -aveg_dev), 
              y = aveg_dev,
@@ -250,33 +158,8 @@ rt_metacritic_deviance_genre <- movie_data |>
                                    hjust = 1)) 
 
 
-ratings_deviance_scripttype <- movie_data |> 
-  filter(!is.na(script_type)) |> 
-  group_by(script_type) |> 
-  summarize(average_deviance = mean(audience_vs_critics_deviance, 
-                                    na.rm = TRUE)) |> 
-  ggplot(aes(x = script_type, 
-             y = average_deviance,
-             fill = script_type))  +
-  labs(x = "Genre",
-       y = "Audience vs. Critics Deviance",
-       title = "Audience vs. Critics Ratings Deviance by Genre",
-       subtitle = "Audience and critics have the lowest difference in ratings for the 'biography' genre, and the largest for 
-the 'sci-fi' genre.") +
-  geom_bar(stat = "identity") +
-  theme_minimal() +
-  theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot",
-        legend.position = "none",
-        axis.text.x = element_text(angle = 45, 
-                                   hjust = 1)) 
 
-
-
-
-
-## Ratings, domestic gross
-
+## Exploration 7: Audience and Critic Ratings, correlated with domestic gross, by genre
 # critics
 critic_rating_dom_gross_genre <- movie_data |> 
   filter(!is.na(primary_genre)) |> 
@@ -290,8 +173,8 @@ critic_rating_dom_gross_genre <- movie_data |>
        y = "Domestic Gross (millions of $)",
        title = "The Relationship of Average Rotten Tomatoes & Metacritic 
 Critic Ratings and Domestic Gross, by Genre",
-       subtitle = "The 'action' genre has the highest correlation between the two variables.",
-       color = "Genre") +
+subtitle = "The 'action' genre has the highest correlation between the two variables.",
+color = "Genre") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold",
                                   size = 11),
@@ -302,7 +185,6 @@ Critic Ratings and Domestic Gross, by Genre",
         legend.title = element_text(size = 7.5)) +
   xlim(0, 100) +
   ylim(0, 800)
-
 
 # audience
 aud_rating_dom_gross_genre <- movie_data |> 
@@ -317,8 +199,8 @@ aud_rating_dom_gross_genre <- movie_data |>
        y = "Domestic Gross (millions of $)",
        title = "The Relationship of Average Rotten Tomatoes & Metacritic 
 Audience Ratings and Domestic Gross, by Genre",
-       subtitle = "The 'action' genre has the highest correlation between the two variables.",
-       color = "Genre") +
+subtitle = "The 'action' genre has the highest correlation between the two variables.",
+color = "Genre") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold",
                                   size = 11),
@@ -334,7 +216,7 @@ critic_rating_dom_gross_genre + aud_rating_dom_gross_genre
 
 
 
-#top 10 ratings by distributor
+## Exploration 8: Top 10 distributors by avg critic and audience ratings
 aud_ratings_distributor <- movie_data |> 
   group_by(distributor) |> 
   summarize(avg_aud = mean(average_audience, na.rm = TRUE)) |> 
@@ -348,7 +230,7 @@ aud_ratings_distributor <- movie_data |>
        y = "Average Audience Rating",
        title = "Top 10 Movie Distributors with Highest Average 
 Rotten Tomatoes & Metacritic Audience Ratings",
-       subtitle = "Atlas Distribution Company has the highest audience ratings.") +
+subtitle = "Atlas Distribution Company has the highest audience ratings.") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot",
@@ -356,7 +238,6 @@ Rotten Tomatoes & Metacritic Audience Ratings",
         axis.text.x = element_text(angle = 45, 
                                    hjust = 1)) +
   ylim(0, 95)
-  
 
 critic_ratings_distributor <- movie_data |> 
   group_by(distributor) |> 
@@ -371,7 +252,7 @@ critic_ratings_distributor <- movie_data |>
        y = "Average Critic Rating",
        title = "Top 10 Movie Distributors with Highest Average 
 Rotten Tomatoes & Metacritic Critic Ratings",
-       subtitle = "A24 has the highest critic ratings.") +
+subtitle = "A24 has the highest critic ratings.") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot",
@@ -383,7 +264,8 @@ Rotten Tomatoes & Metacritic Critic Ratings",
 critic_ratings_distributor + aud_ratings_distributor
 
 
-# ratings by percent earned abroad
+
+## Exploration 9: Average Critic and Audience, ratings by percent earned abroad
 critic_pcnt_abroad <- movie_data |> 
   ggplot(aes(x = average_critics, y = of_gross_earned_abroad)) +
   geom_point() +
@@ -415,3 +297,127 @@ aud_pcnt_abroad <- movie_data |>
         plot.title.position = "plot")
 
 critic_pcnt_abroad + aud_pcnt_abroad
+
+
+
+
+# EXTRA EXPLORATIONS
+## What is the distribution of average critic ratings?
+movie_data |> 
+  ggplot(aes(x = average_critics)) +
+  geom_histogram(binwidth = 4) +
+  labs(x = "Average Rotten Tomatoes and Metacritic Critic Rating",
+       y = "Count",
+       title = "Distribution of Average Rotten Tomatoes and Metacritic Critic Rating")
+
+
+## How do the overall average rotten tomato critic ratings change over the years from 2007-2022?
+yearly_rt_critic_rating <- movie_data |> 
+  group_by(year) |> 
+  summarize(mean_rt_rating = round(mean(rotten_tomatoes_critics, na.rm = TRUE)))  |> 
+  arrange(desc(mean_rt_rating)) 
+
+yearly_rt_critic_rating |> 
+  DT::datatable()
+
+ggplot(yearly_rt_critic_rating, aes(x = year, y = mean_rt_rating)) +
+  geom_line() +
+  geom_point() +
+  labs(x = "Year", 
+       y = "Rotten Tomatoes Critic Ratings", 
+       title = "Average Rotten Tomatoes Critic Ratings for Hollywood Movies from 2007-2022") 
+
+
+## How do the overall average metacritic critic ratings change over the years from 2007-2022?
+yearly_mc_critic_rating <- movie_data |> 
+  group_by(year) |> 
+  summarize(mean_mc_rating = round(mean(metacritic_critics, na.rm = TRUE)))  |> 
+  arrange(desc(mean_mc_rating)) 
+
+yearly_mc_critic_rating |> 
+  DT::datatable()
+
+ggplot(yearly_mc_critic_rating, aes(x = year, y = mean_mc_rating)) +
+  geom_line() +
+  geom_point() +
+  labs(x = "Year", 
+       y = "Metacritic Critic Ratings", 
+       title = "Average Metacritic Critic Ratings for Hollywood Movies from 2007-2022") 
+
+
+## Which distributor has the highest IMDb rating?
+imdb_rating_by_dist <- movie_data |> 
+  group_by(distributor) |> 
+  summarize(mean_imdb = mean(im_db_rating, na.rm = TRUE),
+            mean_opening_wknd_rev = mean(opening_weekend_million, na.rm = TRUE),
+            mean_worldwide_gross = mean(worldwide_gross_million, na.rm = TRUE)) |> 
+  arrange(desc(mean_imdb)) |> 
+  slice_head(n = 3) |> 
+  DT::datatable()
+imdb_rating_by_dist
+
+
+## What is the correlation between a movie's IMDb rating and opening weekend success?
+movie_data |> 
+  ggplot(aes(x = im_db_rating, y = opening_weekend_million)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "IMDb Rating",
+       y = "Opening Weekend Earnings (millions)",
+       title = "Opening Weekend Earnings (millions) by IMDb Rating",
+       subtitle = "There is an overall positive association between a movie's budget and it's opening weekend earnings.")
+
+
+# Which distributor has the highest rotten tomato critic rating? 
+# How do its opening weekend rev and worldwide gross compare to other distributors
+movie_data |> 
+  group_by(distributor) |> 
+  summarize(mean_rt_critics = mean(rotten_tomatoes_critics, na.rm = TRUE)) |> 
+  arrange(desc(mean_rt_critics)) |> 
+  slice_head(n = 5) |> 
+  DT::datatable()
+
+movie_data |> 
+  filter(distributor == "Cinereach" | distributor == "Sony Pictures Classics" | distributor == "A24") |>
+  group_by(distributor) |> 
+  summarize(mean_imdb = mean(im_db_rating, na.rm = TRUE),
+            mean_opening_wknd_rev = mean(opening_weekend_million, na.rm = TRUE),
+            mean_worldwide_gross = mean(worldwide_gross_million, na.rm = TRUE))
+
+summarize(mean_imdb = mean(im_db_rating, na.rm = TRUE),
+          mean_opening_wknd_rev = mean(opening_weekend_million, na.rm = TRUE),
+          mean_worldwide_gross = mean(worldwide_gross_million, na.rm = TRUE))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ratings_deviance_scripttype <- movie_data |> 
+  filter(!is.na(script_type)) |> 
+  group_by(script_type) |> 
+  summarize(average_deviance = mean(audience_vs_critics_deviance, 
+                                    na.rm = TRUE)) |> 
+  ggplot(aes(x = script_type, 
+             y = average_deviance,
+             fill = script_type))  +
+  labs(x = "Genre",
+       y = "Audience vs. Critics Deviance",
+       title = "Audience vs. Critics Ratings Deviance by Genre",
+       subtitle = "Audience and critics have the lowest difference in ratings for the 'biography' genre, and the largest for 
+the 'sci-fi' genre.") +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        legend.position = "none",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1)) 

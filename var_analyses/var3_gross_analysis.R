@@ -4,12 +4,6 @@ library(ggrepel)
 library(patchwork)
 
 # Gross: Domestic, foreign, and worldwide gross
-# KEY TAKEAWAYS
-## -heavily impacted by 2020 covid pandemic
-
-
-
-
 
 
 ## Exploration 1: How does the domestic gross change over the years from 2007-2022?
@@ -64,25 +58,7 @@ gross_dom_yearly
 
 
 
-## Exploration 3: How does the worldwide gross change over the years from 2007-2022?
-yearly_worldwide_gross <- movie_data |> 
-  group_by(year) |> 
-  summarize(mean_worldwide_gross = round(mean(worldwide_gross_million, na.rm = TRUE)))  |> 
-  arrange(desc(mean_worldwide_gross)) 
-yearly_worldwide_gross
-
-ggplot(yearly_worldwide_gross, aes(x = year, y = mean_worldwide_gross)) +
-  geom_line() +
-  geom_point() +
-  labs(x = "Year", 
-       y = "Worldwide Gross (millions)", 
-       title = "Average Worldwide Gross in Millions for Hollywood Movies from 2007-2022", 
-       subtitle = "There is no worldwide gross data available for the year 2021.")
-
-
-
-
-## Exploration 4: is there a relationship between domestic vs. foreign
+## Exploration 2: What is the relationship between domestic vs. foreign gross?
 gross_rel_plot <- movie_data |> 
   ggplot(aes(x = domestic_gross_million,
              y = foreign_gross_million)) +
@@ -96,7 +72,9 @@ gross_rel_plot <- movie_data |>
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot") 
 
-## Exploration 6: Genre-Specific Domestic and Foreign Gross Performance
+
+
+## Exploration 3: Genre-Specific Domestic and Foreign Gross Performance
 gross_domestic_genre <- movie_data |> 
   filter(!is.na(domestic_gross_million) & 
            !is.na(primary_genre) & 
@@ -142,62 +120,58 @@ gross_domestic_genre + gross_foreign_genre
 
 
 
-# What is the correlation between `wordwide_gross` and `budget_recovered`?
-movie_data |> 
-  filter(budget_recovered < 30000) |> 
-  ggplot(aes(x = worldwide_gross_million,
-             y = budget_recovered)) +
-  geom_point() +
-  geom_smooth(method = "lm")
-
-
-
-# Exploration 7: Budget and Revenue Composition by Genre
-# Analyze the composition of budget and revenue components (domestic, foreign, worldwide) by genre.
-movie_data |> 
-  gather(key = "component", value = "revenue", domestic_gross_million, foreign_gross_million, worldwide_gross_million) |> 
-  filter(!is.na(primary_genre) & primary_genre != "") |> 
-  ggplot(aes(x = primary_genre, y = revenue, fill = component)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  labs(title = "Budget and Revenue Composition by Genre",
-       x = "Primary Genre",
-       y = "Revenue (in millions)",
-       fill = "Component") +
+## Exploration 4: Script Type-Specific Domestic and Foreign Gross Performance
+gross_domestic_script_type <- movie_data |> 
+  filter(!is.na(domestic_gross_million) & 
+           !is.na(script_type) & 
+           script_type != "")  |> 
+  ggplot(aes(x = fct_reorder(script_type, 
+                             -domestic_gross_million), 
+             y = domestic_gross_million, 
+             fill = script_type)) +
+  geom_boxplot() +
+  labs(title = "Domestic Gross Performance by Script Type",
+       subtitle = "The 'sequel, adaption' script type has the best performance.",
+       x = "Script Type",
+       y = "Domestic Gross (millions of $)",
+       fill = "Script Type") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(plot.title = element_text(face = "bold",
+                                  size = 11),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 9),
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        legend.position = "none")
 
-# makes sense, genre trends
-movie_data |> 
-  group_by(year, primary_genre) |> 
-  filter(!is.na(primary_genre)) |> 
-  summarize(count = n()) |> 
-  ggplot(aes(x = year, y = count, color = primary_genre)) +
-  geom_line() +
-  labs(title = "Genre Trends Over Years",
-       x = "Year",
-       y = "Number of Movies",
-       color = "Primary Genre") +
+gross_foreign_script_type <- movie_data |> 
+  filter(!is.na(foreign_gross_million) & 
+           !is.na(script_type) & 
+           script_type != "")  |> 
+  ggplot(aes(x = reorder(script_type, 
+                         -foreign_gross_million), 
+             y = foreign_gross_million, 
+             fill = script_type)) +
+  geom_boxplot() +
+  labs(title = "Foreign Gross Performance by Script Type",
+       subtitle = "The 'sequel, adaptation' script type has the best performance.",
+       x = "Script Type",
+       y = "Foreign Gross (millions of $)",
+       fill = "Script Type") +
   theme_minimal() +
-  ylim(0, 30)
+  theme(plot.title = element_text(face = "bold",
+                                  size = 11),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 9),
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1),
+        legend.position = "none") 
+
+gross_domestic_script_type + gross_foreign_script_type
 
 
-### Exploration 8: Analyze the worldwide performance of movies by different distributors.
-movie_data |> 
-  filter(!is.na(distributor)) |> 
-  group_by(distributor) |> 
-  summarize(avg_worldwide_gross = mean(worldwide_gross_million, na.rm = TRUE)) |> 
-  arrange(desc(avg_worldwide_gross)) |> 
-  slice_head(n = 10) |> 
-  ggplot(aes(x = reorder(distributor, avg_worldwide_gross), y = avg_worldwide_gross)) +
-  geom_bar(stat = "identity", fill = "skyblue") +
-  labs(title = "Top 10 Movie Distributors Based on Worldwide Gross Performance",
-       subtitle = "Walt Disney Studios earned the highest average worldwide gross revenue.",
-       x = "Distributor",
-       y = "Average Worldwide Gross (in millions)") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-
+## Exploration 5: Analyze the worldwide performance of movies by different distributors.
 dom_gross_distributor <- movie_data |> 
   filter(!is.na(distributor)) |> 
   group_by(distributor) |> 
@@ -212,10 +186,10 @@ dom_gross_distributor <- movie_data |>
            fill = "skyblue") +
   labs(title = "Top 5 Movie Distributors with the Highest 
 Domestic Gross",
-       subtitle = "Walt Disney Studios had the most successful domestic gross 
+subtitle = "Walt Disney Studios had the most successful domestic gross 
 performance.",
-       x = "Distributor",
-       y = "Average Domestic Gross (in millions of $)") +
+x = "Distributor",
+y = "Average Domestic Gross (in millions of $)") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold",
                                   size = 12),
@@ -225,7 +199,6 @@ performance.",
                                    hjust = 1),
         axis.title.y = element_text(size = 9)) +
   ylim(0, 800)
-
 
 for_gross_distributor <- movie_data |> 
   filter(!is.na(distributor)) |> 
@@ -241,10 +214,10 @@ for_gross_distributor <- movie_data |>
            fill = "lightgreen") +
   labs(title = "Top 5 Movie Distributors with the Highest 
 Foreign Gross",
-       subtitle = "Walt Disney Studios had the most successful foreign gross 
+subtitle = "Walt Disney Studios had the most successful foreign gross 
 performance.",
-       x = "Distributor",
-       y = "Average Foreign Gross (in millions of $)") +
+x = "Distributor",
+y = "Average Foreign Gross (in millions of $)") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold",
                                   size = 12),
@@ -255,25 +228,11 @@ performance.",
         axis.title.y = element_text(size = 9)) +
   ylim(0, 800)
 
-
 dom_gross_distributor + for_gross_distributor
 
 
-# Revenue and Oscar Wins: Analyze the relationship between box office revenue and the number of Oscar wins.
-movie_data |> 
-  filter(!is.na(oscar_winners)) |> 
-  ggplot(aes(x = worldwide_gross_million, y = oscar_winners)) +
-  geom_boxplot() +
-  labs(title = "Box Office Revenue by Oscar Wins",
-       subtitle = "Oscar winning movies have a higher average worldwide gross.",
-       x = "Worldwide Gross (in millions)",
-       y = "Oscar Winners") +
-  theme_minimal() +
-  theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot")
 
-
-# Analyze the relationship between worldwide gross and budget recovery
+## Exploration 6: Analyze the relationship between worldwide gross and budget recovery
 ww_gross_budget_rcvry <- movie_data |> 
   filter(budget_recovered < 10000) |> 
   ggplot(aes(x = worldwide_gross_million,
@@ -282,18 +241,16 @@ ww_gross_budget_rcvry <- movie_data |>
   geom_smooth(method = "lm") +
   labs(title = "Relationship Between a Hollywood Movie's Worldwide Gross and the Percent of its
 Budget Recovered",
-       subtitle = "There is a positive association between the two variables.",
-       x = "Worldwide Gross (in millions of $)",
-       y = "Percent of Budget Recovered") +
+subtitle = "There is a positive association between the two variables.",
+x = "Worldwide Gross (in millions of $)",
+y = "Percent of Budget Recovered") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot") 
 
 
 
-# which genre earned the most abroad
-
-# genre that is more popular in foreign audiences than domestic
+## Exploration 7: Which genre has the highest foreign to domestic gross percentage
 genre_prcnt_earned_abroad <- movie_data |> 
   filter(!is.na(primary_genre) & !is.na(of_gross_earned_abroad)) |> 
   group_by(primary_genre) |> 
@@ -320,6 +277,7 @@ genre_prcnt_earned_abroad <- movie_data |>
 
 
 
+## Exploration 8: Which genre has the highest foreign to domestic gross percentage
 script_type_prcnt_earned_abroad <- movie_data |> 
   filter(!is.na(script_type) & !is.na(of_gross_earned_abroad)) |> 
   group_by(script_type) |> 
@@ -347,51 +305,59 @@ script_type_prcnt_earned_abroad <- movie_data |>
 
 
 
-# Dom For gross by script type
-gross_domestic_script_type <- movie_data |> 
-  filter(!is.na(domestic_gross_million) & 
-           !is.na(script_type) & 
-           script_type != "")  |> 
-  ggplot(aes(x = fct_reorder(script_type, 
-                             -domestic_gross_million), 
-             y = domestic_gross_million, 
-             fill = script_type)) +
-  geom_boxplot() +
-  labs(title = "Domestic Gross Performance by Script Type",
-subtitle = "The 'sequel, adaption' script type has the best performance.",
-x = "Script Type",
-y = "Domestic Gross (millions of $)",
-fill = "Script Type") +
-  theme_minimal() +
-  theme(plot.title = element_text(face = "bold",
-                                  size = 11),
-        plot.title.position = "plot",
-        plot.subtitle = element_text(size = 9),
-        axis.text.x = element_text(angle = 45, 
-                                   hjust = 1),
-        legend.position = "none")
 
-gross_foreign_script_type <- movie_data |> 
-  filter(!is.na(foreign_gross_million) & 
-           !is.na(script_type) & 
-           script_type != "")  |> 
-  ggplot(aes(x = reorder(script_type, 
-                         -foreign_gross_million), 
-             y = foreign_gross_million, 
-             fill = script_type)) +
-  geom_boxplot() +
-  labs(title = "Foreign Gross Performance by Script Type",
-subtitle = "The 'sequel, adaptation' script type has the best performance.",
-x = "Script Type",
-y = "Foreign Gross (millions of $)",
-fill = "Script Type") +
-  theme_minimal() +
-  theme(plot.title = element_text(face = "bold",
-                                  size = 11),
-        plot.title.position = "plot",
-        plot.subtitle = element_text(size = 9),
-        axis.text.x = element_text(angle = 45, 
-                                   hjust = 1),
-        legend.position = "none") 
+# EXTRA EXPLORATIONS:
 
-gross_domestic_script_type + gross_foreign_script_type
+## How does the worldwide gross change over the years from 2007-2022?
+yearly_worldwide_gross <- movie_data |> 
+  group_by(year) |> 
+  summarize(mean_worldwide_gross = round(mean(worldwide_gross_million, na.rm = TRUE)))  |> 
+  arrange(desc(mean_worldwide_gross)) 
+yearly_worldwide_gross
+
+ggplot(yearly_worldwide_gross, aes(x = year, y = mean_worldwide_gross)) +
+  geom_line() +
+  geom_point() +
+  labs(x = "Year", 
+       y = "Worldwide Gross (millions)", 
+       title = "Average Worldwide Gross in Millions for Hollywood Movies from 2007-2022", 
+       subtitle = "There is no worldwide gross data available for the year 2021.")
+
+# What is the correlation between `wordwide_gross` and `budget_recovered`?
+movie_data |> 
+  filter(budget_recovered < 30000) |> 
+  ggplot(aes(x = worldwide_gross_million,
+             y = budget_recovered)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+
+# Top 10 Movie Distributors Based on Worldwide Gross Performance
+movie_data |> 
+  filter(!is.na(distributor)) |> 
+  group_by(distributor) |> 
+  summarize(avg_worldwide_gross = mean(worldwide_gross_million, na.rm = TRUE)) |> 
+  arrange(desc(avg_worldwide_gross)) |> 
+  slice_head(n = 10) |> 
+  ggplot(aes(x = reorder(distributor, avg_worldwide_gross), y = avg_worldwide_gross)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  labs(title = "Top 10 Movie Distributors Based on Worldwide Gross Performance",
+       subtitle = "Walt Disney Studios earned the highest average worldwide gross revenue.",
+       x = "Distributor",
+       y = "Average Worldwide Gross (in millions)") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+# Revenue and Oscar Wins: Analyze the relationship between box office revenue and the number of Oscar wins.
+movie_data |> 
+  filter(!is.na(oscar_winners)) |> 
+  ggplot(aes(x = worldwide_gross_million, y = oscar_winners)) +
+  geom_boxplot() +
+  labs(title = "Box Office Revenue by Oscar Wins",
+       subtitle = "Oscar winning movies have a higher average worldwide gross.",
+       x = "Worldwide Gross (in millions)",
+       y = "Oscar Winners") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot")
