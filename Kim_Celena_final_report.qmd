@@ -80,20 +80,26 @@ over the years overall. Critics seem to rate lower than audiences.",
                                   max(movie_data$year), 
                                   by = 2)) 
 ```
-@fig-yearly-avg-ratings visualizes how the average of Rotten Tomatoes and Metacritic scores have changed over the years, separated by audience and critic rating groups. Overall, it appears that these ratings as a whole have increased since 2007. Additionally, the audience rating group seems to consistenly give higher ratings than the critic rating group. This analysis of ratings over the years serves to help us understand how much the numbers for the two rating groups of audience and critics differ, as well as visualizing the overall pattern of critic ratings over the years.
+@fig-yearly-avg-ratings visualizes how the average of Rotten Tomatoes and Metacritic scores have changed over the years, separated by audience and critic rating groups. Overall, it appears that these ratings as a whole have slightly increased since 2007. There are many different factors that could have led to this gradual increase, perhaps that the quality of movies has improved over time, or that reviewers have become more lenient in their scores. Additionally, the audience rating group seems to consistently give higher ratings than the critic rating group, possibly suggesting that they are less harsh when it comes to reviewing films. This analysis of ratings over the years serves to help us understand how much the behaviors of the two rating groups of audience and critics differ, as well as visualizing the overall pattern of critic ratings over the years.
 
 ```{r}
 #| label: fig-critic-ratings-oscar
-#| fig-cap: The average of Rotten Tomatoes critic ratings and Metacritic critic ratings for movies that have won at least one Oscar and movies who have not won any Oscars.
+#| fig-cap: The distribution of the average of Rotten Tomatoes critic ratings and Metacritic critic ratings for movies that have won at least one Oscar and movies who have not won any Oscars.
 
 movie_data |> 
   filter(!is.na(oscar_winners)) |> 
-  group_by(oscar_winners) |> 
-  summarize(mean_critic_rating = round(mean(average_critics, 
-                                               na.rm = TRUE))) |> 
-  DT::datatable()
+  ggplot(aes(x = average_critics, y = oscar_winners)) +
+  geom_boxplot() +
+  labs(x = "Average Critic Rating",
+       y = "Oscar Winner",
+       title = "Distribution of Critic Ratings by Oscar Wins",
+       subtitle = "Oscar winning movies have a higher mean critic rating.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        legend.position = "top")
 ```
-@fig-critic-ratings-oscar makes use of two measures of movie success that are determined solely by movie critics: Oscar wins and average critic movie ratings. As can be seen in the table, Hollywood movies that have won at least one Oscar award have a higher average of Rotten Tomatoes and Metacritic critic ratings than those who have not won any Oscars. This correlations suggests a similar pattern between critical assessment and award recognition, in that movies who are praised enough to win an Oscar are also favored highly among Rotten Tomatoes and Metacritic critics.
+@fig-critic-ratings-oscar makes use of two measures of movie success that are determined solely by movie critics: Oscar wins and average critic movie ratings. As can be seen in the box plot, Hollywood movies that have won at least one Oscar award have a higher average of Rotten Tomatoes and Metacritic critic ratings than those who have not won any Oscars. This correlations suggests a similar pattern between critics' movie assessment and award recognition, in that movies who are praised enough by critics to win an Oscar are also favored highly among Rotten Tomatoes and Metacritic critics.
 
 ```{r}
 #| label: fig-rt-critic-opening-wknd
@@ -156,7 +162,193 @@ movie_data |>
         axis.text.x = element_text(angle = 90, hjust = 1),
         legend.position = "top")
 ```
-@fig-ratings-script-type visualizes the average IMDb, Metacritic, and Rotten Tomatoes critic ratings for each of the unique script type combinations of Hollywood movies from 2007-2022. One chief idea to note is that the average IMDb rating is only available for 5 out of the 16 script types, revealing a great amount of missingness within this variable and making it difficult to reach a conlusion about the relationship between script type and average IMDb rating. For the other two rating variables, the script type with both the highest Metacritic and Rotten Tomatoes critic ratings is "documentary", suggesting that this script type is more favorable among critics than other script types. 
+@fig-ratings-script-type visualizes the average IMDb, Metacritic, and Rotten Tomatoes critic ratings for each of the unique script type combinations of Hollywood movies from 2007-2022. One chief idea to note is that the average IMDb rating is only available for 5 out of the 16 script types, revealing a great amount of missingness within this variable and making it difficult to reach a conclusion about the relationship between script type and average IMDb rating. For the other two rating variables, the script type with both the highest Metacritic and Rotten Tomatoes critic ratings is "documentary", suggesting that this script type is more favorable among critics than other script types. 
+
+
+```{r}
+#| label: fig-deviance-genre
+#| fig-cap: The distribution of the deviance of audience vs. critic movie ratings, by genre.
+
+movie_data |> 
+  filter(!is.na(primary_genre)) |> 
+  group_by(primary_genre) |> 
+  summarize(average_deviance = mean(audience_vs_critics_deviance, 
+                                    na.rm = TRUE)) |> 
+  ggplot(aes(x = reorder(primary_genre, 
+                         -average_deviance), 
+             y = average_deviance,
+             fill = primary_genre))  +
+  labs(x = "Genre",
+       y = "Audience vs. Critics Deviance",
+       title = "Audience vs. Critics Ratings Deviance by Genre",
+       subtitle = "Audience and critics have the lowest difference in ratings for the 'biography' genre, and the largest for 
+the 'sci-fi' genre.") +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        legend.position = "none",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1)) 
+```
+In this data set, "audience vs. critics deviance" refers to the difference in a movie's average of Rotten Tomatoes and Metacritics critic ratings and its average of Rotten Tomatoes and Metacritics audience ratings. A negative deviance means there was a higher audience rating than critic rating, and vice-versa. With a majority of the bars on the plots in the negative axis, this means that for a majority of genres, audience rating groups gave out higher ratings than critic rating groups Faceting by genre, @fig-deviance-genre shows that the genre with the lowest absolute value deviance rating is the "biography" category. This suggests that audience and critic rating groups rated movies of this genre most similarly. On the other hand, the genre with the highest disparity in ratings is the "sci-fi" category, suggesting that audiences and critics differ in rating behaviors the most for this genre.
+
+```{r}
+#| label: fig-company-deviance-genre
+#| fig-cap: The distribution of the deviance of Rotten Tomatoes vs. Metacritic audience group movie ratings, by genre.
+
+movie_data |> 
+  filter(!is.na(primary_genre)) |> 
+  group_by(primary_genre) |> 
+  summarize(aveg_dev = mean(rotten_tomatoes_vs_metacritic_deviance, 
+                                    na.rm = TRUE)) |> 
+  ggplot(aes(x = reorder(primary_genre, 
+                         -aveg_dev), 
+             y = aveg_dev,
+             fill = primary_genre))  +
+  labs(x = "Genre",
+       y = "Deviance",
+       title = "Rotten Tomatoes vs. Metacritic Audience Ratings Deviance by Genre",
+       subtitle = "The 'sci-fi' genre has the lowest deviance, and the 'biography' genre has the highest.") +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        legend.position = "none",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1)) 
+```
+In @fig-company-deviance-genre, the deviances in Rotten Tomatoes audience ratings and Metacritic audience ratings is explored by genre. A positive deviance means there was a higher average Rotten Tomatoes audience score than Metacritic score, and vice-versa. With all of the bars in this graph in the positive axis except for the fantasy genre, this suggests that Rotten Tomatoes audience users gave out higher ratings for movies than the Metacritic audience rating group in all genres except fantasy. Moreover, @fig-company-deviance-genre interestingly displays the exact opposite findings of the lowest and highest deviances that were conluded in @fig-deviance-genre. This time, the genre with the lowest absolute value deviance rating is the "sci-fi" category, suggesting that Rotten Tomatoes and Metacritic audiences rated movies in this category most similarly, and the genre that the Rotten Tomatoes and Metacritic audiences differed in ratings the highest in is the "biography" category. With this repetition in extreme deviances for the "sci-fi" and "genre" categories from both @fig-company-deviance-genre and @fig-deviance-genre, this could suggest that these two categories are the two genres that are the most varied in opinion.
+
+```{r}
+#| label: fig-critic-vs-aud-dom-gross
+#| fig-cap: A visualization of the relationship between audience and criticing ratings with domestic gross for each movie genre category.
+
+# critics
+critic_rating_dom_gross_genre <- movie_data |> 
+  filter(!is.na(primary_genre)) |> 
+  ggplot(aes(x = average_critics, 
+             y = domestic_gross_million,
+             color = primary_genre)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm",
+              se = FALSE) +
+  labs(x = "Average Critic Rating",
+       y = "Domestic Gross (millions of $)",
+       title = "The Relationship of Average Rotten Tomatoes & 
+Metacritic Critic Ratings and Domestic Gross, 
+by Genre",
+       subtitle = "The 'action' genre has the highest correlation between the 
+two variables.",
+       color = "Genre") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 10),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 8.5),
+        legend.position = "bottom",
+        legend.text = element_text(size = 6.6),   
+        legend.title = element_text(size = 7.5),
+        axis.text.x = element_text(size = 9),
+        axis.text.y = element_text(size = 9))+
+  xlim(0, 100) +
+  ylim(0, 800)
+
+
+# audience
+aud_rating_dom_gross_genre <- movie_data |> 
+  filter(!is.na(primary_genre)) |> 
+  ggplot(aes(x = average_audience, 
+             y = domestic_gross_million,
+             color = primary_genre)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm",
+              se = FALSE) +
+  labs(x = "Average Audience Rating",
+       y = "Domestic Gross (millions of $)",
+       title = "The Relationship of Average Rotten Tomatoes & 
+Metacritic Audience Ratings and Domestic Gross, 
+by Genre",
+       subtitle = "The 'action' genre has the highest correlation between the 
+two variables.",
+       color = "Genre") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 10),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 8.5),
+        legend.position = "bottom",
+        legend.text = element_text(size = 6.6),   
+        legend.title = element_text(size = 7.5),
+        axis.text.x = element_text(size = 9),
+        axis.text.y = element_text(size = 9)) +
+  xlim(0, 100) +
+  ylim(0, 800)
+
+critic_rating_dom_gross_genre + aud_rating_dom_gross_genre
+```
+@fig-critic-vs-aud-dom-gross seeks to explore the relationship between both critic groups' ratings and domestic gross, as well as how the genre variable plays into this relationship. Overall, there seems to be a positive correlation between a movie's rating and its domestic gross earnings. That is, as the rating of a movie increases, its domestic gross revenue also increases. However, this correlation seems to be stronger/steeper for audience rating groups than critic rating groups, suggesting that as audience ratings increases, the domestic gross earnings increases at a higher rate than it would with critic ratings. When looking at this relationship through the lens of the different genres, the "action" genre has the steepest correlation for both plots, but it is again steeper for audience rating. This suggests that for action type movies specifically, as their movie rating increases, the amount of domestic gross revenue earned for this type of category is greater than other movie genres. However, this domestic gross earning is greater for audience ratings as they increase for action movies, as compared to critic ratings of action movies. 
+
+```{r}
+#| label: fig-critic-vs-aud-distributor
+#| fig-cap: A visualization of the movie distributors with the ten highest critic ratings and and ten highest average audience ratings.
+
+
+aud_ratings_distributor <- movie_data |> 
+  group_by(distributor) |> 
+  summarize(avg_aud = mean(average_audience, 
+                           na.rm = TRUE)) |> 
+  slice_head(n = 10) |> 
+  ggplot(aes(x = reorder(distributor, 
+                         -avg_aud),  
+             y = avg_aud,
+             fill = distributor)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Distributor",
+       y = "Average Audience Rating",
+       title = "Top 10 Movie Distributors with Highest Average 
+Rotten Tomatoes & Metacritic Audience Ratings",
+       subtitle = "Atlas Distribution Company has the highest 
+audience ratings.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 10),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 9),
+        legend.position = "none",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1)) +
+  ylim(0, 95)
+
+critic_ratings_distributor <- movie_data |> 
+  group_by(distributor) |> 
+  summarize(avg_critic = mean(average_critics, 
+                              na.rm = TRUE)) |> 
+  slice_head(n = 10) |> 
+  ggplot(aes(x = reorder(distributor, 
+                         -avg_critic),  
+             y = avg_critic,
+             fill = distributor)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Distributor",
+       y = "Average Critic Rating",
+       title = "Top 10 Movie Distributors with Highest Average 
+Rotten Tomatoes & Metacritic Critic Ratings",
+       subtitle = "A24 has the highest critic ratings.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 10),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 9),
+        legend.position = "none",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1)) +
+  ylim(0, 95)
+
+critic_ratings_distributor + aud_ratings_distributor
+```
+@fig-critic-vs-aud-distributor displays the  movie distributors with the highest averages Rotten Tomatoes and Metacritic ratings, for both audience and critic rating groups. The movie distributing company with the highest average critic rating is "A24", and the distributor company with the highest average audience rating is "Atlas Distribution Company". This could suggest that movies released by A24 were favored the most among critics, and movies released by Atlas Distribution Company were favored the most among audiences.
+
 
 ## Variable 2: Opening Weekend Revenue
 A movie's opening weekend revenue refers to the total box office earnings that the film earned during its first weekend of release in theaters. 
@@ -223,22 +415,66 @@ COVID-19 pandemic.") +
 
 ```{r}
 #| label: fig-budget-rcvry-opening-wknd
-#| fig-cap: The relationship between a movie's earnings during the first weekend of its release and its budget recovery earnings.
+#| fig-cap: The relationship between a movie's earnings during the first weekend of its release and its overall budget recovery earnings, compared across genres and script types.
 
-movie_data |> 
+
+## Exploration 2 by genre
+opening_wknd_budget_rcvry_genre <- movie_data |> 
+  filter(!is.na(primary_genre)) |> 
   mutate(budget_recovered_millions = round(budget_million * (budget_recovered / 100))) |> 
-  ggplot(aes(x = opening_weekend_million, y = budget_recovered_millions)) +
-  geom_point() +
-  geom_smooth(method = "lm") +
+  ggplot(aes(x = opening_weekend_million, 
+             y = budget_recovered_millions,
+             color = primary_genre)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm",
+              se = FALSE) +
   labs(x = "Opening Weekend Earnings (millions of $)",
        y = "Budget Recovery Earnings (millions of $)",
-       title = "Opening Weekend Earnings by Budget Recovery",
-       subtitle = "There is an overall strong positive association between the two variables.") +
+       title = "Opening Weekend Earnings by Budget 
+Recovery for Each Genre",
+       subtitle = "The 'adventure' genre has the steepest correlation.",
+       color = "Genre") +
   theme_minimal() +
-  theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot")
+  theme(plot.title = element_text(face = "bold",
+                                  size = 9),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 7),
+        legend.text = element_text(size = 7),
+        legend.title = element_text(size = 6),
+        axis.title.x = element_text(size = 6),
+        axis.title.y = element_text(size = 6)) +
+  ylim(0, 2000)
+
+
+opening_wknd_budget_rcvry_script_type <- movie_data |> 
+  filter(!is.na(script_type)) |> 
+  mutate(budget_recovered_millions = round(budget_million * (budget_recovered / 100))) |> 
+  ggplot(aes(x = opening_weekend_million, 
+             y = budget_recovered_millions,
+             color = script_type)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm",
+              se = FALSE) +
+  labs(x = "Opening Weekend Earnings (millions of $)",
+       y = "Budget Recovery Earnings (millions of $)",
+       title = "Opening Weekend Earnings by Budget 
+Recovery for Each Script Type",
+       subtitle = "The 'remake' script type has the steepest correlation.",
+       color = "Script Type") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 9),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 7),
+        legend.text = element_text(size = 7),
+        legend.title = element_text(size = 6),
+        axis.title.x = element_text(size = 6),
+        axis.title.y = element_text(size = 6)) +
+  ylim(0, 2000)
+
+opening_wknd_budget_rcvry_genre + opening_wknd_budget_rcvry_script_type
 ```
-@fig-budget-rcvry-opening-wknd explores the relationship between a movie's opening weekend revenue and how much it earns to recover it's production cost (budget recovery). There is a clear strong, positive correlation between the two variables, suggesting that as the amount of money a movie earns during the first weekend of its release in theaters increases, the the amount of money it will earn to recover its budget will also increase.
+@fig-budget-rcvry-opening-wknd explores the relationship between a movie's opening weekend revenue and how much it earns to recover it's production cost (budget recovery), categorized by script type and genre. Overall, there is a clear strong, positive correlation between opening weekend revenue and budget recovery, suggesting that as the amount of money a movie earns during the first weekend of its release in theaters increases, the the amount of money it will earn to recover its budget will also increase. However, this correlation varies between each specific genre and script type. In examining genre, the 'adventure' category has the highest correlation. This may suggest that out of all movie genres, the adventure category earns more of its budget back as their opening weekend increases. In examining script type relationships, the 'remake' script type has the highest correlation, also suggesting that remakes earn a higher amount to recover its budget as their openign weekend earnings increase.
 
 
 ```{r}
@@ -1083,3 +1319,14 @@ movie_data |>
         plot.title.position = "plot")
 ```
 
+movie with highest
+-average critic rating
+-average audience rting
+-opening weekend
+-domestic gross
+-foreign gross
+-ww gross
+-budget
+-budget recovered
+-oscar wins
+-imdb rating

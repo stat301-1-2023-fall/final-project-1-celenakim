@@ -5,23 +5,36 @@
 ## Exploration 1: How do the overall average opening weekend earnings change over the years from 2007-2022?
 year_opening_success <- movie_data |> 
   group_by(year) |> 
-  summarize(mean_opening_success = round(mean(opening_weekend_million, na.rm = TRUE)))  |> 
+  summarize(mean_opening_success = round(mean(opening_weekend_million, 
+                                              na.rm = TRUE)))  |> 
   arrange(desc(mean_opening_success)) 
 
 # year_opening_success |> 
   #DT::datatable()
 
 potential_outliers <- year_opening_success |>
-  filter(mean_opening_success < 10)
+  filter(mean_opening_success == 20 | mean_opening_success == 9)
 
-opening_wknd_yearly <- ggplot(year_opening_success, aes(x = year, y = mean_opening_success)) +
+opening_wknd_yearly <- ggplot(year_opening_success, 
+                              aes(x = year, 
+                                  y = mean_opening_success)) +
   geom_line() +
   geom_point() +
   geom_text_repel(data = potential_outliers, 
                   aes(label = "")) +
-  geom_label(data = data.frame(label = "COVID-19 Pandemic"),
-             aes(x = 2018.5, 
-                 y = 7.8, 
+  geom_label(data = data.frame(label = "2008 Great 
+ Recession"),
+             aes(x = 2007, 
+                 y = 17.1, 
+                 label = label),
+             fill = "gray", 
+             alpha = 0.2, 
+             hjust = 0, 
+             vjust = 0) +
+  geom_label(data = data.frame(label = "COVID-19 
+ Pandemic"),
+             aes(x = 2018.9, 
+                 y = 6.2, 
                  label = label),
              fill = "gray", 
              alpha = 0.2, 
@@ -37,12 +50,15 @@ opening_wknd_yearly <- ggplot(year_opening_success, aes(x = year, y = mean_openi
   labs(x = "Year", 
        y = "Mean Opening Weekend Earnings (in millions of $)", 
        title = "Average Opening Weekend Earnings for Hollywood Movies from 2007-2022",
-       subtitle = "The average opening weekend revenue for 2020 is heavily impacted by the COVID-19 pandemic.") +
+       subtitle = "2008 is heavily impacted by the Great Recession. 2020 is heavily impacted by the 
+COVID-19 pandemic.") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot") +
   ylim(3, 28) +
-  scale_x_continuous(breaks = seq(min(year_opening_success$year), max(year_opening_success$year), by = 2))
+  scale_x_continuous(breaks = seq(min(year_opening_success$year), 
+                                  max(year_opening_success$year), 
+                                  by = 2))
 
 
 

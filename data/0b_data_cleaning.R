@@ -97,7 +97,7 @@ movie_data <- movie_data |>
     TRUE ~ "Winter"
   )) 
 
-write.csv(movie_data, "data/movie_data.csv", row.names = FALSE)
+write_csv(movie_data, "data/movie_data.csv")
 
 
 

@@ -8,8 +8,8 @@ ratings_yearly_plot
 # ![](figures/var1_figures/ratings_yearly_plot.png)
 # Average ratings for both groups increased over the years, critics rate lower than audiences.
 
-critic_ratings_oscar_table
-# ![](figures/var1_figures/critic_ratings_oscar_table.png)
+critic_ratings_oscar
+# ![](figures/var1_figures/critic_ratings_oscar_plot.png)
 # Movies who have won at least one Oscar have a higher mean rt critic rating than those who have not won any Oscars.
 
 rating_rt_critcs_opening_wknd
@@ -20,6 +20,24 @@ ratings_script_type_plot
 # ![](figures/var1_figures/ratings_script_type_plot.png)
 # A majority of script types do not have information available for the IMDb rating.
 
+ratings_deviance_genre
+# ![](figures/var1_figures/ratings_deviance_genre_plot.png)
+# Lowest difference for biography, largest for sci-fi.
+
+rt_metacritic_deviance_genre
+# ![](figures/var1_figures/rt_metacritic_deviance_genre_plot.png)
+# Opposite results from previous plot.
+
+critic_rating_dom_gross_genre + aud_rating_dom_gross_genre 
+# ![](figures/var1_figures/critic_vs_aud_dom_gross_plot.png)
+# Action has steepest correlation in both graphs, but steeper for audience graph.
+
+critic_ratings_distributor + aud_ratings_distributor
+# ![](figures/var1_figures/critic_vs_aud_distr_plot.png)
+# A24 has highest critic ratings, atlas has highest aud ratings.
+
+
+
 
 
 ### VAR2_OPENING_WEEKEND_REV_ANALYSIS
@@ -27,13 +45,16 @@ opening_wknd_yearly
 # ![](figures/var2_figures/opening_wknd_yearly_plot.png)
 # The opening weekend rev for 2020 is highly impacted by the pandemic, 2008 by the great recession.
 
+opening_wknd_budget_rcvry_genre 
+
+
+opening_wknd_budget_rcvry_script_type
+# ![](figures/var2_figures/budget_rcvry_opening_wknd_plot.png)
+# There is a very strong positive association between the two variables. For movie genres, adventure has the steepest correlation, for script type remake has the steepest correlation.
+
 genre_opening_wknd_plot + scripttype_opening_wknd_plot
 # ![](figures/var2_figures/opening_wknd_genre_script_plot.png)
 # Top 5 opening weekend revenues by genre and script type.
-
-budget_rcvry_opening_wknd
-# ![](figures/var2_figures/budget_rcvry_opening_wknd_plot.png)
-# There is a very strong positive asociation between the two variables
 
 opening_wknd_oscar
 # ![](figures/var2_figures/opening_wknd_oscar_plot.png)
