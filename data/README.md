@@ -1,6 +1,6 @@
 ## The "movie_data" dataset, from Hollywood Hits and Flops (2007-2023) on Kaggle
 
-The data source that I chose for my project is called [Hollywood Hits and Flops (2007 - 2023)](https://www.kaggle.com/datasets/sujaykapadnis/hollywood-hits-and-flops-2007-2023/) found on [Kaggle](https://www.kaggle.com), uploaded by Sujay Kapadnis. 
+The data source that I chose for my project is called [Hollywood Hits and Flops (2007 - 2023)](https://www.kaggle.com/datasets/sujaykapadnis/hollywood-hits-and-flops-2007-2023/) found on [Kaggle](https://www.kaggle.com), created by David McCandless. 
 
 - `movie_data.csv`
 - `movie_data_codebook.csv` 

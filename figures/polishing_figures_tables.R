@@ -14,7 +14,7 @@ critic_ratings_oscar
 
 rating_rt_critcs_opening_wknd
 # ![](figures/var1_figures/rating_rt_critcs_opening_wknd_plot.png)
-# Movies who have won at least one Oscar have a higher mea
+# Movies who have won at least one Oscar have a higher mean.
 
 ratings_script_type_plot
 # ![](figures/var1_figures/ratings_script_type_plot.png)
@@ -116,7 +116,7 @@ budget_yearly
 
 budget_opening_wknd + budget_ww_gross
 # ![](figures/var4_figures/budget_opening_wknd_ww_gross_plot.png)
-# There is a direct postive association.
+# There is a direct positive association.
 
 budget_by_genre
 # ![](figures/var4_figures/budget_by_genre_plot.png)
