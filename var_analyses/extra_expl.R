@@ -155,3 +155,47 @@ highest_oscar_wins <- movie_data |>
   arrange(desc(oscar_count)) |> 
   slice_head(n = 3) |> 
   DT::datatable()
+
+# Exploration 4: number of films released in each year
+yearly_film_count <- movie_data |> 
+  group_by(year) |> 
+  summarize(film_count = n())  |> 
+  arrange(desc(film_count)) 
+
+potential_outlier <- yearly_film_count |>
+  filter(film_count == 66)
+
+films_yearly <- ggplot(yearly_film_count, 
+                              aes(x = year, 
+                                  y = film_count)) +
+  geom_line() +
+  geom_point() +
+  geom_text_repel(data = potential_outlier, 
+                  aes(label = "")) +
+  geom_label(data = data.frame(label = "COVID-19 
+ Pandemic"),
+ aes(x = 2018.7, 
+     y = 50.9, 
+     label = label),
+ fill = "gray", 
+ alpha = 0.2, 
+ hjust = 0, 
+ vjust = 0) +
+  geom_point(data = potential_outlier, 
+             color = "red") +
+  geom_point(
+    data = potential_outlier,
+    color = "red", 
+    size = 3, 
+    shape = "circle open") +
+  labs(x = "Year", 
+       y = "Number of Films Released", 
+       title = "Number of Hollywood Movies Released in Each Year from 2007-2022",
+       subtitle = "There was a dramtic drop in film release in 2020.") +
+  theme_minimal() +
+  ylim(0, 160) +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot") +
+  scale_x_continuous(breaks = seq(min(yearly_film_count$year), 
+                                  max(yearly_film_count$year), 
+                                  by = 2))

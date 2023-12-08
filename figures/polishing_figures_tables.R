@@ -231,3 +231,6 @@ highest_budget_recovered
 
 highest_oscar_wins
 # ![](figures/extra_explos_figures/highest_oscar_wins_table.png)
+
+films_yearly
+# ![](figures/extra_explos_figures/films_yearly_plot.png)

@@ -28,3 +28,7 @@ from: markdown+emoji
 
 The purpose of this report was to investigate the variables that contribute to the overall success rate of Hollywood movies. This was achieved by defining a movie’s success based on the factors of critic and audience ratings, opening weekend revenue, gross (domestic, foreign, and worldwide), budget and budget recovery, Oscar wins, and seasonal release date and exploring what possible patterns and correlations may exist among them to ultimately render a film to be a blockbuster or a flop.
 
+### Data Quality Issues
+
+Before highlighting some key findings from the report, it is important to note some significant issues in the data used for the EDA. The Kaggle data set “Hollywood Hits and Flops (2007 - 2023)” by David McCandless contains numerous unnecessary NA values, incorrect value conversions, and variables of types that were not conducive for a numerical analysis. Through an extensive cleaning process, most of these problems were able to be resolved. However, the issue of NA values still remains for many variables such as primary genre, Oscar award detail, distributor company, and IMDb rating, making it difficult to perform accurate analyses with such variables.
+
