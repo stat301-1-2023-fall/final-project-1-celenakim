@@ -12,28 +12,16 @@ library(patchwork)
 # relationship between budget and the number of Oscar wins.
 # Oscar detail analysis– which oscar award category has the highest budget? Highest worldwide gross? Highest opening weekend rev? Highest ratings?
   
-# yearly oscars
-movie_data |> 
-  group_by(year) |> 
-  summarize(oscar_count = sum(oscar_winners)) |> 
-  arrange(desc(oscar_count)) |> 
-  ggplot(aes(x = year, y = oscar_count)) +
-  geom_line() +
-  geom_point() +
-  ylim(0, 8) +
-  scale_x_continuous(breaks = seq(min(movie_data$year), max(movie_data$year), by = 2))
 
 
 
-### Exploration 1: Which genre has the highest Oscar wins?
-### Exploration 2: Which script type has the highest Oscar wins?
+### Exploration 1: Which genre has the highest Oscar wins? Which script type has the highest Oscar wins?
 genre_oscar_counts <- movie_data |> 
   group_by(genre) |> 
   summarize(oscar_count = sum(oscar_winners)) |> 
   arrange(desc(oscar_count)) |> 
   slice_head(n = 5)|> 
   DT::datatable()
-
 
 scripttype_oscar_counts <- movie_data |> 
   filter(script_type != "") |> 
@@ -42,8 +30,6 @@ scripttype_oscar_counts <- movie_data |>
   arrange(desc(st_oscar_count)) |> 
   slice_head(n = 4)|> 
   DT::datatable()
-
-
 
 genre_oscar_counts <- movie_data |> 
   filter(genre != "Action, Adventure, Mystery, Thriller, Fantasy, Comedy, Romance, Animation, Family, Musical") |> 
@@ -69,7 +55,6 @@ genre_oscar_wins <- genre_oscar_counts |>
         axis.text.x = element_text(angle = 45, 
                                    hjust = 1),
         legend.position = "none")
-
 
 script_type_oscar_counts <- movie_data |> 
   filter(script_type != "") |> 
@@ -103,7 +88,6 @@ script_type_oscar_wins <- script_type_oscar_counts |>
 
 genre_oscar_wins + script_type_oscar_wins
 
-
 # makes sense, based on script type trends over years
 movie_data |> 
   filter(!is.na(script_type)) |> 
@@ -119,7 +103,7 @@ movie_data |>
 
 
 
-## worldwide gross and oscar wins
+## Exploration 2: worldwide gross and oscar wins
 oscar_win_ww_gross <- movie_data |> 
   filter(!is.na(oscar_winners)) |> 
   ggplot(aes(x = worldwide_gross_million, 
@@ -133,19 +117,19 @@ oscar_win_ww_gross <- movie_data |>
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot")
 
-
-movie_data |> 
+oscar_win_dom_gross <- movie_data |> 
   filter(!is.na(oscar_winners)) |> 
   ggplot(aes(x = domestic_gross_million, y = oscar_winners)) +
   geom_boxplot() 
 
-movie_data |> 
+oscar_win_for_gross <- movie_data |> 
   filter(!is.na(oscar_winners)) |> 
   ggplot(aes(x = foreign_gross_million, y = oscar_winners)) +
   geom_boxplot() 
 
 
-# which oscar award has the highest ratings?
+
+## Exploration 3: Which Oscar award has the highest critic ratings?
 movie_data |> 
   filter(!is.na(oscar_detail)) |> 
   group_by(oscar_detail) |> 
@@ -162,6 +146,9 @@ movie_data |>
   arrange(desc(mean_critic)) |> 
   slice_head(n = 10) |> 
   DT::datatable()
+
+
+
 
 # which distributor has the highest oscar wins
 movie_data |> 
@@ -282,4 +269,15 @@ movie_data |>
 
 distinct(oscar_detail$movie_data)
 
+
+# yearly oscars
+movie_data |> 
+  group_by(year) |> 
+  summarize(oscar_count = sum(oscar_winners)) |> 
+  arrange(desc(oscar_count)) |> 
+  ggplot(aes(x = year, y = oscar_count)) +
+  geom_line() +
+  geom_point() +
+  ylim(0, 8) +
+  scale_x_continuous(breaks = seq(min(movie_data$year), max(movie_data$year), by = 2))
 

@@ -421,3 +421,24 @@ the 'sci-fi' genre.") +
         legend.position = "none",
         axis.text.x = element_text(angle = 45, 
                                    hjust = 1)) 
+
+movie_data |> 
+  filter(!is.na(primary_genre)) |> 
+  group_by(primary_genre) |> 
+  summarize(aveg_dev = mean(rotten_tomatoes_vs_metacritic_deviance, 
+                            na.rm = TRUE)) |> 
+  ggplot(aes(x = reorder(primary_genre, 
+                         -aveg_dev), 
+             y = aveg_dev,
+             fill = primary_genre))  +
+  labs(x = "Genre",
+       y = "Deviance",
+       title = "Rotten Tomatoes vs. Metacritic Audience Ratings Deviance by Genre",
+       subtitle = "The 'sci-fi' genre has the lowest deviance, and the 'biography' genre has the highest.") +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        legend.position = "none",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1)) 

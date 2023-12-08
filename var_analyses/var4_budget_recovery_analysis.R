@@ -230,15 +230,7 @@ budget_critic + budget_audience + budget_imdb
 
 
 
-
-
-
-## Exploration 7: Is budget recovered during opening weekend a determinant of overall success?
-
-
-
-
-
+## EXTRA EXPLORATIONS:
 
 ## What is the correlation between a movie's opening weekend revenue and its budget recovered during opening weekend?
 budget_rcvry_opening_wknd <- movie_data |> 

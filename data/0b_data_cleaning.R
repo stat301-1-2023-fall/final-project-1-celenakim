@@ -98,11 +98,19 @@ movie_data <- movie_data |>
     month(release_date_us) %in% c(6, 7, 8) ~ "Summer",
     month(release_date_us) %in% c(9, 10, 11) ~ "Fall",
     TRUE ~ "Winter"
-  )) 
+  ))
+
+# Adding the "oscar_count" variable
+movie_data <- movie_data |> 
+  mutate(oscar_count = ifelse(oscar_winners == TRUE,
+                              str_count(oscar_detail, ",") + 1, 
+                              0),
+         .after = oscar_winners)
+
+
+
 
 write_csv(movie_data, "data/movie_data.csv")
-
-
 
 
 
