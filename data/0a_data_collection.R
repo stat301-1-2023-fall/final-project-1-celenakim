@@ -1,5 +1,8 @@
 library(tidyverse)
 
+# Github link:
+# https://github.com/stat301-1-2023-fall/final-project-1-celenakim
+
 
 data_2007 <- read.csv("data/raw/The Hollywood Inider - all data - 2007.csv")
 data_2008 <- read.csv("data/raw/The Hollywood Inider - all data - 2008.csv")

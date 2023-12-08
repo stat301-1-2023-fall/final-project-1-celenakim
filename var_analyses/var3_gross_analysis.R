@@ -3,6 +3,9 @@ library(scales)
 library(ggrepel)
 library(patchwork)
 
+# Github link:
+# https://github.com/stat301-1-2023-fall/final-project-1-celenakim
+
 # Gross: Domestic, foreign, and worldwide gross
 
 

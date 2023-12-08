@@ -1,3 +1,11 @@
+library(tidyverse)
+library(scales)
+library(ggrepel)
+library(patchwork)
+
+# Github link:
+# https://github.com/stat301-1-2023-fall/final-project-1-celenakim
+
 ## Investigating how seasons interact with each variable
 
 ## Exploration 1: By var1: ratings
@@ -354,5 +362,3 @@ seasonal_script_type_plot <- movie_data |>
 
 
 # Season with the most overall success: fall
-
-

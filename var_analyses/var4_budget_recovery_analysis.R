@@ -1,3 +1,11 @@
+library(tidyverse)
+library(scales)
+library(ggrepel)
+library(patchwork)
+
+# Github link:
+# https://github.com/stat301-1-2023-fall/final-project-1-celenakim
+
 # Budget recovery: Budget recovered, and during opening weekend alone
 
 ## Exploration 1: How do the overall movie budgets change over the years from 2007-2022?

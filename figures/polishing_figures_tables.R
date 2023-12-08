@@ -1,3 +1,6 @@
+# Github link:
+# https://github.com/stat301-1-2023-fall/final-project-1-celenakim
+
 ### VAR1_RATINGS_ANALYSIS
 ratings_yearly_plot
 # ![](figures/var1_figures/ratings_yearly_plot.png)

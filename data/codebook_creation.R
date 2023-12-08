@@ -1,6 +1,9 @@
 library(tidyverse)
 library(knitr)
 
+# Github link:
+# https://github.com/stat301-1-2023-fall/final-project-1-celenakim
+
 codebook_tibble <- tibble(
   Variables = c("film", 
                 "year",

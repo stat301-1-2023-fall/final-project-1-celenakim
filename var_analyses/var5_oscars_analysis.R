@@ -3,6 +3,9 @@ library(scales)
 library(ggrepel)
 library(patchwork)
 
+# Github link:
+# https://github.com/stat301-1-2023-fall/final-project-1-celenakim
+
 # Oscars: Oscar wins
 
 # Which genre has the highest Oscar wins? Which script type has the highest Oscar wins?
@@ -276,9 +279,6 @@ movie_data |>
   summarize(count = n()) |> 
   arrange(desc(count))
 
-library(dplyr)
-library(ggplot2)
-
 movie_data |> 
   group_by(oscar_detail) |> 
   summarize(mean_opening_wknd_rev = mean(opening_weekend_million)) |> 
@@ -292,8 +292,6 @@ movie_data |>
             mean_budget = mean(budget_million)) |> 
   arrange(desc(mean_opening_wknd_rev))
   
-
-
 
 # yearly oscars
 movie_data |> 

@@ -2,6 +2,8 @@ library(tidyverse)
 library(janitor)
 library(readr)
 
+# Github link:
+# https://github.com/stat301-1-2023-fall/final-project-1-celenakim
 
 ## JOINING DATA SETS
 ## Deleting last column from 2011-2018 data frames

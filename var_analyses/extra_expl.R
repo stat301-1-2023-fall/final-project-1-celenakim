@@ -1,9 +1,15 @@
 library(tidyverse)
-library(knitr)
+library(scales)
+library(ggrepel)
+library(patchwork)
+
+# Github link:
+# https://github.com/stat301-1-2023-fall/final-project-1-celenakim
+
 
 ## ADDITIONAL EXPLORATIONS
 
-# Distribution of Primary Genre for Each Script Type
+# Exploration 1: Distribution of Primary Genre for Each Script Type
 primary_genre_script_type_plot <- movie_data |> 
   filter(!is.na(primary_genre) & !is.na(script_type)) |> 
   ggplot(aes(x = script_type, fill = primary_genre)) +
@@ -18,7 +24,7 @@ primary_genre_script_type_plot <- movie_data |>
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot")
 
-# Genre popularity of movies over the years
+# Exploration 2: Genre popularity of movies over the years
 genre_trends <- movie_data |> 
   group_by(year, primary_genre) |> 
   filter(!is.na(primary_genre) & primary_genre != "") |> 
@@ -37,8 +43,8 @@ genre_trends <- movie_data |>
   ylim(0, 30)
 
 
-# Movie with highest:
-#-average critic rating 
+# Exploration 3: Movie with highest:
+# a. average critic rating 
 highest_critic_rating <- movie_data |> 
   select(film, 
          year, 
@@ -49,7 +55,7 @@ highest_critic_rating <- movie_data |>
   slice_head(n = 3) |> 
   DT::datatable()
 
-# -average audience rting
+# b. average audience rting
 highest_audience_rating <- movie_data |> 
   select(film, 
          year, 
@@ -60,7 +66,7 @@ highest_audience_rating <- movie_data |>
   slice_head(n = 3) |> 
   DT::datatable()
 
-#-opening weekend 
+# c. opening weekend 
 highest_opening_wknd <- movie_data |> 
   select(film, 
          year, 
@@ -71,7 +77,7 @@ highest_opening_wknd <- movie_data |>
   slice_head(n = 3) |> 
   DT::datatable()
 
-#-domestic gross 
+# d. domestic gross 
 highest_dom_gross <- movie_data |> 
   select(film, 
          year, 
@@ -82,7 +88,7 @@ highest_dom_gross <- movie_data |>
   slice_head(n = 3) |> 
   DT::datatable()
 
-#-foreign gross 
+# e. foreign gross 
 highest_for_gross <- movie_data |> 
   select(film, 
          year, 
@@ -93,7 +99,7 @@ highest_for_gross <- movie_data |>
   slice_head(n = 3) |> 
   DT::datatable()
 
-#-ww gross 
+# f. ww gross 
 highest_ww_gross <- movie_data |> 
   select(film, 
          year, 
@@ -105,7 +111,7 @@ highest_ww_gross <- movie_data |>
   DT::datatable()
 
 
-#-% of gross earned abroad
+# g. % of gross earned abroad
 highest_earned_abroad <- movie_data |> 
   select(film, 
          year, 
@@ -117,7 +123,7 @@ highest_earned_abroad <- movie_data |>
   DT::datatable()
 
 
-#-budget 
+# h. budget 
 highest_budget <- movie_data |> 
   select(film, 
          year, 
@@ -128,7 +134,7 @@ highest_budget <- movie_data |>
   slice_head(n = 3) |> 
   DT::datatable()
 
-#-budget recovered 
+# i. budget recovered 
 highest_budget_recovered <- movie_data |> 
   select(film, 
          year, 
@@ -139,8 +145,7 @@ highest_budget_recovered <- movie_data |>
   slice_head(n = 3) |> 
   DT::datatable()
 
-
-#-oscar wins 
+# j. oscar wins 
 highest_oscar_wins <- movie_data |> 
   select(film, 
          year, 
@@ -149,12 +154,4 @@ highest_oscar_wins <- movie_data |>
          oscar_count) |> 
   arrange(desc(oscar_count)) |> 
   slice_head(n = 3) |> 
-  DT::datatable()
-
-
-# Number of movies released in each season, seasonal_movie_count_table.png
-movie_data_with_season |> 
-  group_by(season) |> 
-  summarize(count = n()) |> 
-  arrange(desc(count)) |> 
   DT::datatable()

@@ -3,6 +3,9 @@ library(scales)
 library(ggrepel)
 library(patchwork)
 
+# Github link:
+# https://github.com/stat301-1-2023-fall/final-project-1-celenakim
+
 # Ratings: Rotten Tomatoes, Metacritic, and IMDb ratings, both critic and audience
 
 
