@@ -148,7 +148,7 @@ oscar_win_ww_gross
 # Movies that have won at least one Oscar have a higher average ww gross.
 
 oscar_avg_critic_aud
-# ![](figures/var5_figures/oscar_avg_critic_aud_plot.png)
+# ![](figures/var5_figures/oscar_avg_critic_aud_table.png)
 # "Best Supporting Actress (Patricia Arquette)" has the highest critic rating, Best Picture, Best Director, Best Original Screenplay and Best International Feature Film" has the highest avg audience rating.
 
 oscar_count_opening_wknd
@@ -156,7 +156,7 @@ oscar_count_opening_wknd
 # Movies with 6 Oscars have the highest average opening weekend revenue: "Mad Max: Fury Road"
 
 oscar_count_dom_gross + oscar_count_for_gross
-# ![](figures/var5_figures/oscar_count_opening_wknd_plot.png)
+# ![](figures/var5_figures/oscar_count_gross_plot.png)
 # Movies that have won 1 Oscar have both the highest average domestic and highest average foreign gross.
 
 
@@ -179,7 +179,7 @@ seasonal_budget_plot
 # Highest budgets for movies released in the Spring, directly aligns with previous findings.
 
 season_opening_wknd_by_budget
-# ![](figures/var6_figures/seasonal_budget_plot.png)
+# ![](figures/var6_figures/seasonal_opening_wknd_by_budget_plot.png)
 # Steepest correlation for movies released in the Spring.
 
 seasonal_oscar_plot
@@ -201,6 +201,9 @@ primary_genre_script_type_plot
 
 genre_trends
 # ![](figures/extra_explos_figures/genre_trends_plot.png)
+
+films_yearly
+# ![](figures/extra_explos_figures/films_yearly_plot.png)
 
 highest_critic_rating
 # ![](figures/extra_explos_figures/highest_critic_rating_table.png)
@@ -231,6 +234,3 @@ highest_budget_recovered
 
 highest_oscar_wins
 # ![](figures/extra_explos_figures/highest_oscar_wins_table.png)
-
-films_yearly
-# ![](figures/extra_explos_figures/films_yearly_plot.png)

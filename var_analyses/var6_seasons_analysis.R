@@ -287,8 +287,8 @@ season_opening_wknd_by_budget <- movie_data |>
   geom_point(alpha = 0.5) +
   geom_smooth(method = "lm",
               se = FALSE) +
-  labs(title = "Relationship Between Movie Budget and Opening Weekend Revenue, 
-by Season",
+  labs(title = "Relationship Between Movie Budget and Opening Weekend 
+Revenue, by Season",
        subtitle = "Movies released in the Spring have the greatest correlation between the two variables.",
        x = "Budget (millions of $)",
        y = "Opening Weekend Revenue (millions of $)",

@@ -71,30 +71,4 @@ codebook_tibble <- tibble(
               "the season that the movie was released in")
 )
 
-
 write_csv(codebook_tibble, "data/movie_data_codebook.csv")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

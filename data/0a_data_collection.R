@@ -3,7 +3,6 @@ library(tidyverse)
 # Github link:
 # https://github.com/stat301-1-2023-fall/final-project-1-celenakim
 
-
 data_2007 <- read.csv("data/raw/The Hollywood Inider - all data - 2007.csv")
 data_2008 <- read.csv("data/raw/The Hollywood Inider - all data - 2008.csv")
 data_2009 <- read.csv("data/raw/The Hollywood Inider - all data - 2009.csv")
@@ -20,4 +19,3 @@ data_2019 <- read.csv("data/raw/The Hollywood Inider - all data - 2019.csv")
 data_2020 <- read.csv("data/raw/The Hollywood Inider - all data - 2020.csv")
 data_2021 <- read.csv("data/raw/The Hollywood Inider - all data - 2021.csv")
 data_2022 <- read.csv("data/raw/The Hollywood Inider - all data - 2022.csv")
-

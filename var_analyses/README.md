@@ -4,11 +4,11 @@
 
 1.  Audience and critic ratings have increased over the years; audiences
     rate higher than critics
-2.  Oscar winning movies have higher mean critic ratings than movies
+2.  Oscar-winning movies have higher mean critic ratings than movies
     with 0 Oscar wins
 3.  Virtually no correlation between Rotten Tomatoes critic score and
     opening weekend revenue
-4.  Lots of missingness in IMDb variable; script type with both the
+4.  Lots of missingness in the IMDb variable; script type with both the
     highest Metacritic and Rotten Tomatoes critic rating is
     "documentary"
 5.  Overall average audience and average critic deviance: Audience
@@ -41,15 +41,15 @@
 3.  "Sci-fi, fantasy" genre has the greatest mean opening weekend
     revenue; "Sequel, adaptation" script type has the greatest mean
     opening weekend revenue
-4.  Oscar winning movies have a lower mean opening weekend revenue than
+4.  Oscariwinning movies have a lower mean opening weekend revenue than
     movies with 0 Oscars
 5.  Strong, positive correlations for both associations of domestic
     gross by opening weekend revenue and foreign gross by opening
     weekend revenue; slightly steeper for domestic gross
 6.  Walt Disney Studios has the highest mean opening weekend revenue;
-    but lots of missingness within distributor variable, may be
-    innaccurate
-7.  Positive correlation between opening wekeend revenue and Rotten
+    but a lot of missingness within distributor variable, may be
+    inaccurate
+7.  Positive correlation between opening weekend revenue and Rotten
     Tomatoes audience score
 
 ### Variable 3: Domestic, Foreign, & Worldwide Gross
@@ -83,7 +83,7 @@
 4.  Sequel, adaptation" script type has the highest average budget
 5.  Walt Disney Studios has the highest mean budget, but lots of
     missingness within distributor variable, may be inaccurate
-6.  Oscar winning movies have an average budget lower than movies with 0 Oscar
+6.  Oscar-winning movies have an average budget lower than movies with 0 Oscar
     wins
 7.  Overall positive correlation between budget and ratings, but not
     very strong
@@ -93,7 +93,7 @@
 1.  "Everything Everywhere All at Once" earned the most Oscar awards
 2.  "Biography, history" genre has the most Oscars; "original
     screenplay" script type has the most Oscars
-3.  Oscar winning movies have a higher mean worldwide gross than movies
+3.  Oscar-winning movies have a higher mean worldwide gross than movies
     with 0 Oscars
 4.  "Best Supporting Actress (Patricia Arquette) has the highest mean
     critic rating of 99; "Best Picture, Best Director, Best Original
