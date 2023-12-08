@@ -38,7 +38,7 @@ movie_data <- read_csv("data/movie_data.csv")
 
 ## Introduction
 
-As an avid movie lover, I have always been curious about what factors play into making some Hollywood movies critically acclaimed blockbusters while others fade into the background. Beyond solely the opening weekend numbers, I am interested in exploring the interplay between more extensive variables that contribute to a film's propensity to ultimately be a hit or a flop. Specifically, I think it would be very interesting to explore this by defining a movie's success based on the factors of critic and audience ratings, opening weekend revenue, gross (domestic, foreign, and worldwide), budget and budget recovery, and Oscar wins. I also am curious to see whether time of year/seasons have an impact on a movie's success, and if there is a particular season in which the most successful movies are released. By focusing on these main variables for my analysis, I hope to explore my research question by discovering patterns and compelling correlations between the variables on a range of univariate to multivariate levels. I am interested in exploring whether certain variables affect another and how certain variables work together to contribute to a movie's overall success rate. In order to carry out this analysis, I will be utilizing a data set found on the Kaggle website called "Hollywood Hits and Flops (2007 - 2023)", described in the next section.
+As an avid movie lover, I have always been curious about what factors play into making some Hollywood movies critically acclaimed blockbusters while others fade into the background. Beyond solely the ticket sales, I am interested in exploring the interplay between more extensive variables that contribute to a film's propensity to ultimately be a hit or a flop. Specifically, I think it would be very interesting to explore this by defining a movie's success based on the factors of critic and audience ratings, opening weekend revenue, gross (domestic, foreign, and worldwide), budget and budget recovery, and Oscar wins. I also am curious to see whether time of year/seasons have an impact on a movie's success, and if there is a particular season in which the most successful movies are released. By focusing on these main variables for my analysis, I hope to explore my research question by discovering patterns and compelling correlations between the variables on a range of univariate to multivariate levels. I am interested in exploring whether certain variables affect another and how certain variables work together to contribute to a movie's overall success rate. In order to carry out this analysis, I will be utilizing a data set found on the Kaggle website called "Hollywood Hits and Flops (2007 - 2023)", described in the next section.
 
 ## Data Overview and Quality
 
@@ -1710,7 +1710,7 @@ movie_data |>
         legend.position = "right")
 ```
 
-@fig-seasonal-genre visualizes the genre distribution of the movies released in each season. According to the graph, the "action" genre made up a majority of the movies released in the Spring, Summer, and Winter, but for movies with a release date in the "Fall", a majority of them were of the "crime" genre.
+@fig-seasonal-genre visualizes the genre distribution of the movies released in each season. According to the graph, the "action" genre made up a majority of the movies released in the Spring, Summer, and Winter, but for movies with a release date in the Fall, a majority of them were of the "crime" genre.
 
 ```{r}
 #| label: fig-seasonal-script-type

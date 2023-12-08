@@ -83,7 +83,7 @@
 4.  Sequel, adaptation" script type has the highest average budget
 5.  Walt Disney Studios has the highest mean budget, but lots of
     missingness within distributor variable, may be inaccurate
-6.  Oscar winning movies have an average budget than movies with 0 Oscar
+6.  Oscar winning movies have an average budget lower than movies with 0 Oscar
     wins
 7.  Overall positive correlation between budget and ratings, but not
     very strong

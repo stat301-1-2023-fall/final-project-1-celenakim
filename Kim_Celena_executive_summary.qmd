@@ -1,0 +1,30 @@
+---
+title: "What Makes a Hollywood Movie a Hit or a Flop?"
+subtitle: |
+  | Final Project 
+  | Data Science 1 with R (STAT 301-1)
+author: "Celena Kim"
+date: today
+
+format:
+  html:
+    toc: true
+    embed-resources: true
+    
+execute:
+  echo: false
+  warning: false
+
+from: markdown+emoji 
+---
+
+::: {.callout-tip icon="false"}
+## Github Repo Link
+
+<https://github.com/stat301-1-2023-fall/final-project-1-celenakim>
+:::
+
+## Executive Summary: An EDA of the Success Variables of Hollywood Movies
+
+The purpose of this report was to investigate the variables that contribute to the overall success rate of Hollywood movies. This was achieved by defining a movie’s success based on the factors of critic and audience ratings, opening weekend revenue, gross (domestic, foreign, and worldwide), budget and budget recovery, Oscar wins, and seasonal release date and exploring what possible patterns and correlations may exist among them to ultimately render a film to be a blockbuster or a flop.
+
