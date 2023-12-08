@@ -356,8 +356,3 @@ seasonal_script_type_plot <- movie_data |>
 # Season with the most overall success: fall
 
 
-
-
-
-
-
