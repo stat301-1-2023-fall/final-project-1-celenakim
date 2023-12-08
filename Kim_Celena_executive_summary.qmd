@@ -1,5 +1,5 @@
 ---
-title: "What Makes a Hollywood Movie a Hit or a Flop?"
+title: "Executive Summary: An EDA of the Success Variables of Hollywood Movies"
 subtitle: |
   | Final Project 
   | Data Science 1 with R (STAT 301-1)
@@ -24,11 +24,26 @@ from: markdown+emoji
 <https://github.com/stat301-1-2023-fall/final-project-1-celenakim>
 :::
 
-## Executive Summary: An EDA of the Success Variables of Hollywood Movies
-
-The purpose of this report was to investigate the variables that contribute to the overall success rate of Hollywood movies. This was achieved by defining a movie’s success based on the factors of critic and audience ratings, opening weekend revenue, gross (domestic, foreign, and worldwide), budget and budget recovery, Oscar wins, and seasonal release date and exploring what possible patterns and correlations may exist among them to ultimately render a film to be a blockbuster or a flop.
+The purpose of this EDA report was to investigate the variables that contribute to the overall success rate of Hollywood movies. This was achieved by defining a movie's success based on the factors of critic and audience ratings, opening weekend revenue, gross (domestic, foreign, and worldwide), budget and budget recovery, Oscar wins, and seasonal release date and exploring what possible patterns and correlations may exist among them to ultimately render a film to be a blockbuster or a flop.
 
 ### Data Quality Issues
 
-Before highlighting some key findings from the report, it is important to note some significant issues in the data used for the EDA. The Kaggle data set “Hollywood Hits and Flops (2007 - 2023)” by David McCandless contains numerous unnecessary NA values, incorrect value conversions, and variables of types that were not conducive for a numerical analysis. Through an extensive cleaning process, most of these problems were able to be resolved. However, the issue of NA values still remains for many variables such as primary genre, Oscar award detail, distributor company, and IMDb rating, making it difficult to perform accurate analyses with such variables.
+Before highlighting some key findings from the report, it is important to note some significant issues in the data used for the EDA. The Kaggle data set "Hollywood Hits and Flops (2007 - 2023)" by David McCandless contains numerous unnecessary NA values, incorrect value conversions, and variables of types that were not conducive for a numerical analysis. Through an extensive cleaning process, most of these problems were able to be resolved. However, the issue of NA values still remains for the variables of primary genre, Oscar award detail, distributor company, and IMDb rating, making it difficult to perform accurate analyses with such variables.
 
+### Key Finding 1: Economic Impact on Movie Success
+
+In exploring the yearly changes in the variables of average opening weekend revenue, average domestic gross, and average productions budgets from 2007-2022, all three line plots displayed the same trend as the following figure, ![](figures/var2_figures/opening_wknd_yearly_plot.png) of having two distinct low points corresponding to the years 2008 and 2020. This recurring pattern of low averages for those years can be attributed to the economic turmoils that greatly impacted the film industry, as the US experienced a Great Recession of economic downturn in 2008 and a nationwide quarantine in 2020 due to the COVID-19 pandemic. Specifically, for each variable:
+
+-   Opening weekend revenue: With the 2008 Great Recession, there was a dramatic decline in consumer spending and movie production, thus leading to a decline in the average earnings of movies in their first weekend of release. In 2020, the COVID-19 pandemic led to a nationwide shut down/capacity limit of movie theaters, resulting in a drastic drop in movie theater ticket sales and thus a dramatic drop in mean opening weekend revenues.
+
+-   Domestic Gross: Similar to above, the declines in consumer spending due to the 2008 Great Recession directly led to a drop in the total box office revenue of movies overall. In 2020, the movie theater shut downs/limits due to quarantining for COVID-19 also directly led to declines in gross domestic revenue, as the movie theater industry was not very active during this period.
+
+-   Budget: Financial concerns induced by the 2008 Great Recession may have resulted in cost-cutting measures and a tightening of spending for movie distributors, thus leading to a lower average movie budget for that year. With the COVID-19 pandemic and quarantining, film studios may have delayed the production of their works, leading to an overall decline in film releases and therefore a decline in mean movie budgets for 2020.
+
+These findings reveal how the film industry is significantly impacted by economic challenges, and how the success of movies is reflective of the overall economic success of the US.
+
+### Key Finding 2: Seasonal Impact on Movie Release
+
+Within my data set, I created a new variable to denote the season that each film was released in with the intention of exploring whether distributors strategize their film releases by certain times of the year in order to render them to be more successful or profitable. Numerous findings and patterns were revealed, but most notably, it seems that seasonal release has the greatest impact on Oscar wins. According to the following graph, ![](figures/var6_figures/seasonal_oscar_plot.png) movies released in the Fall have won significantly more Oscar awards than movies released in other seasons. This could be the result of the Fall season being both close enough in proximity to the period of Oscar voting and thus rendering these films to be more relevant among the voters, yet also leaving enough time for the films to gain enough popularity and traction before the awards ceremony. From this, we can conclude that the time of the year does impact when distributors choose to release their movies, as releasing movies in the Fall seems to increase their chances of winning an Oscar.
+
+### Key Finding 3: 
