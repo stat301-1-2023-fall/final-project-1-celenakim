@@ -1272,6 +1272,7 @@ budget_critic + budget_audience + budget_imdb
 
 
 ## Variable 5: Oscar Wins
+According to Britannica, the Oscars, also known as the Academic
 ```{r}
 #| label: fig-oscar-wins-films
 #| fig-cap: The top 10 films with the greatest number of Oscar awards.
@@ -1282,7 +1283,7 @@ budget_critic + budget_audience + budget_imdb
   slice_head(n = 10) |> 
   DT::datatable()
 ```
-As shown in @fig-oscar-wins-films
+As shown in @fig-oscar-wins-films, the film that has earned the greatest number of Oscar awards among the top movies released from 2007-2022 is "Everything Everywhere All at Once", with a whopping 7 Oscar awards. However, it is important to note that the Oscar variables contain a great number of missing values, and thus this may not be accurate and there could be another film with more Oscar wins. However, within the data that is present, "Everything Everywhere All at Once" has won significantly more Oscars than other films.
 
 
 ```{r}
@@ -1383,12 +1384,84 @@ movie_data |>
   slice_head(n = 10) |> 
   DT::datatable()
 ```
-@fig-oscars-details-ratings is a table consisting of the Oscar award category combinations for movies with the highest average critic and audience ratings. It reveals that the Oscar award of "Best Supporting Actress (Patricia Arquette) has the highest mean critic rating of 99. This corresponds to a single movie in the data set, titled "Boyhood". The Oscar awards of "Best Picture, Best Director, Best Original Screenplay and Best International Feature Film" have the highest mean audience rating of 91, and this was won by the movie "Parasite". 
+@fig-oscars-details-ratings is a table consisting of the Oscar award category combinations for movies with the highest average critic and audience ratings. It reveals that the Oscar award of "Best Supporting Actress (Patricia Arquette) has the highest mean critic rating of 99. This corresponds to a single movie in the data set, titled "Boyhood". The Oscar awards of "Best Picture, Best Director, Best Original Screenplay and Best International Feature Film" have the highest mean audience rating of 91, and these awards were won by the movie "Parasite".
 
 ```{r}
+#| label: fig-oscar-count-opening-wknd
+#| fig-cap: A visualization of average opening weekend revenues for each possible number of Oscar awards that have been won by Hollywood movies.
 
+movie_data |> 
+  filter(!is.na(oscar_count)) |> 
+  group_by(oscar_count) |> 
+  summarize(avg_opening_wknd = mean(opening_weekend_million, 
+                                    na.rm = TRUE)) |> 
+  ggplot(aes(x = factor(oscar_count),
+             y = avg_opening_wknd,
+             fill = oscar_count)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Number of Oscar Awards",
+       y = "Average Opening Weekend Revenue (millions of $)",
+       title = "Distribution of Average Opening Weekend Earnings by Oscar Award Count",
+       subtitle = "Movies with 6 Oscars have the highest average opening weekend revenue.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        legend.position = "none")
 ```
+@fig-oscar-count-opening-wknd displays average opening weekend revenues among the possible numbers of Oscar awards won by Hollywood movies over the years. The greatest average opening weekend was earned by movies with 6 Oscar awards. This corresponds to a single movie, "Mad Max: Fury Road", and the earnings are significantly higher than movies with 4 and 7 Oscar wins.
 
+```{r}
+#| label: fig-oscar-count-gross
+#| fig-cap: A visualization of average domestic and foreign revenues for each possible number of Oscar awards that have been won by Hollywood movies.
+
+oscar_count_dom_gross <- movie_data |> 
+  filter(!is.na(oscar_count)) |> 
+  group_by(oscar_count) |> 
+  summarize(avg_dom_gross = mean(domestic_gross_million, 
+                                    na.rm = TRUE)) |> 
+  ggplot(aes(x = factor(oscar_count),
+             y = avg_dom_gross,
+             fill = oscar_count)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Number of Oscar Awards",
+       y = "Average Domestic Gross Revenue (millions of $)",
+       title = "Distribution of Average Domestic Gross Earnings 
+by Oscar Award Count",
+       subtitle = "Movies with 1 Oscar have the highest average domestic gross revenue.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 9),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 7),
+        legend.position = "none") +
+  ylim(0, 250)
+
+
+oscar_count_for_gross <- movie_data |> 
+  filter(!is.na(oscar_count)) |> 
+  group_by(oscar_count) |> 
+  summarize(avg_for_gross = mean(foreign_gross_million, 
+                                 na.rm = TRUE)) |> 
+  ggplot(aes(x = factor(oscar_count),
+             y = avg_for_gross,
+             fill = oscar_count)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Number of Oscar Awards",
+       y = "Average Foreign Gross Revenue (millions of $)",
+       title = "Distribution of Average Foreign Gross Earnings 
+by Oscar Award Count",
+       subtitle = "Movies with 1 Oscar have the highest average foreign gross revenue.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 9),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 7),
+        legend.position = "none") +
+  ylim (0, 250)
+
+oscar_count_dom_gross + oscar_count_for_gross
+```
+@fig-oscar-count-opening-wknd displays the average domestic gross revenues and average foreign gross revenues among the possible numbers of Oscar awards won by Hollywood movies. Movies that have won 1 Oscar have both the highest average domestic and highest average foreign gross. Moreover, the two plots display similar patterns. This confirms the previous finding in @fig-gross-correlation of the correlation that exists between the domestic gross and foreign gross.
 
 
 ## Variable 6: Seasonal Release Date
@@ -1480,22 +1553,19 @@ In @fig-seasonal_opening_wknd, it is clear that movies with the highest average 
 #| fig-cap: The average total revenue generated by films from all sources globally by the season the film was released in.
 
 movie_data |> 
-  group_by(season) |> 
-  summarise(avg_worldwide_gross = mean(worldwide_gross_million, na.rm = TRUE)) |> 
-  arrange(desc(avg_worldwide_gross)) |> 
   ggplot(aes(x = season, 
-             y = avg_worldwide_gross, 
+             y = worldwide_gross_million, 
              fill = season)) +
-  geom_bar(stat = "identity") +
-  labs(title = "Average Worldwide Gross Earnings by Season Movie was Released In",
+  geom_boxplot() +
+  labs(title = "Distribution of Worldwide Gross Earnings by Season Movie was Released In",
        subtitle = "Movies released in the summer have the greatest average worldwide gross.",
        x = "Season",
        y = "Worldwide Gross (millions of $)",
        fill = "Season") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot") +
-  theme(legend.position = "none")
+        plot.title.position = "plot",
+        legend.position = "none")
 ```
 @fig-seasonal_gross shows that movies released during the Summer months have the highest average worldwide gross. This could be due to the fact that in many countries around the world, kids are on summer vacation during these months, and thus families are more likely to go to the movies and contribute to increased ticket sales.
 
@@ -1523,8 +1593,32 @@ movie_data |>
 ```
 @fig-seasonal_budget shows that movies released in the Spring have the highest average movie budgets. This directly aligns with previous findings in the EDA. In @fig-opening-wknd-by-budget, it was concluded that there exists a positive association between a Hollywood movie's budget and its opening weeked earnings. Therefore, since @fig-seasonal_opening_wknd revealed that the season of movies released with the highest average opening weekend revenue was Spring, then the season of movies released with the highest average movie budgets should also be the Spring, and that is what we see in this plot. This supports our finding of the positive correlation that exists between a movie's budget and opening weekend revenue.
 
+
 ```{r}
-#| label: fig-seasonal_oscars
+#| label: fig-seasonal-opening-wknd-by-budget
+#| fig-cap: The correlations of movie budget and opening weekend earnings for each movie release season
+
+movie_data |> 
+  ggplot(aes(x = budget_million,
+             y = opening_weekend_million,
+             color = season)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm",
+              se = FALSE) +
+  labs(title = "Relationship Between Movie Budget and Opening Weekend Revenue, 
+by Season",
+       subtitle = "Movies released in the Spring have the greatest correlation between the two variables.",
+       x = "Budget (millions of $)",
+       y = "Opening Weekend Revenue (millions of $)",
+       color = "Season") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot")
+```
+In @fig-opening-wknd-by-budget, it was concluded that there exists is a clear positive association between a Hollywood movie's budget and its opening weekend revenue. @fig-seasonal-opening-wknd-by-budget again explores this relationship, this time by season. According to the graph, the season with the steepest correlation is "Spring". This suggests that for movies released in the Spring, as their production budget increases, their opening weekend revenue is earned at a higher rate than movies released in other seasons. This steep correlation for Spring in @fig-seasonal-opening-wknd-by-budget makes sense, as it was concluded in @fig-seasonal_budget that movies released in the Spring have the highest average movie budgets, and @fig-seasonal_opening_wknd displayed that movies released in the Spring have the highest average opening weekend revenue.
+
+```{r}
+#| label: fig-seasonal-oscars
 #| fig-cap: The distribution of Oscar wins based on what season the movie was released in.
 
 movie_data |> 
@@ -1546,7 +1640,49 @@ movie_data |>
         plot.title.position = "plot") +
   theme(legend.position = "none")
 ```
-In @fig-seasonal_oscars, movies that were released in the Fall season won significantly more Oscars than movies released in other seasons. This is due to the fact that the Fall season is close to around the time when Oscar voting starts, and thus these films are more salient/relavent among the voters, but there is still enough time away from the start of voting for the films to gain enough popularity and traction before the awards are given out. From this, we can conclude that when defining a film's success solely defined by the number of Oscar wins, releasing the film during the Fall season will greatly increase its chances of being successful. 
+In @fig-seasonal-oscars, movies that were released in the Fall season won significantly more Oscars than movies released in other seasons. This is due to the fact that the Fall season is close to around the time when Oscar voting starts, and thus these films are more salient/relavent among the voters, but there is still enough time away from the start of voting for the films to gain enough popularity and traction before the awards are given out. From this, we can conclude that when defining a film's success solely defined by the number of Oscar wins, releasing the film during the Fall season will greatly increase its chances of being successful. 
+
+```{r}
+#| label: fig-seasonal-genre
+#| fig-cap: The distribution of genre categories of the movies that were released in each season.
+
+movie_data |> 
+  filter(!is.na(primary_genre) & primary_genre != "") |> 
+  ggplot(aes(x = season,
+             fill = primary_genre)) +
+  geom_bar(position = "dodge") +
+  labs(x = "Season",
+       y = "Proportion",
+       fill = "Genre",
+       title = "Genre Makeup of Each Movie Release Season",
+       subtitle = "The 'action' genre is the most prevalent among all seasons except Fall.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        legend.position = "right")
+```
+@fig-seasonal-genre visualizes the genre distribution of the movies released in each season. According to the graph, the "action" genre made up a majority of the movies released in the Spring, Summer, and Winter, but for movies with a release date in the "Fall", a majority of them were of the "crime" genre. 
+
+```{r}
+#| label: fig-seasonal-script-type
+#| fig-cap: The distribution of script type categories of the movies that were released in each season.
+
+movie_data |> 
+  filter(!is.na(script_type)) |> 
+  ggplot(aes(x = season,
+             fill = script_type)) +
+  geom_bar(position = "dodge") +
+  labs(x = "Season",
+       y = "Proportion",
+       fill = "Script Type",
+       title = "Script Type Makeup of Movie Release Season",
+       subtitle = "The 'original screenplay' script type is the most prevalent across all seasons.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        legend.position = "right")
+```
+@fig-seasonal-script-type displays the script type distribution of the movies released in each season. As can be seen in the graph, the "original screenplay" category makes up the majority of movies across all seasons. This could suggest that this particular script type is the most popular/common for films.
 
 ## Conclusion
 After this extensive analysis of the “movie_data”, a great deal of chief findings, key takeaways, and common patterns were brough to light. Most notably, it seems that certain variables such as opening weekend success, gross revenue, and budgets are highly impacted by economic turmoil such as the recession and the pandemic, the sequel & adaptation script type hybrid and genre categories of sci-fi, action, and adventure seem to be very popular, movies released in the Fall have a higher chance of winning an Oscar, and numerous positive correlations seem to be present within the data set: domestic gross by critic and audience movie ratings, budget recovery by opening weekend revenue, domestic and foreign gross by opening weekend revenue, Rotten Tomatoes audience scores by opening weekend revenue, foreign gross by domestic gross, percent of budget recovered and worldwide gross, and finally, opening weekend revenue and worldwide gross by movie budget, movie ratings by budget. All of these relationships reveal how interrelated the various factors that contribute to a movie’s success rate are, and knowing such correlations stand as predictive models and verifications for outcomes of certain explorations, as discovered within numerous explorations in the EDA (such as the “sequel, adaptation” having both the highest mean budget and highest opening weekend revenue, as budget and weekend revenue are highly correlated). Moreover, many findings were very insightful, such as the fact that the Rotten Tomatoes critic rating does not have much influence on opening weekend success like I had initially thought. On the other hand, many conclusions were to be expected, such as the fantasy genre having the highest mean budget, the budget variable being positively and strongly correlated with “opening weekend revenue” and “gross” variables, and audience rating groups giving out higher ratings than critic rating groups overall. Overall, this EDA serves to provide a greater understanding of the certain conditions of variables that render a movie to be overall successful, with “success” being defined in numerous ways from gross revenue to Oscar wins.

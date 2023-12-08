@@ -141,25 +141,29 @@ budget_critic + budget_audience + budget_imdb
 
 
 ### VAR5_OSCAR_ANALYSIS
+oscar_movie_titles
+# ![](figures/var5_figures/oscar_movie_titles_plot.png)
+# Everything Everywhere All at Once won the most Oscars
+
 genre_oscar_wins + script_type_oscar_wins
 # ![](figures/var5_figures/oscars_genre_script_type_plot.png)
-#
+# "Biography, history" genre has most Oscar wins, "Original screenplay" script type has most Oscar wins.
 
 oscar_win_ww_gross
 # ![](figures/var5_figures/oscar_win_ww_gross_plot.png)
 # Movies that have won at least one Oscar have a higher average ww gross.
 
-plot
-# ![](figures/var5_figures/_plot.png)
-#
+oscar_avg_critic_aud
+# ![](figures/var5_figures/oscar_avg_critic_aud_plot.png)
+# "Best Supporting Actress (Patricia Arquette)" has the highest critic rating, Best Picture, Best Director, Best Original Screenplay and Best International Feature Film" has the highest avg audience rating.
 
-plot
-# ![](figures/var5_figures/_plot.png)
-#
+oscar_count_opening_wknd
+# ![](figures/var5_figures/oscar_count_opening_wknd_plot.png)
+# Movies with 6 Oscars have the highest average opening weekend revenue: "Mad Max: Fury Road"
 
-plot
-# ![](figures/var5_figures/_plot.png)
-#
+oscar_count_dom_gross + oscar_count_for_gross
+# ![](figures/var5_figures/oscar_count_opening_wknd_plot.png)
+# Movies that have won 1 Oscar have both the highest average domestic and highest average foreign gross.
 
 
 
@@ -181,9 +185,21 @@ seasonal_budget_plot
 # ![](figures/var6_figures/seasonal_budget_plot.png)
 # Highest budgets for movies released in the Spring, directly aligns with previous findings.
 
+season_opening_wknd_by_budget
+# ![](figures/var6_figures/seasonal_budget_plot.png)
+# Steepest correlation for movies released in the Spring.
+
 seasonal_oscar_plot
 # ![](figures/var6_figures/seasonal_oscar_plot.png)
 # Highest number of Oscar wins for movies released in the Fall, makes sense with past trends-- movies released later in the year are more likely to win an oscar.
+
+seasonal_genre_plot
+# ![](figures/var6_figures/seasonal_genre_plot.png)
+# The action genre is the most prevalent across all seasons except Fall.
+
+seasonal_script_type_plot
+# ![](figures/var6_figures/seasonal_script_type_plot.png)
+# The original screenplay script type is the most prevalent across all seasons.
 
 
 

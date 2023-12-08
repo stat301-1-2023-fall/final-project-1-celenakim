@@ -13,9 +13,14 @@ library(patchwork)
 # Oscar detail analysis– which oscar award category has the highest budget? Highest worldwide gross? Highest opening weekend rev? Highest ratings?
   
 
+## Exploration 1: Movie with the most Oscar wins?
+oscar_movie_titles <- movie_data |> 
+  select(film, oscar_count, oscar_detail) |> 
+  arrange(desc(oscar_count)) |> 
+  slice_head(n = 10) |> 
+  DT::datatable()
 
-
-### Exploration 1: Which genre has the highest Oscar wins? Which script type has the highest Oscar wins?
+### Exploration 2: Which genre has the highest Oscar wins? Which script type has the highest Oscar wins?
 genre_oscar_counts <- movie_data |> 
   group_by(genre) |> 
   summarize(oscar_count = sum(oscar_winners)) |> 
@@ -102,8 +107,7 @@ movie_data |>
   theme_minimal()
 
 
-
-## Exploration 2: worldwide gross and oscar wins
+## Exploration 3: worldwide gross and oscar wins
 oscar_win_ww_gross <- movie_data |> 
   filter(!is.na(oscar_winners)) |> 
   ggplot(aes(x = worldwide_gross_million, 
@@ -129,35 +133,97 @@ oscar_win_for_gross <- movie_data |>
 
 
 
-## Exploration 3: Which Oscar award has the highest critic ratings?
-movie_data |> 
+## Exploration 4: Which Oscar award has the highest critic ratings? Audience ratings?
+oscar_avg_critic_aud <- movie_data |> 
   filter(!is.na(oscar_detail)) |> 
   group_by(oscar_detail) |> 
-  summarize(mean_rt_critic_rating = mean(rotten_tomatoes_critics, na.rm = TRUE),
-            mean_rt_audience_rating = mean(rotten_tomatoes_audience, na.rm = TRUE),
-            mean_metacritic_critic_rating = mean(metacritic_critics, na.rm = TRUE),
-            mean_metacritic_audience_rating = mean(metacritic_audience, na.rm = TRUE)) |> 
-  DT::datatable()
-
-movie_data |> 
-  filter(!is.na(oscar_detail)) |> 
-  group_by(oscar_detail) |> 
-  summarize(mean_critic = mean(average_critics, na.rm = TRUE)) |>
-  arrange(desc(mean_critic)) |> 
+  summarize(mean_critic_rating = mean(average_critics, na.rm = TRUE),
+            mean_aud_rating = mean(average_audience, na.rm = TRUE)) |> 
+  arrange(desc(mean_critic_rating)) |> 
   slice_head(n = 10) |> 
   DT::datatable()
 
 
+## Exploration 5: Opening weekend revenue and number of Oscar wins
+oscar_count_opening_wknd <- movie_data |> 
+  filter(!is.na(oscar_count)) |> 
+  group_by(oscar_count) |> 
+  summarize(avg_opening_wknd = mean(opening_weekend_million, 
+                                    na.rm = TRUE)) |> 
+  ggplot(aes(x = factor(oscar_count),
+             y = avg_opening_wknd,
+             fill = oscar_count)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Number of Oscar Awards",
+       y = "Average Opening Weekend Revenue (millions of $)",
+       title = "Distribution of Average Opening Weekend Earnings by Oscar Award Count",
+       subtitle = "Movies with 6 Oscars have the highest average opening weekend revenue.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        legend.position = "none")
 
+
+
+## Exploration 6: Gross and number of Oscar wins
+oscar_count_dom_gross <- movie_data |> 
+  filter(!is.na(oscar_count)) |> 
+  group_by(oscar_count) |> 
+  summarize(avg_dom_gross = mean(domestic_gross_million, 
+                                    na.rm = TRUE)) |> 
+  ggplot(aes(x = factor(oscar_count),
+             y = avg_dom_gross,
+             fill = oscar_count)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Number of Oscar Awards",
+       y = "Average Domestic Gross Revenue (millions of $)",
+       title = "Distribution of Average Domestic Gross Earnings 
+by Oscar Award Count",
+       subtitle = "Movies with 1 Oscar have the highest average domestic gross revenue.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 9),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 7),
+        legend.position = "none") +
+  ylim(0, 250)
+
+
+oscar_count_for_gross <- movie_data |> 
+  filter(!is.na(oscar_count)) |> 
+  group_by(oscar_count) |> 
+  summarize(avg_for_gross = mean(foreign_gross_million, 
+                                 na.rm = TRUE)) |> 
+  ggplot(aes(x = factor(oscar_count),
+             y = avg_for_gross,
+             fill = oscar_count)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Number of Oscar Awards",
+       y = "Average Foreign Gross Revenue (millions of $)",
+       title = "Distribution of Average Foreign Gross Earnings 
+by Oscar Award Count",
+       subtitle = "Movies with 1 Oscar have the highest average foreign gross revenue.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                  size = 9),
+        plot.title.position = "plot",
+        plot.subtitle = element_text(size = 7),
+        legend.position = "none") +
+  ylim (0, 250)
+
+oscar_count_dom_gross + oscar_count_for_gross
+
+
+
+
+## EXTRA EXPLORATIONS:
 
 # which distributor has the highest oscar wins
 movie_data |> 
-  filter(!is.na(oscar_winners) | !is.na(distributor)) |> 
+  filter(!is.na(oscar_winners) & !is.na(distributor)) |> 
   group_by(distributor) |> 
   summarize(oscar_count = sum(oscar_winners, na.rm = TRUE)) |> 
   arrange(desc(oscar_count))
-
-
 
 ### Exploration 3: Do movies that have won Oscars have better Rotten Tomatoes critic ratings?
 rt_rating_oscar <- movie_data |> 
@@ -165,8 +231,6 @@ rt_rating_oscar <- movie_data |>
   summarize(mean_rt_critic_rating = round(mean(rotten_tomatoes_critics, na.rm = TRUE))) |> 
   DT::datatable()
 rt_rating_oscar
-
-
 
 
 #Analyze the relationship between critic ratings and the number of Oscar wins.
@@ -192,10 +256,6 @@ movie_data |>
   ggplot(aes(x = opening_weekend_million, y = oscar_winners)) +
   geom_boxplot() 
 
-## interesting similar results, because we know that opening weekend rev and budget are highly correlated with one another
-
-
-
 
 movie_data |> 
   group_by(script_type) |> 
@@ -214,23 +274,10 @@ movie_data |>
   filter(!is.na(oscar_detail) & oscar_detail != "") |>
   group_by(oscar_detail) |> 
   summarize(count = n()) |> 
-  arrange(desc(count)) |> 
-  slice_head(n = 5)
+  arrange(desc(count))
 
 library(dplyr)
 library(ggplot2)
-
-# Assuming "movie_data" is your data frame
-movie_data %>%
-  filter(!is.na(distributor) & !is.na(oscar_detail)) |> 
-  ggplot(aes(x = distributor, fill = oscar_detail)) +
-  geom_bar(position = "stack", color = "white") +
-  labs(title = "Oscar Wins by Distributor and Category",
-       x = "Distributor",
-       y = "Count") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1))  +
-  theme(legend.position = "none")
 
 movie_data |> 
   group_by(oscar_detail) |> 
@@ -245,29 +292,7 @@ movie_data |>
             mean_budget = mean(budget_million)) |> 
   arrange(desc(mean_opening_wknd_rev))
   
-movie_data |> 
-  group_by(oscar_detail) |> 
-  summarize(mean_budget = mean(budget_million)) |> 
-  arrange(desc(mean_budget)) |> 
-  slice_head(n = 1)
 
-
-
-movie_data |> 
-  filter(!is.na(primary_genre) & !is.na(script_type)) |> 
-  ggplot(aes(x = script_type, fill = primary_genre)) +
-  geom_bar() +
-  theme(legend.position = "bottom") +
-  labs(title = "Genre Makeup of Each Script Type",
-       subtitle = "Remakes are solely made up of western movies.",
-       x = "Script Type",
-       y = "Count",
-       fill = "Genre") +
-  theme_minimal() +
-  theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot")
-
-distinct(oscar_detail$movie_data)
 
 
 # yearly oscars

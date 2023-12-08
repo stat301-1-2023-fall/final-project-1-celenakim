@@ -1,13 +1,7 @@
-library(tidyverse)
-library(scales)
-library(ggrepel)
-library(patchwork)
-
 ## Investigating how seasons interact with each variable
 
-# By var1: ratings
+## Exploration 1: By var1: ratings
 # Which season has the highest average critic and audience ratings
-
 seasonal_critics_table <- movie_data |> 
   group_by(season) |> 
   summarise(avg_critic_rating = round(mean(average_critics, 
@@ -73,8 +67,7 @@ seasonal_critics_plot + seasonal_audience_plot
 
 
 
-
-# By var2: opening weekend revenue
+## Exploration 2: By var2: opening weekend revenue
 # Which season has the highest mean opening weekend revenue
 seasonal_opening_wknd_plot <- movie_data |> 
   group_by(season) |> 
@@ -98,7 +91,7 @@ seasonal_opening_wknd_plot <- movie_data |>
 
 
 
-# By var3: gross
+# Exploration 3: By var3: gross
 # Which season has the highest domestic gross
 movie_data |> 
   group_by(season) |> 
@@ -133,9 +126,24 @@ seasonal_gross_plot <- movie_data |>
         legend.position = "none")
   # Highest worldwide gross for movies released in the Summer
 
+seasonal_gross_plot <- movie_data |> 
+  ggplot(aes(x = season, 
+             y = worldwide_gross_million, 
+             fill = season)) +
+  geom_boxplot() +
+  labs(title = "Distribution of Worldwide Gross Earnings by Season Movie was Released In",
+       subtitle = "Movies released in the summer have the greatest average worldwide gross.",
+       x = "Season",
+       y = "Worldwide Gross (millions of $)",
+       fill = "Season") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        legend.position = "none")
 
 
-# By var4: budget recovery
+
+# Exploration 4: By var4: budget recovery
 # Which season has movies with the highest budgets
 seasonal_budget_plot <- movie_data |> 
   group_by(season) |> 
@@ -263,8 +271,28 @@ movie_data %>%
 
 
 
+# Exploration 5: 
+season_opening_wknd_by_budget <- movie_data |> 
+  ggplot(aes(x = budget_million,
+             y = opening_weekend_million,
+             color = season)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm",
+              se = FALSE) +
+  labs(title = "Relationship Between Movie Budget and Opening Weekend Revenue, 
+by Season",
+       subtitle = "Movies released in the Spring have the greatest correlation between the two variables.",
+       x = "Budget (millions of $)",
+       y = "Opening Weekend Revenue (millions of $)",
+       color = "Season") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot")
+  
 
-# By var5: oscar wins
+
+
+# Exploration 6: By var5: oscar wins
 # Which season has the movies with the most Oscar wins
 seasonal_oscar_plot <- movie_data |> 
   group_by(season) |> 
@@ -287,6 +315,41 @@ seasonal_oscar_plot <- movie_data |>
   
   # Movies released in the fall
 
+
+
+# Exploration 7: The genre make up of each season 
+seasonal_genre_plot <- movie_data |> 
+  filter(!is.na(primary_genre) & primary_genre != "") |> 
+  ggplot(aes(x = season,
+             fill = primary_genre)) +
+  geom_bar(position = "dodge") +
+  labs(x = "Season",
+       y = "Proportion",
+       fill = "Genre",
+       title = "Genre Makeup of Each Movie Release Season",
+       subtitle = "The 'action' genre is the most prevalent among all seasons except Fall.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        legend.position = "right")
+
+
+
+# Exploration 8: The script type make up of each season
+seasonal_script_type_plot <- movie_data |> 
+  filter(!is.na(script_type)) |> 
+  ggplot(aes(x = season,
+             fill = script_type)) +
+  geom_bar(position = "dodge") +
+  labs(x = "Season",
+       y = "Proportion",
+       fill = "Script Type",
+       title = "Script Type Makeup of Movie Release Season",
+       subtitle = "The 'original screenplay' script type is the most prevalent across all seasons.") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.title.position = "plot",
+        legend.position = "right")
 
 
 
