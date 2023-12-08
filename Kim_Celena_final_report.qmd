@@ -38,11 +38,11 @@ movie_data <- read_csv("data/movie_data.csv")
 
 ## Introduction
 
-As an avid movie lover, I have always been curious about what factors play into making some Hollywood movies critically acclaimed blockbusters while others fade into the background. Beyond solely the opening weekend numbers, I am interested in exploring the interplay between more extensive variables that contribute to a film's propensity to ultimately be a hit or a flop. Specifically, I think it would be very interesting to focus on the five factors of critic and audience ratings, opening weekend revenue, gross (domestic, foreign, and worldwide), budget and budget recovery, and Oscar wins. I also am curious to see whether time of year/seasons have an impact on a movie's success, and if there is a particular season in which the most successful movies are released. By focusing on these main variables for my analysis, I hope to explore my research question by discovering patterns and compelling correlations between the variables on a range of univariate to multivariate levels. I am interested in exploring whether certain variables affect another and how certain variables work together to contribute to a movie's overall success rate. In order to carry out this analysis, I will be utilizing a data set found on the Kaggle website called "Hollywood Hits and Flops (2007 - 2023)", described in the next section.
+As an avid movie lover, I have always been curious about what factors play into making some Hollywood movies critically acclaimed blockbusters while others fade into the background. Beyond solely the opening weekend numbers, I am interested in exploring the interplay between more extensive variables that contribute to a film's propensity to ultimately be a hit or a flop. Specifically, I think it would be very interesting to define a movie's success based on the factors of critic and audience ratings, opening weekend revenue, gross (domestic, foreign, and worldwide), budget and budget recovery, and Oscar wins. I also am curious to see whether time of year/seasons have an impact on a movie's success, and if there is a particular season in which the most successful movies are released. By focusing on these main variables for my analysis, I hope to explore my research question by discovering patterns and compelling correlations between the variables on a range of univariate to multivariate levels. I am interested in exploring whether certain variables affect another and how certain variables work together to contribute to a movie's overall success rate. In order to carry out this analysis, I will be utilizing a data set found on the Kaggle website called "Hollywood Hits and Flops (2007 - 2023)", described in the next section.
 
 ## Data Overview and Quality
 
-The data source that I chose for my project is called [Hollywood Hits and Flops (2007 - 2023)](https://www.kaggle.com/datasets/sujaykapadnis/hollywood-hits-and-flops-2007-2023/) found on [Kaggle](https://www.kaggle.com). This data set contains information about 1,967 Hollywood movies from 2007-2022, such as each movie's Rotten Tomatoes score, opening weekend revenue, genre, Oscar wins, budget recovery percentage, etc., all of which are variables that contribute to a movie's overall success rate. In its raw form, there are 16 separate csv files, each corresponding to movie data for each year from 2007-2022. In order to conduct an EDA with all the files at once, I decided to join the 16 files together. However, while the content of the 16 files is mostly similar with relatively the same variables/columns, there are some notable differences between the files. The joins were not a 1:1 perfect fit, and thus required an extensive data joining and clean up process to be carried out in order to end up with my final data set called "movie_data". A more detailed account of this process can be found in the section of this report titled "Appendix: technical info". "Movie_data" is a 354.1 KB CSV file of 1,967 observations and 33 variables of types character, double, logical, and date. For my analysis, I plan to explore this data set in its entirety by splitting up its variables into 6 main categories: "ratings", "opening weekend success", "gross revenue success", "budget and budget recovery", "Oscar wins", and "season of release". Additionally, I plan to use the categorical variables of "genre", "script type", and "distributor" within these analyses to explore how distributions may vary within these categories. In terms of missingness issues, there appears to be a significant amount of missing values for the variables "primary genre", "oscar award detail", "distributor company", and "IMDb rating". With these variables containing a lot of missing information, it may be difficult to make accurate conclusions about their distributions, which is something to keep in mind throughout this analysis. Overall, the "movie_data" data set contains a great number of various categories of success to explore to ultimately understand what the ideal conditions for a movie to be successful are.
+The data source that I chose for my project is called [Hollywood Hits and Flops (2007 - 2023)](https://www.kaggle.com/datasets/sujaykapadnis/hollywood-hits-and-flops-2007-2023/) found on [Kaggle](https://www.kaggle.com). This data set contains information about 1,967 Hollywood movies from 2007-2022, such as each movie's Rotten Tomatoes score, opening weekend revenue, genre, Oscar wins, budget recovery percentage, etc., all of which are variables that contribute to a movie's overall success rate. In its raw form, there are 16 separate csv files, each corresponding to movie data for each year from 2007-2022. In order to conduct an EDA with all the files at once, I decided to join the 16 files together. However, while the content of the 16 files is mostly similar with relatively the same variables/columns, there are some notable differences between the files, making the joins to not be a 1:1 perfect fit. Moreover, there were many variable conversions and variable additions that needed to be made in order to carry out my planned explorations. With these conditions, an extensive data joining and clean up process was required in order to end up with my final data set called "movie_data". A more detailed account of this process can be found in the section of this report titled "Appendix: technical info". "movie_data" is a 354.1 KB CSV file of 1,967 observations and 33 variables of character, double, integer, logical, and date types. For my analysis, I plan to explore this data set in its entirety by splitting up its variables into 6 main categories: "ratings", "opening weekend success", "gross revenue success", "budget and budget recovery", "Oscar wins", and "season of release". Additionally, I plan to use the categorical variables of "genre", "script type", and "distributor" within these analyses to explore how distributions may vary within these categories. In terms of missingness issues, there appears to be a significant amount of missing values for the variables "primary genre", "oscar award detail", "distributor company", and "IMDb rating". With these variables containing a lot of missing information, it may be difficult to make accurate conclusions about their distributions, which is something to keep in mind throughout this analysis. Overall, the "movie_data" data set contains a great number of various categories of success to explore to ultimately understand what the ideal conditions for a movie to be successful are.
 
 # Explorations: What variables contribute to a movie's overall success rate? How do these variables interact with eachother, and what characteristics ultimately lead to a movie being successful among various audiences?
 
@@ -1744,17 +1744,18 @@ McCandless, D. (2023, October). *Hollywood Hits and Flops \[2007 - 2023\]*. Kagg
 
 Tikkanen, A. (2023, December 4). *Academy Award*. Britannica. https://www.britannica.com/art/Academy-Award
 
-## Appendix: technical info text
+## Appendix: technical info about the data joining/clean-up process
+Overall, the raw form of “Hollywood Hits and Flops” required a very extensive amount of cleaning, both pre and post joining. As described in the “Data Overview and Quality” section, “Hollywood Hits and Flops” in its raw form is made up of 16 separate csv files, each pertaining to a year from 2007-2022. However, a simple joining of all 16 files was not possible due to differences between the data sets. For one, the data sets for 2007-2010 have 33 variables, 2011-2018 have 34 variables, and 2019-2022 have 35 variables. This difference in variable number is due to the fact that 2007-2010 data sets are missing the variables "financial source, if not The numbers" and "film list here", and the 2011-2018 data sets are missing the "film list here" variable. In order to combat this difference in variable numbers between the files, I decided to simply remove those extra columns in the 2011-2022 files, as there were NA values in every observation for those variable and they would not be relevant to my analysis. The next disparity lied in variable names, such as “genre” vs “genres” and differences in spacing between names. After skimming through these differences, I made all variable names uniform between all the data sets, and was then able to use rbind to join all 16 files into one data set called “movie_data”. However, an even deeper analysis of “movie_data” revealed that even more changes needed to be carried out before I could start my analysis. First, I cleaned up the variable names by changing all variables to snake case form. Next, there were numerous variables of types that were not conducive to perform an analysis on. For example, all of the variables with numbers as their observations such as critic variables and gross revenue were all of character type rather than integer, the release date variable was a character type rather than date, and variables with that dealt with percentages were character types with the % sign included rather than integer types. After identifying these variables, I carried out the respective character conversions. Third, numerous variables had unnecessary missing values. For example, many movies had missing values for their worldwide gross, even though their domestic and foreign gross values were present and worldwide gross is just a sum of domestic and foreign gross. Moreover, many movies’ genres were missing when their primary genres were available. Therefore, I filled in these NAs by setting NAs to worldwide gross to be the sum of domestic and foreign gross, and setting NAs in the genre variable to be whatever values was in the primary genre variable, if present. Next, the Oscar winners variable would display “Oscar winner” for movies that have won at least one Oscar award and blanks for movies with 0 Oscar awards. In order to be able to carry out analyses using this variable, I decided to convert the oscar winners variable from character to boolean type, and had it display TRUE to denote Oscar wins and FALSE to denote 0 Oscar wins. Another flaw that I observed was that there were incorrect millions conversions. For many variables such as opening weekend revenue and gross revenue, they also have a “millions” version where their numbers are represented in millions to make working with the large numbers less complicated. However, when skimming the data, I noticed that many of these conversions were incorrect (dividing by 100,000 instead of 1,000,000), which resulted in numbers being unreasonably high and inaccurate. Therefore, I replaced these “millions” columns in their entirety by performing my own math to receive the correct conversions. And last but not least, the last step to my post-join cleaning process was to add two new variables: season and oscar count. Using the release date variable and a case_when function, I created the season variable to denote the season of the year (fall, winter, spring, summer) that each movie was released in in order to perform seasonal analyses. Using the oscar detail variable and an ifelse statement, I created the oscar count variable to denote the total number of Oscar awards a movie has won. Finally, after all of these changes, deletions, and insertions were carried out, my “movie_data” data set was ready for analysis.
 
 ## Appendix: extra explorations
-
 ```{r}
 #| label: fig-genre-script-type
 #| fig-cap: A visualization of the genres present in each category of movie script type.
 
 movie_data |> 
   filter(!is.na(primary_genre) & !is.na(script_type)) |> 
-  ggplot(aes(x = script_type, fill = primary_genre)) +
+  ggplot(aes(x = script_type, 
+             fill = primary_genre)) +
   geom_bar() +
   theme(legend.position = "bottom") +
   labs(title = "Genre Makeup of Each Script Type",
@@ -1764,8 +1765,11 @@ movie_data |>
        fill = "Genre") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot")
+        plot.title.position = "plot",
+        axis.text.x = element_text(angle = 45, 
+                                   hjust = 1))
 ```
+@fig-genre-script-type displays the distribution of the different genres that make up each script type. "Action" makes up a majority of adaptations, "drama" makes up a majority of filmed based on a true story, "thriller" makes up a majority of original screenplays, "western" makes up all of remakes, and "action" makes up a majority of sequels. "Action" genre movies seem to be very prevalent.
 
 ```{r}
 #| label: fig-genre-trends
@@ -1773,20 +1777,179 @@ movie_data |>
 
 movie_data |> 
   group_by(year, primary_genre) |> 
-  filter(!is.na(primary_genre)) |> 
+  filter(!is.na(primary_genre) & primary_genre != "") |> 
   summarize(count = n()) |> 
   ggplot(aes(x = year, y = count, color = primary_genre)) +
   geom_line() +
-  labs(title = "Popularity of Genres Over Years",
-       subtitle = "Most movies are categorized as action.",
+  labs(title = "Genre Trends Over Years",
+       subtitle = "The 'action' genre has become the most prevalent.",
        x = "Year",
        y = "Number of Movies",
-       color = "Primary Genre")  +
+       color = "Genre") +
   theme_minimal() +
-  ylim(0, 30)  +
-  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   theme(plot.title = element_text(face = "bold"),
-        plot.title.position = "plot")
+        plot.title.position = "plot") +
+  ylim(0, 30)
 ```
+@fig-genre-trends visualizes how the prevalence of genres have changed over the years based on how many movies are released for each genre. Based on the graph, it seems that the genre category with the most movie releases is "action".
 
-movie with highest -average critic rating -average audience rting -opening weekend -domestic gross -foreign gross -ww gross -budget -budget recovered -oscar wins -imdb rating
+```{r}
+#| label: fig-highest-critic
+#| fig-cap: Top 3 movies with the highest average critic ratings.
+
+movie_data |> 
+  select(film, 
+         year, 
+         script_type, 
+         genre, 
+         average_critics) |> 
+  arrange(desc(average_critics)) |> 
+  slice_head(n = 3) |> 
+  DT::datatable()
+```
+The film with the highest average critic rating is "Boyhood", with a mean critic rating of 99. This is an original screenplay drama released in 2014.
+
+```{r}
+#| label: fig-highest-audience
+#| fig-cap: Top 3 movies with the highest average audience ratings.
+
+movie_data |> 
+  select(film, 
+         year, 
+         script_type, 
+         genre, 
+         average_audience) |> 
+  arrange(desc(average_audience)) |> 
+  slice_head(n = 3) |> 
+  DT::datatable()
+```
+The film with the highest average audience rating is "God's Not Dead: We the People", with a mean audience rating of 100. This is a drama of unknown script type released in 2021.
+
+```{r}
+#| label: fig-highest-opening-wnkd
+#| fig-cap: Top 3 movies with the highest average opening weekend revenue.
+
+movie_data |> 
+  select(film, 
+         year, 
+         script_type, 
+         genre, 
+         opening_weekend_million) |> 
+  arrange(desc(opening_weekend_million)) |> 
+  slice_head(n = 3) |> 
+  DT::datatable()
+```
+The film with the highest average opening weekend revenue is "Avengers: Endgame", with a mean opening weekend earning of $357 million. This is an action adaptation released in 2019.
+
+```{r}
+#| label: fig-highest-dom-gross
+#| fig-cap: Top 3 movies with the highest average domestic gross revenue.
+
+movie_data |> 
+  select(film, 
+         year, 
+         script_type, 
+         genre,
+         domestic_gross_million) |> 
+  arrange(desc(domestic_gross_million)) |> 
+  slice_head(n = 3) |> 
+  DT::datatable()
+```
+The film with the highest average domestic gross revenue is "Star Wars: Force Awakens", with a mean domestic gross earning of $937 million. This is a sci-fi, fantasy sequel released in 2015.
+
+```{r}
+#| label: fig-highest-for-gross
+#| fig-cap: Top 3 movies with the highest average foreign gross revenue.
+
+movie_data |> 
+  select(film, 
+         year, 
+         script_type, 
+         genre,
+         foreign_gross_million) |> 
+  arrange(desc(foreign_gross_million)) |> 
+  slice_head(n = 3) |> 
+  DT::datatable()
+```
+The film with the highest average foreign gross revenue is "Avatar", with a mean foreign gross earning of $2021 million. This is an action, adventure, and fantasy original screenplay released in 2009.
+
+```{r}
+#| label: fig-highest-ww-gross
+#| fig-cap: Top 3 movies with the highest average worldwide gross revenue.
+
+movie_data |> 
+  select(film, 
+         year, 
+         script_type, 
+         genre,
+         worldwide_gross_million) |> 
+  arrange(desc(worldwide_gross_million)) |> 
+  slice_head(n = 3) |> 
+  DT::datatable()
+```
+The film with the highest average worldwide gross revenue is "Star Wars: Force Awakens", with a mean worldwide gross earning of $2068 million. This is a sci-fi, fantasy sequel released in 2015.
+
+```{r}
+#| label: fig-highest-earned-abroad
+#| fig-cap: Top 3 movies with the highest percentage of their revenue earned by foreign audiences.
+
+movie_data |> 
+  select(film, 
+         year, 
+         script_type, 
+         genre,
+         of_gross_earned_abroad) |> 
+  arrange(desc(of_gross_earned_abroad)) |> 
+  slice_head(n = 3) |> 
+  DT::datatable()
+```
+The film with the highest percentage of its gross earned abroad is "Café Society", with 264.84% of its gross earned abroad. This is an original screenplay drama released in 2016.
+
+```{r}
+#| label: fig-highest-budgets
+#| fig-cap: Top 3 movies with the highest average production budgets.
+
+movie_data |> 
+  select(film, 
+         year, 
+         script_type, 
+         genre,
+         budget_million) |> 
+  arrange(desc(budget_million)) |> 
+  slice_head(n = 3) |> 
+  DT::datatable()
+```
+The film with the highest average budget is "Avengers: Endgame", with a mean budget of $356 million. This is an action adaptation released in 2019
+
+```{r}
+#| label: fig-highest-budget-recovery
+#| fig-cap: Top 3 movies with the highest percentage of their budget recovered.
+
+movie_data |> 
+  select(film, 
+         year, 
+         script_type, 
+         genre,
+         budget_recovered) |> 
+  arrange(desc(budget_recovered)) |> 
+  slice_head(n = 3) |> 
+  DT::datatable()
+```
+The film with the highest percentage of their budget recovered is "Paranormal Activity", with 1289066.67% of its budget recovered. This is a horror, mystery original screenplay drama released in 2009.
+
+```{r}
+#| label: fig-highest-oscar
+#| fig-cap: Top 3 movies with the most Oscar awards.
+
+movie_data |> 
+  select(film, 
+         year, 
+         script_type, 
+         genre,
+         oscar_count) |> 
+  arrange(desc(oscar_count)) |> 
+  slice_head(n = 3) |> 
+  DT::datatable()
+```
+The film with the most Oscar wins is "Everything Everywhere All at Once", with 7 Oscar awards. This is an adventure, sci-fi, fantasy, comedy of unknown script type released in 2022.

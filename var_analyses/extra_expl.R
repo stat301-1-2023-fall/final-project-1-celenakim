@@ -152,18 +152,6 @@ highest_oscar_wins <- movie_data |>
   DT::datatable()
 
 
-#-imdb rating
-highest_imdb_rating <- movie_data |> 
-  select(film, 
-         year, 
-         script_type, 
-         genre,
-         im_db_rating) |> 
-  arrange(desc(im_db_rating)) |> 
-  slice_head(n = 3) |> 
-  DT::datatable()
-
-
 # Number of movies released in each season, seasonal_movie_count_table.png
 movie_data_with_season |> 
   group_by(season) |> 
