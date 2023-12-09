@@ -33,7 +33,10 @@ Before highlighting some key findings from the report, it is important to note s
 
 ### Key Finding 1: Economic Impact on Movie Success
 
-In exploring the yearly changes in the variables of average opening weekend revenue, average domestic gross, and average productions budgets from 2007-2022, all three line plots displayed the same trend as the following figure: ![](figures/var2_figures/opening_wknd_yearly_plot.png) As can be seen in the graph, there are two distinct low points corresponding to the years 2008 and 2020. This recurring pattern of low averages for those years can be attributed to two economic turmoils that greatly impacted the film industry-- the period of economic downturn in 2008 known as the Great Recession, and a nationwide quarantine in 2020 due to the COVID-19 pandemic. Specifically, for each variable:
+In exploring the yearly changes in the variables of average opening weekend revenue, average domestic gross, and average productions budgets from 2007-2022, all three line plots displayed the same trend as the following figure: 
+![](figures/var2_figures/opening_wknd_yearly_plot.png) 
+
+As can be seen in the graph, there are two distinct low points corresponding to the years 2008 and 2020. This recurring pattern of low averages for those years can be attributed to two economic turmoils that greatly impacted the film industry-- the period of economic downturn in 2008 known as the Great Recession, and a nationwide quarantine in 2020 due to the COVID-19 pandemic. Specifically, for each variable:
 
 -   Opening weekend revenue: With the 2008 Great Recession, there was a dramatic decline in consumer spending and movie production, thus leading to a decline in the average earnings of movies in their first weekend of release. In 2020, the COVID-19 pandemic led to a nationwide shutdown/capacity limit of movie theaters, resulting in a drastic drop in films releases movie theater ticket sales and thus a dramatic drop in mean opening weekend revenues.
 
@@ -45,7 +48,11 @@ These findings reveal how the film industry is significantly impacted by economi
 
 ### Key Finding 2: Seasonal Impact on Movie Release
 
-Within my data set, I created a new variable to denote the season that each film was released in to explore whether distributors strategize their film releases by certain times of the year in order to increase their chances of being more successful or profitable. Numerous findings and patterns were revealed, but most notably, it seems that seasonal release has a profound impact on Oscar wins. According to the following graph, movies released in the Fall have won significantly more Oscar awards than movies released in other seasons. ![](figures/var6_figures/seasonal_oscar_plot.png) This could be the result of the Fall season being the optimal time of year for a film to be on the radar of Oscar voters-- it is close enough in proximity to the period of Oscar voting and thus allows these films to be more relevant among the critics, yet it is also far enough away from the awards ceremony to allow the films to gain enough popularity and traction. From this, we can conclude that the time of the year does impact when distributors choose to release their movies, as releasing movies in the Fall seems to increase their chances of winning an Oscar.
+Within my data set, I created a new variable to denote the season that each film was released in to explore whether distributors strategize their film releases by certain times of the year in order to increase their chances of being more successful or profitable. Numerous findings and patterns were revealed, but most notably, it seems that seasonal release has a profound impact on Oscar wins. According to the following graph, movies released in the Fall have won significantly more Oscar awards than movies released in other seasons. 
+
+![](figures/var6_figures/seasonal_oscar_plot.png) 
+
+This could be the result of the Fall season being the optimal time of year for a film to be on the radar of Oscar voters-- it is close enough in proximity to the period of Oscar voting and thus allows these films to be more relevant among the critics, yet it is also far enough away from the awards ceremony to allow the films to gain enough popularity and traction. From this, we can conclude that the time of the year does impact when distributors choose to release their movies, as releasing movies in the Fall seems to increase their chances of winning an Oscar.
 
 ### Key Finding 3: Correlation between movie rating and domestic gross revenue, by genre
 
