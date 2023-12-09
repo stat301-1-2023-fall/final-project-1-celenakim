@@ -116,8 +116,9 @@ oscar_win_ww_gross <- movie_data |>
   ggplot(aes(x = worldwide_gross_million, 
              y = oscar_winners)) +
   geom_boxplot() +
-  labs(title = "Worldwide Gross by Oscar Wins",
-       subtitle = "Oscar winning movies have a higher average worldwide gross.",
+  labs(title = "Distribution of Worldwide Gross for Oscar-winning Movies and Movies with 
+0 Oscar Wins",
+       subtitle = "Oscar-winning movies have a higher average worldwide gross.",
        x = "Worldwide Gross (millions of $)",
        y = "Oscar Winner") +
   theme_minimal() +

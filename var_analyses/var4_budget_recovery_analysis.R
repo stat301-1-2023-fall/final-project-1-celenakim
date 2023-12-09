@@ -66,7 +66,7 @@ budget_opening_wknd <- movie_data |>
   geom_smooth(method = "lm") +
   labs(x = "Movie Budget (millions of $)",
        y = "Opening Weekend Earnings (millions of $)",
-       title = "Movie Budget by Opening Weekend Revenue",
+       title = "Opening Weekend Revenue by Movie Budget",
        subtitle = "There is a direct positive association between the 
 two variables.") +
   theme_minimal() +
@@ -81,7 +81,7 @@ budget_ww_gross <- movie_data |>
   geom_smooth(method = "lm") +
   labs(x = "Movie Budget (millions of $)",
        y = "Worldwide Gross (millions of $)",
-       title = "Movie Budget by Worldwide Gross",
+       title = "Worldwide Gross by Movie Budget",
        subtitle = "There is a direct positive association between the 
 two variables.") +
   theme_minimal() +
@@ -105,7 +105,7 @@ budget_by_genre <- movie_data |>
              fill = primary_genre)) +
   geom_boxplot() +
   labs(title = "Genre-specific Movie Budgets",
-       subtitle = "The fantasy genre has the highest average production budget.",
+       subtitle = "The 'fantasy' genre has the highest average production budget.",
        x = "Genre",
        y = "Average Budget (millions of $)",
        fill = "Primary Genre") +
@@ -173,8 +173,9 @@ budget_oscars <- movie_data |>
   filter(!is.na(oscar_winners)) |> 
   ggplot(aes(x = budget_million, y = oscar_winners)) +
   geom_boxplot() +
-  labs(title = "Distribution of Movie Budget by Oscar Wins",
-       subtitle = "Oscar winning movies have a lower average budget.",
+  labs(title = "Distribution of Movie Budget for Oscar-winning Movies and Movies with 
+0 Oscar Wins",
+       subtitle = "Oscar-winning movies have a lower average budget.",
        x = "Production Budget (millions of $)",
        y = "Oscar Winner") +
   theme_minimal() +

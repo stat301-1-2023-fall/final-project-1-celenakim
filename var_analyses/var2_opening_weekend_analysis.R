@@ -78,8 +78,8 @@ opening_wknd_budget_rcvry_genre <- movie_data |>
               se = FALSE) +
   labs(x = "Opening Weekend Earnings (millions of $)",
        y = "Budget Recovery Earnings (millions of $)",
-       title = "Opening Weekend Earnings by Budget Recovery for 
-Each Genre",
+       title = "Budget Recovery by Opening Weekend 
+Earnings for Each Genre",
 subtitle = "The 'adventure' genre has the steepest correlation.",
 color = "Genre") +
   theme_minimal() +
@@ -104,8 +104,8 @@ opening_wknd_budget_rcvry_script_type <- movie_data |>
               se = FALSE) +
   labs(x = "Opening Weekend Earnings (millions of $)",
        y = "Budget Recovery Earnings (millions of $)",
-       title = "Opening Weekend Earnings by Budget Recovery for 
-Each Script Type",
+       title = "Budget Recovery by Opening Weekend 
+Earnings for Each Script Type",
 subtitle = "The 'remake' script type has the steepest correlation.",
 color = "Script Type") +
   theme_minimal() +
@@ -195,7 +195,8 @@ opening_wknd_oscar <- movie_data |>
   filter(!is.na(oscar_winners)) |> 
   ggplot(aes(x = opening_weekend_million, y = oscar_winners)) +
   geom_boxplot() +
-  labs(title = "Opening Weekend Revenue by Oscar Wins",
+  labs(title = "Distribution of Opening Weekend Revenue for Oscar-winning Movies and 
+Movies with 0 Oscars",
        subtitle = "Oscar winning movies have a lower average of opening weekend revenue earnings.",
        x = "Opening Weekend Revenue (in millions of $)",
        y = "Oscar Winner") +
@@ -269,7 +270,7 @@ rt_audience_by_opening_wknd <- movie_data |>
   geom_point() +
   geom_smooth(method = "lm",
               se = FALSE) +
-  labs(title = "Opening Weekend Revenue by Rotten Tomatoes Audience Score",
+  labs(title = "Rotten Tomatoes Audience Score by Opening Weekend Revenue",
        subtitle = "There is a positive relationship between the two variables.",
        x = "Opening Weekend (millions of $)",
        y = "Rotten Tomatoes Audience Score") +

@@ -46,8 +46,9 @@ critic_ratings_oscar <- movie_data |>
   geom_boxplot() +
   labs(x = "Average Critic Rating",
        y = "Oscar Winner",
-       title = "Distribution of Critic Ratings by Oscar Wins",
-       subtitle = "Oscar winning movies have a higher mean critic rating.") +
+       title = "Distribution of Critic Ratings for Oscar-winning Movies and Movies 
+with 0 Oscars",
+       subtitle = "Oscar-winning movies have a higher mean critic rating.") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot",

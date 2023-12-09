@@ -83,7 +83,7 @@ over the years overall. Critics seem to rate lower than audiences.",
                                   by = 2)) 
 ```
 
-@fig-yearly-avg-ratings visualizes how the average of Rotten Tomatoes and Metacritic scores have changed over the years, separated by audience and critic rating groups. Overall, it appears that these ratings as a whole have slightly increased since 2007. There are many different factors that could have led to this gradual increase, perhaps that the quality of movies has improved over time, or that reviewers have become more lenient in their scores, but there is not enough information to make a concrete explanation for this increase. Additionally, the audience rating group seems to consistently give higher ratings than the critic rating group, possibly suggesting that they are less harsh when it comes to reviewing films. This analysis of ratings over the years serves to help us understand how much the behaviors of the two rating groups of audience and critics differ, as well as visualizing the overall pattern of critic ratings over the years.
+@fig-yearly-avg-ratings visualizes how the average of Rotten Tomatoes and Metacritic scores have changed over the years, separated by audience and critic rating groups. Overall, it appears that these ratings as a whole have slightly increased since 2007. There are many different factors that could have led to this gradual increase, perhaps that the quality of movies has improved over time, or that reviewers have become more lenient in their scores, but there is not enough information to make a concrete explanation for this increase. Additionally, the audience rating group seems to consistently give higher ratings than the critic rating group, possibly suggesting that they are less harsh when it comes to reviewing films. This analysis of ratings over the years serves to help us understand how much the behaviors of the two rating groups of audience and critics differ, as well as visualize the overall pattern of critic ratings over the years.
 
 ```{r}
 #| label: fig-critic-ratings-oscar
@@ -95,19 +95,20 @@ movie_data |>
   geom_boxplot() +
   labs(x = "Average Critic Rating",
        y = "Oscar Winner",
-       title = "Distribution of Critic Ratings by Oscar Wins",
-       subtitle = "Oscar winning movies have a higher mean critic rating.") +
+       title = "Distribution of Critic Ratings for Oscar-winning Movies and Movies with 
+0 Oscars",
+       subtitle = "Oscar-winning movies have a higher mean critic rating.") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold"),
         plot.title.position = "plot",
         legend.position = "top")
 ```
 
-@fig-critic-ratings-oscar makes use of two measures of movie success that are determined solely by movie critics: Oscar wins and average critic movie ratings. As can be seen in the box plot, Hollywood movies that have won at least one Oscar award have a higher average of Rotten Tomatoes and Metacritic critic ratings than those who have not won any Oscars. This correlations suggests a similar pattern between critics' movie assessment and award recognition, in that movies who are praised enough by critics to win an Oscar are also favored highly among Rotten Tomatoes and Metacritic critics.
+@fig-critic-ratings-oscar makes use of two measures of movie success that are determined solely by movie critics: Oscar wins and average critic movie ratings. As can be seen in the box plot, Hollywood movies that have won at least one Oscar award have a higher average of Rotten Tomatoes and Metacritic critic ratings than those that have not won any Oscars. This correlation suggests a similar pattern between critics' movie assessment and award recognition, in that movies that are praised enough by critics to win an Oscar are also favored highly among Rotten Tomatoes and Metacritic critics.
 
 ```{r}
 #| label: fig-rt-critic-opening-wknd
-#| fig-cap: There is a slight positive association between Rotten Tomatoes critic rating and opening weekend revenue, but it is not very strong.
+#| fig-cap: A visualization of the relationship between Rotten Tomatoes critic scores and opening weekend revenue.
 
 movie_data |> 
   ggplot(aes(x = rotten_tomatoes_critics,
@@ -125,7 +126,7 @@ weekend revenue.") +
         legend.position = "top")
 ```
 
-A movie's Rotten Tomatoes critic rating is typically released before the movie hits theaters, as critics sometimes have exclusive pre-release screenings. Thus, I was interested in exploring the extent to which the success of this rating has on influencing the success of the movie's opening weekend revenue. @fig-rt-critic-opening-wknd shows, however, that the correlation between these two variables is not very strong, and relatively nonexistent. There is a very slight positive association, suggesting that to some extent, as a movie's Rotten Tomatoes critic rating increases, so does its opening weekend earnings. But, as this association is very weak and not significant at all, this means that the Rotten Tomatoes critic score does not have a drastic/direct impact on opening weekend revenue as I had initially thought.
+A movie's Rotten Tomatoes critic rating is typically released before the movie hits theaters, as critics sometimes have exclusive pre-release screenings. Thus, I was interested in exploring the extent to which the success of this rating influences the success of the movie's opening weekend revenue. @fig-rt-critic-opening-wknd shows, however, that the correlation between these two variables is not very strong, and relatively nonexistent. There is a very slight positive association, suggesting that to some extent, as a movie's Rotten Tomatoes critic rating increases, so does its opening weekend earnings. But, as this association is very weak and not significant at all, this means that the Rotten Tomatoes critic score does not have a drastic/direct impact on opening weekend revenue as I had initially thought.
 
 ```{r}
 #| label: fig-ratings-script-type
@@ -197,7 +198,7 @@ the 'sci-fi' genre.") +
                                    hjust = 1)) 
 ```
 
-In this data set, "audience vs. critics deviance" refers to the difference in a movie's average of Rotten Tomatoes and Metacritics critic ratings and its average of Rotten Tomatoes and Metacritics audience ratings. A negative deviance means there was a higher audience rating than critic rating. In @fig-deviance-genre, a majority of the bars on the graph being in the negative axis means that for a majority of genres, audience rating groups gave out higher ratings than critic rating groups. This makes sense, given that in @fig-yearly-avg-ratings, it was concluded that audience rating groups tend to give out higher ratings than critic rating groups. Faceting by genre, the graph shows that the genre with the lowest absolute value deviance rating is the "biography" category. This suggests that audience and critic rating groups rated movies of this genre most similarly. On the other hand, the genre with the highest disparity in ratings is the "sci-fi" category, suggesting that audiences and critics differ in rating opinion the most for this genre.
+In this data set, "audience vs. critics deviance" refers to the difference in a movie's average of Rotten Tomatoes and Metacritic critic ratings and its average of Rotten Tomatoes and Metacritic audience ratings. A negative deviance means there was a higher audience rating than critic rating. In @fig-deviance-genre, a majority of the bars on the graph being in the negative axis means that for a majority of genres, audience rating groups gave out higher ratings than critic rating groups. This makes sense, given that in @fig-yearly-avg-ratings, it was concluded that audience rating groups tend to give out higher ratings than critic rating groups. Faceting by genre, the graph shows that the genre with the lowest absolute value deviance rating is the "biography" category. This suggests that audience and critic rating groups rated movies of this genre most similarly. On the other hand, the genre with the highest disparity in ratings is the "sci-fi" category, suggesting that audiences and critics differ in rating opinion the most for this genre.
 
 ```{r}
 #| label: fig-company-deviance-genre
@@ -225,11 +226,11 @@ movie_data |>
                                    hjust = 1)) 
 ```
 
-In @fig-company-deviance-genre, the deviances in Rotten Tomatoes audience ratings and Metacritic audience ratings is explored by genre. A positive deviance means there was a higher average Rotten Tomatoes audience score than Metacritic score. With all of the bars in this graph in the positive axis except for the fantasy genre, this suggests that Rotten Tomatoes audience users gave out higher ratings for movies than the Metacritic audience rating group in all genres except fantasy. Moreover, @fig-company-deviance-genre interestingly displays the exact opposite findings of the lowest and highest deviances that were conluded in @fig-deviance-genre. This time, the genre with the lowest absolute value deviance is the "sci-fi" category, suggesting that Rotten Tomatoes and Metacritic audiences rated movies in this category most similarly, and the genre that the Rotten Tomatoes and Metacritic audiences differed in ratings the highest in is the "biography" category. With this repetition in extreme deviances for the "sci-fi" and "genre" categories from both @fig-company-deviance-genre and @fig-deviance-genre, this could suggest that these two categories are the two genres that are the most varied in opinion.
+In @fig-company-deviance-genre, the deviances in Rotten Tomatoes audience ratings and Metacritic audience ratings is explored by genre. A positive deviance means there was a higher average Rotten Tomatoes audience score than Metacritic score. With all of the bars in this graph in the positive axis except for the fantasy genre, this suggests that Rotten Tomatoes audience users gave out higher ratings for movies than the Metacritic audience rating group in all genres except fantasy. Moreover, @fig-company-deviance-genre interestingly displays the exact opposite findings of the lowest and highest deviances that were concluded in @fig-deviance-genre. This time, the genre with the lowest absolute value deviance is the "sci-fi" category, suggesting that Rotten Tomatoes and Metacritic audiences rated movies in this category most similarly, and the genre that the Rotten Tomatoes and Metacritic audiences differed in ratings the highest in is the "biography" category. With this repetition in extreme deviances for the "sci-fi" and "genre" categories from both @fig-company-deviance-genre and @fig-deviance-genre, this could suggest that these two categories are the two genres that are the most varied in opinion.
 
 ```{r}
 #| label: fig-critic-vs-aud-dom-gross
-#| fig-cap: A visualization of the relationship between audience and criticing ratings with domestic gross for each movie genre category.
+#| fig-cap: A visualization of the relationship between audience and critic ratings with domestic gross for each movie genre category.
 
 # critics
 critic_rating_dom_gross_genre <- movie_data |> 
@@ -295,11 +296,11 @@ two variables.",
 critic_rating_dom_gross_genre + aud_rating_dom_gross_genre
 ```
 
-@fig-critic-vs-aud-dom-gross seeks to explore the relationship between both critic groups' ratings and domestic gross, as well as how the genre variable plays into this relationship. Overall, there seems to be a positive correlation between a movie's rating and its domestic gross earnings. That is, as the rating of a movie increases, its domestic gross revenue also increases. However, this correlation seems to be stronger/steeper for audience rating groups than critic rating groups, suggesting that as audience ratings increases, the domestic gross earnings increases at a higher rate than it would with critic ratings. When looking at this relationship through the lens of the different genres, the "action" genre has the steepest correlation for both plots, but it is again steeper for audience rating. This suggests that for action type movies specifically, as their movie rating increases, the amount of domestic gross revenue earned for this type of category is greater than other movie genres. However, this domestic gross earning is greater for audience ratings as they increase for action movies, as compared to critic ratings of action movies.
+@fig-critic-vs-aud-dom-gross seeks to explore the relationship between both critic groups' ratings and domestic gross, as well as how the genre variable plays into this relationship. Overall, there seems to be a positive correlation between a movie's rating and its domestic gross earnings. That is, as the rating of a movie increases, its domestic gross revenue also increases. However, this correlation seems to be stronger/steeper for audience rating groups than critic rating groups, suggesting that as audience ratings increase, the domestic gross earnings increase at a higher rate than they would with critic ratings. When looking at this relationship through the lens of the different genres, the "action" genre has the steepest correlation for both plots, but it is again steeper for audience rating. This suggests that for action-type movies specifically, as their movie rating increases, the amount of domestic gross revenue earned for this type of category is greater than other movie genres. However, this domestic gross earning is greater for audience ratings as they increase for action movies, as compared to critic ratings of action movies.
 
 ```{r}
 #| label: fig-critic-vs-aud-distributor
-#| fig-cap: A visualization of the movie distributors with the ten highest critic ratings and and ten highest average audience ratings.
+#| fig-cap: A visualization of the movie distributors with the ten highest average critic and average audience ratings.
 
 
 aud_ratings_distributor <- movie_data |> 
@@ -375,8 +376,8 @@ critic_pcnt_abroad <- movie_data |>
        subtitle = "There is no correlation between the two variables.") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold",
-                                  size = 10),
-        plot.subtitle = element_text(size = 9),
+                                  size = 9),
+        plot.subtitle = element_text(size = 8),
         plot.title.position = "plot")
 
 aud_pcnt_abroad <- movie_data |> 
@@ -391,14 +392,14 @@ aud_pcnt_abroad <- movie_data |>
        subtitle = "There is no correlation between the two variables.") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold",
-                                  size = 10),
-        plot.subtitle = element_text(size = 9),
+                                  size = 9),
+        plot.subtitle = element_text(size = 8),
         plot.title.position = "plot")
 
 critic_pcnt_abroad + aud_pcnt_abroad
 ```
 
-In @fig-critic-aud-pcnt-abroad, the potential relationship of the audience and critic rating groups with the percent of a movie's gross earnings that are earned abroad is explored. However, we see that there is virtually no correlation between the variables, although there is the slighest positive correlation between audience ratings and the percent of a movie's gross earned abroad. This could suggest that critic ratings have practically no link with the percent that a movie earns in its theaters abroad, but the audience ratings do seem to have a slightly stronger correlation with the percent earned abroad variable, suggesting that audience ratings may have the slightest connection to this variable, but it is not to a significant degree.
+In @fig-critic-aud-pcnt-abroad, the potential relationship of the audience and critic rating groups with the percent of a movie's gross earnings that are earned abroad is explored. However, we see that there is virtually no correlation between the variables, although there is the slightest positive correlation between audience ratings and the percentage of a movie's gross earned abroad. This could suggest that critic ratings have practically no link with the percent that a movie earns in its theaters abroad, but the audience ratings do seem to have a slightly stronger correlation with the percent earned abroad variable, suggesting that audience ratings may have the slightest connection to this variable, but it is not to a significant degree.
 
 ## Variable 2: Opening Weekend Revenue
 
@@ -464,7 +465,7 @@ COVID-19 pandemic.") +
 
 ```
 
-@fig-yearly-opening-wknd visualizes the change in the mean opening weekend earnings (in millions) for Hollywood movies from 2007-2022. As can be seen by the graph, there are two distinct low points on the graph corresponding to the years 2008 and 2020, and these drops can be explained by the economic state of the country during those years. In 2008, the country experienced a Great Recession of economic downturn, greatly impacting the film industry. This economic crisis led to a dramatic decline in consumer spending and movie production, possibly leading to the drop in mean opening weekend earnings that we see in the graph for this year. In 2020, we see a significantly more drastic drop in mean opening weekend revenue, as the COVID-19 pandemic led to a nationwide shut down/capacity limit of movie theaters. With these conditions, there was a dramatic decline in movie theater ticket sales and thus a dramtic drop in the mean opening weekend revenue of movies released during the pandemic, as shown in the graph. These findings are certainly something to keep in mind throughout this variable analysis, as the opening weekend revenue is highly impacted by economic crises such as the 2008 Great Recession and the 2020 COVID-19 pandemic.
+@fig-yearly-opening-wknd visualizes the change in the mean opening weekend earnings (in millions) for Hollywood movies from 2007-2022. As can be seen by the graph, there are two distinct low points on the graph corresponding to the years 2008 and 2020, and these drops can be explained by the economic state of the country during those years. In 2008, the country experienced a Great Recession of economic downturn, greatly impacting the film industry. This economic crisis led to a dramatic decline in consumer spending and movie production, possibly leading to the drop in mean opening weekend earnings that we see in the graph for this year. In 2020, we see a significantly more drastic drop in mean opening weekend revenue, as the COVID-19 pandemic led to a nationwide shut down/capacity limit of movie theaters. With these conditions, there was a dramatic decline in movie theater ticket sales and thus a dramatic drop in the mean opening weekend revenue of movies released during the pandemic, as shown in the graph. These findings are certainly something to keep in mind throughout this variable analysis, as the opening weekend revenue is highly impacted by economic crises such as the 2008 Great Recession and the 2020 COVID-19 pandemic.
 
 ```{r}
 #| label: fig-budget-rcvry-opening-wknd
@@ -483,8 +484,8 @@ opening_wknd_budget_rcvry_genre <- movie_data |>
               se = FALSE) +
   labs(x = "Opening Weekend Earnings (millions of $)",
        y = "Budget Recovery Earnings (millions of $)",
-       title = "Opening Weekend Earnings by Budget 
-Recovery for Each Genre",
+       title = "Budget Recovery by Opening Weekend 
+Earnings by for Each Genre",
        subtitle = "The 'adventure' genre has the steepest correlation.",
        color = "Genre") +
   theme_minimal() +
@@ -510,8 +511,8 @@ opening_wknd_budget_rcvry_script_type <- movie_data |>
               se = FALSE) +
   labs(x = "Opening Weekend Earnings (millions of $)",
        y = "Budget Recovery Earnings (millions of $)",
-       title = "Opening Weekend Earnings by Budget 
-Recovery for Each Script Type",
+       title = "Budget Recovery by Opening Weekend 
+Earnings by for Each Script Type",
        subtitle = "The 'remake' script type has the steepest correlation.",
        color = "Script Type") +
   theme_minimal() +
@@ -528,11 +529,11 @@ Recovery for Each Script Type",
 opening_wknd_budget_rcvry_genre + opening_wknd_budget_rcvry_script_type
 ```
 
-@fig-budget-rcvry-opening-wknd explores the relationship between a movie's opening weekend revenue and how much it earns to recover it's production cost (budget recovery), categorized by script type and genre. Overall, there is a clear strong, positive correlation between opening weekend revenue and budget recovery, suggesting that as the amount of money a movie earns during the first weekend of its release in theaters increases, the the amount of money it will earn to recover its budget will also increase. However, this correlation varies between each specific genre and script type. In examining genre, the 'adventure' category has the highest correlation. This may suggest that out of all movie genres, the adventure category earns more of its budget back as their opening weekend increases. In examining script type relationships, the 'remake' script type has the highest correlation, also suggesting that remakes earn a higher amount to recover its budget as their opening weekend earnings increase.
+@fig-budget-rcvry-opening-wknd explores the relationship between a movie's opening weekend revenue and how much it earns to recover its production cost (budget recovery), categorized by script type and genre. Overall, there is a clear strong, positive correlation between opening weekend revenue and budget recovery, suggesting that as the amount of money a movie earns during the first weekend of its release in theaters increases, the amount of money it will earn to recover its budget will also increase. However, this correlation varies between each specific genre and script type. In examining genre, the 'adventure' category has the highest correlation. This may suggest that out of all movie genres, the adventure category earns more of its budget back as its opening weekend increases. In examining script type relationships, the 'remake' script type has the highest correlation, also suggesting that remakes earn a higher amount to recover their budget as their opening weekend earnings increase.
 
 ```{r}
 #| label: fig-opening-wknd-by-genre-script-type
-#| fig-cap: The genres and script types of the top 5 movies that earned the most revenue during their opening weekends.
+#| fig-cap: The top 5 movies genres and script types that earned the most revenue during their opening weekends.
 genre_opening_wknd_plot <- movie_data |> 
   group_by(genre) |> 
   summarize(mean_opening_success = mean(opening_weekend_million)) |> 
@@ -594,7 +595,8 @@ movie_data |>
   filter(!is.na(oscar_winners)) |> 
   ggplot(aes(x = opening_weekend_million, y = oscar_winners)) +
   geom_boxplot() +
-  labs(title = "Opening Weekend Revenue by Oscar Wins",
+  labs(title = "Distribution of Opening Weekend Revenue for Oscar-winning Movies and 
+Movies with 0 Oscars",
        subtitle = "Oscar winning movies have a lower average of opening weekend revenue earnings.",
        x = "Opening Weekend Revenue (in millions of $)",
        y = "Oscar Winner") +
@@ -607,7 +609,7 @@ movie_data |>
 
 ```{r}
 #| label: fig-opening-wknd-dom-for
-#| fig-cap: The relationship between a Hollywood movie's Rotten Tomatoes critic score and its earnings during the first weekend of its release.
+#| fig-cap: The relationship between a Hollywood movie's opening weekend revenue and both its domestic and foreign gross earnings.
 
 opening_wknd_domgross <- movie_data |> 
   ggplot(aes(x = opening_weekend_million, 
@@ -644,7 +646,7 @@ opening_wknd_forgross <- movie_data |>
 opening_wknd_domgross + opening_wknd_forgross
 ```
 
-@fig-opening-wknd-dom-for displays very strong, positive correlations for both associations of domestic gross by opening weekend revenue and foreign gross by opening weekend revenue. This suggests that a Hollywood movie's performance during its opening weekend of release has a direct positive association with its overall domestic and foreign grosses. That is, as opening weekend earnings success increases, so will domestic and foreign gross successes. Additionally, the correlation between opening weekend revenue and domestic gross seems to be slightly steeper than the correlation between opening weekend revenue and foreign gross, suggesting that opening weekend revenue performance has a slightly greater impact on its domestic gross performance than it does its foreign gross performance.
+@fig-opening-wknd-dom-for displays very strong, positive correlations for both associations of domestic gross by opening weekend revenue and foreign gross by opening weekend revenue. This suggests that a Hollywood movie's performance during its opening weekend of release has a direct positive association with its overall domestic and foreign grosses. That is, as opening weekend earnings success increases, so will domestic and foreign gross successes. Additionally, the correlation between opening weekend revenue and domestic gross seems to be slightly steeper than the correlation between opening weekend revenue and foreign gross, suggesting that opening weekend revenue performance has a slightly greater impact on its domestic gross performance than it does on its foreign gross performance.
 
 ```{r}
 #| label: fig-distr-opening-wknd-success
@@ -678,7 +680,7 @@ In examining the top distribution companies based on opening weekend performance
 
 ```{r}
 #| label: fig-opening-wknd-audience
-#| fig-cap: A visualization of the change in yearly domestic gross for Hollywood movie
+#| fig-cap: A visualization of the correlation between opening weekend revenue and Rotten Tomatoes audience scores.
 
 movie_data |> 
   ggplot(aes(x = opening_weekend_million,
@@ -686,7 +688,7 @@ movie_data |>
   geom_point() +
   geom_smooth(method = "lm",
               se = FALSE) +
-  labs(title = "Opening Weekend Revenue by Rotten Tomatoes Audience Score",
+  labs(title = "Rotten Tomatoes Audience Score by Opening Weekend Revenue",
        subtitle = "There is a positive relationship between the two variables.",
        x = "Opening Weekend (millions of $)",
        y = "Rotten Tomatoes Audience Score") +
@@ -695,7 +697,7 @@ movie_data |>
         plot.title.position = "plot")
 ```
 
-In @fig-rt-critic-opening-wknd, the relationship between the Rotten Tomatoes critic rating and a movie's opening weekend success was explored, as Rotten Tomatoes critic ratings are usually revealed before the release of a movie. Now, @fig-opening-wknd-audience follows this analysis by exploring how the opening weekend success of a movie correlates with its Rotten Tomatoes audience ratings, as audience ratings are typically made after a movie hits the theaters. While there was not a very discernible relationship between the two variables in @fig-rt-critic-opening-wknd, @fig-opening-wknd-audience shows a distinct, positive relationship between opening weekend revenue and Rotten Tomatoes audience score, suggesting that the more successful the opening weekend of a movie is, the higher the movie's Rotten Tomatoes audience score will be. This establishes a relationship with opening weekend revenue and Rotten Tomatoes audience score, while the relationship of Rotten Tomatoes critic score with opening weekend revenue is definitely not as significant.
+In @fig-rt-critic-opening-wknd, the relationship between the Rotten Tomatoes critic rating and a movie's opening weekend success was explored, as Rotten Tomatoes critic ratings are usually revealed before the release of a movie. Now, @fig-opening-wknd-audience follows this analysis by exploring how the opening weekend success of a movie correlates with its Rotten Tomatoes audience ratings, as audience ratings are typically made after a movie hits the theaters. While there was not a very discernible relationship between the two variables in @fig-rt-critic-opening-wknd, @fig-opening-wknd-audience shows a distinct, positive relationship between opening weekend revenue and Rotten Tomatoes audience score, suggesting that the more successful the opening weekend of a movie is, the higher the movie's Rotten Tomatoes audience score will be. This establishes a relationship between opening weekend revenue and Rotten Tomatoes audience score, while the relationship between Rotten Tomatoes critic score with opening weekend revenue is definitely not as significant.
 
 ## Variable 3: Domestic, Foreign, & Worldwide Gross
 
@@ -774,7 +776,7 @@ movie_data |>
         plot.title.position = "plot") 
 ```
 
-@fig-gross-correlation displays a direct and strong positive correlation between the domestic gross earnings and foreign gross earnings of Hollywood movies. In other words, as the domestic gross earnings of a movie increases, its foreign gross earnings also increase. This suggests that US and foreign audiences have similar preferences in movie popularity.
+@fig-gross-correlation displays a direct and strong positive correlation between the domestic gross earnings and foreign gross earnings of Hollywood movies. In other words, as the domestic gross earnings of a movie increase, its foreign gross earnings also increase. This suggests that US and foreign audiences have similar preferences in movie popularity.
 
 ```{r}
 #| label: fig-gross-genre-dist
@@ -885,11 +887,11 @@ fill = "Script Type") +
 gross_domestic_script_type + gross_foreign_script_type
 ```
 
-Similar to @fig-gross-genre-dist, @fig-gross-scripttype-dist compares the movie preference behavior between domestic and foreign audiences, this time by script type popularity. According the distributions, the "sequel, adpation" script type has the best performance for both domestic and foreign audiences. Unlike @fig-gross-genre-dist, which revealed a disparity between the domestic and foreign audiences, @fig-gross-scripttype-dist reveals a way in which they are similar as they both have a stronger preference for "sequel, adaptation" movies over other script types. These type of movies perform equally successfully in both domestic and foreign audiences by bringing in the most average gross revenues.
+Similar to @fig-gross-genre-dist, @fig-gross-scripttype-dist compares the movie preference behavior between domestic and foreign audiences, this time by script type popularity. According to the distributions, the "sequel, adaptation" script type has the best performance for both domestic and foreign audiences. Unlike @fig-gross-genre-dist, which revealed a disparity between the domestic and foreign audiences, @fig-gross-scripttype-dist reveals a way in which they are similar as they both have a stronger preference for "sequel, adaptation" movies over other script types. This category performs equally successfully among both domestic and foreign audiences by bringing in the most average gross revenues.
 
 ```{r}
 #| label: fig-dom-for-gross-distributor
-#| fig-cap: A comparison of the top 5 movie distributors with the highest gross earnings between domestic and foreign gross.
+#| fig-cap: A visualization of the top 5 movie distributors with the highest domestic and foreign gross earnings.
 
 dom_gross_distributor <- movie_data |> 
   filter(!is.na(distributor)) |> 
@@ -974,11 +976,11 @@ of its Budget Recovered",
         plot.title.position = "plot") 
 ```
 
-In @fig-ww-gross-budget-rcvry, there is a clear positive relationship between a movie's worldwide gross earnings and the percent of the its budget that is recovered. This suggests that the greater box office revenue a movie earns, the more of its budget will be able to be earned back following its production/release into theaters.
+In @fig-ww-gross-budget-rcvry, there is a clear positive relationship between a movie's worldwide gross earnings and the percentage of its budget that is recovered. This suggests that as the box office revenue of a movie increases, the amount that it earns to recovery its budget following its production/release into theaters also increases.
 
 ```{r}
 #| label: fig-genres-pcnt-earned-abroad
-#| fig-cap: The top 10 genres that have a higher proportion of revenue from foreign audiences than domestic audiences.
+#| fig-cap: The top 10 genres with a higher proportion of revenue from foreign audiences than domestic audiences.
 
 movie_data |> 
   filter(!is.na(primary_genre) & !is.na(of_gross_earned_abroad)) |> 
@@ -1005,7 +1007,7 @@ movie_data |>
         legend.position = "none")
 ```
 
-In examining the top genres based on popularity proportions between domestic and foreign audiences, @fig-genres-pcnt-earned-abroad reveals that the "sci-fi" genre has the greatest percent of its gross earned abroad. This suggests that this category is more popular in foreign theaters than domestic theaters to the greatest degree compared to the other genres.
+In examining the top genres based on popularity proportions between domestic and foreign audiences, @fig-genres-pcnt-earned-abroad reveals that the "sci-fi" genre has the greatest percent of its gross earned abroad. This suggests that this category is more popular in foreign theaters than domestic theaters to a degree greater than other genres.
 
 ```{r}
 #| label: fig-script-type-pcnt-earned-abroad
@@ -1023,13 +1025,14 @@ movie_data |>
              fill = script_type)) +
   geom_bar(stat = "identity") +
   labs(title = "Top 10 Script Types with the Most Percentage of Gross Earned Abroad",
-       subtitle = "The 'based on a true story, remake' & 'sequel, adaptation' script types both earn the highest proportion of their gross from foreign audiences.",
+       subtitle = "The 'based on a true story, remake' & 'sequel, adaptation' script types both earn the highest proportion of their gross from foreign
+audiences.",
        x = "Script Type",
        y = "% of Gross Earned Abroad") +
   theme_minimal() +
   theme(plot.title = element_text(face = "bold",
                                   size = 12),
-        plot.subtitle = element_text(size = 8.7),
+        plot.subtitle = element_text(size = 8.6),
         plot.title.position = "plot",
         axis.text.x = element_text(angle = 45, 
                                    hjust = 1,
@@ -1112,7 +1115,7 @@ budget_opening_wknd <- movie_data |>
   geom_smooth(method = "lm") +
   labs(x = "Movie Budget (millions of $)",
        y = "Opening Weekend Earnings (millions of $)",
-       title = "Movie Budget by Opening Weekend Revenue",
+       title = "Opening Weekend Revenue by Movie Budget",
        subtitle = "There is a direct positive association between the 
 two variables.") +
   theme_minimal() +
@@ -1127,7 +1130,7 @@ budget_ww_gross <- movie_data |>
   geom_smooth(method = "lm") +
   labs(x = "Movie Budget (millions of $)",
        y = "Worldwide Gross (millions of $)",
-       title = "Movie Budget by Worldwide Gross",
+       title = "Worldwide Gross by Movie Budget",
        subtitle = "There is a direct positive association between the 
 two variables.") +
   theme_minimal() +
@@ -1155,7 +1158,7 @@ movie_data |>
              fill = primary_genre)) +
   geom_boxplot() +
   labs(title = "Genre-Specific Movie Budgets",
-subtitle = "The fantasy genre has the highest average production budget.",
+subtitle = "The 'fantasy' genre has the highest average production budget.",
 x = "Genre",
 y = "Average Budget (millions of $)",
 fill = "Primary Genre") +
@@ -1194,7 +1197,7 @@ movie_data |>
         legend.position = "none")
 ```
 
-@fig-budget-script-type shows the distributions of movie budgets for each script type category of Hollywood movies, with the "sequel, adaptation" having the highest average movie budget. So far, this script type category has won superlatives for many of the analyses in this EDA-- for example, @fig-gross-scripttype-dist revealed that the "sequel, adaptation" has the greatest average domestic and foreign gross, and @fig-opening-wknd-by-genre-script-type revealed that this same category earned the greatest average revenue during its opening weekend of its release. Given our previous findings and established understandings of the correlations between budget and the opening weekend revenue and gross variables, these findings make sense. In @fig-opening-wknd-by-budget, it was concluded that there exists a direct, positive association between a Hollywood movie's budget and its gross earnings, both during opening weekend and worldwide (foreign + gross). Thus, if the "sequel, adaptation" has the highest average movie budget, then it should also have the title of greatest domestic and foreign gross and opening weekend revenue, and that is exactly what has been found thus far.
+@fig-budget-script-type shows the distributions of movie budgets for each script type category of Hollywood movies, with the "sequel, adaptation" having the highest average movie budget. So far, this script type category has won superlatives for many of the analyses in this EDA-- for example, @fig-gross-scripttype-dist revealed that the "sequel, adaptation" has the greatest average domestic and foreign gross, and @fig-opening-wknd-by-genre-script-type revealed that this same category earned the greatest average revenue during the opening weekend of its release. Given our previous findings and established understanding of the correlations between budget and the opening weekend revenue and gross variables, these findings make sense. In @fig-opening-wknd-by-budget, it was concluded that there exists a direct, positive association between a Hollywood movie's budget and its gross earnings, both during opening weekend and worldwide (foreign + gross). Thus, if the "sequel, adaptation" has the highest average movie budget, then it should also have the title of greatest domestic and foreign gross and opening weekend revenue, and that is exactly what has been found thus far.
 
 ```{r}
 #| label: fig-budget-distributor
@@ -1226,7 +1229,7 @@ movie_data |>
         legend.position = "none")
 ```
 
-@fig-budget-distributor reveals the top 10 movie distribution companies that have the highest mean movie budgets, with Walt Disney Studios having the #1 spot. This again follows the correlations and findings that have been established in the EDA thus far, as explained previously. For example, @fig-distr-opening-wknd-success revealed that Walt Disney Studio has the highest average opening weekend revenue, @fig-dom-for-gross-distributor displayed Walt Disney Studios as the the movie distributor with the most successful gross performance, and @fig-opening-wknd-by-budget ties all of these findings together by concluding that there exists a positive association between a Hollywood movie's budget and its gross earnings, thus explaining why Walt Disney Studios' status as the distributor with the highest budget lends it to also be the distributor with the highest opening weekend, domestic, and foreign revenues. Again, it is important to keep in mind there is a lot of missingness in the distributor variable, so there could be another company with a higher mean gross the Walt Disney Studios. But the confirmation of previous findings and correlations still holds.
+@fig-budget-distributor reveals the top 10 movie distribution companies that have the highest mean movie budgets, with Walt Disney Studios having the #1 spot. This again follows the correlations and findings that have been established in the EDA thus far, as explained previously. For example, @fig-distr-opening-wknd-success revealed that Walt Disney Studio has the highest average opening weekend revenue, @fig-dom-for-gross-distributor displayed Walt Disney Studios as the movie distributor with the most successful gross performance, and @fig-opening-wknd-by-budget ties all of these findings together by concluding that there exists a positive association between a Hollywood movie's budget and its gross earnings, thus explaining why Walt Disney Studios' status as the distributor with the highest budget lends it to also be the distributor with the highest opening weekend, domestic, and foreign revenues. Again, it is important to keep in mind there is a lot of missingness in the distributor variable, so there could be another company with a higher mean gross the Walt Disney Studios. However, the confirmation of previous findings and correlations still holds.
 
 ```{r}
 #| label: fig-budget-oscars
@@ -1236,8 +1239,9 @@ movie_data |>
   filter(!is.na(oscar_winners)) |> 
   ggplot(aes(x = budget_million, y = oscar_winners)) +
   geom_boxplot() +
-  labs(title = "Distribution of Movie Budget by Oscar Wins",
-       subtitle = "Oscar winning movies have a lower average budget.",
+  labs(title = "Distribution of Movie Budget for Oscar-winning Movies and Movies with 
+0 Oscar Wins",
+       subtitle = "Oscar-winning movies have a lower average budget.",
        x = "Production Budget (millions of $)",
        y = "Oscar Winner") +
   theme_minimal() +
@@ -1246,7 +1250,7 @@ movie_data |>
 
 ```
 
-Similar to @fig-opening-wknd-oscar, @fig-budget-oscars shows that Hollywood movies that have won at least one Oscar award have an average production that is actually less than movies with no Oscar wins. This could suggest that having a high production budget does not relate to or increase the chances of a movie winning an Oscar, and that having a high production budget may not be a factor taken into account when voting for Oscars.
+Similar to @fig-opening-wknd-oscar, @fig-budget-oscars shows that Hollywood movies that have won at least one Oscar award have an average production budget that is actually less than movies with no Oscar wins. This could suggest that having a high production budget does not relate to or increase the chances of a movie winning an Oscar and that having a high production budget may not be a factor taken into account when voting for Oscars.
 
 ```{r}
 #| label: fig-budget-ratings
@@ -1303,13 +1307,11 @@ the two variables.") +
 budget_critic + budget_audience + budget_imdb
 ```
 
-@fig-budget-ratings seeks to explore how a movie's production budget is correlated with three rating measures: the average of Rotten Tomatoes and Metacritic critic scores, the average of Rotten Tomatoes and Metacritic audience scores, and IMDb ratings. For all three graphs, there seems to be positive correlations, but they are very weak as the data points are very spread out from each other. This could suggest that as movie budget increases, ratings increase, but the relationship is not very strong, and movie budget is not a direct determinant of rating success.
+@fig-budget-ratings seeks to explore how a movie's production budget is correlated with three rating measures: the average of Rotten Tomatoes and Metacritic critic scores, the average of Rotten Tomatoes and Metacritic audience scores, and IMDb ratings. For all three graphs, there seem to be positive correlations, but they are very weak as the data points are very spread out from each other. This could suggest that as movie budget increases, ratings increase, but the relationship is not very strong and movie budget is not a direct determinant of rating success.
 
 ## Variable 5: Oscar Wins
 
-According to Britannica, the Oscars, also known as the Academy Awards, is an annual awards ceremony presented by the Academy of Motion Picture Arts and Sciences. Winners are presented awards in 24 different categories ranging from costume design to original song.
-
-, is an annual awards ceremony recognizing outstanding achievements in the film industry.
+According to Britannica, the Oscars, also known as the Academy Awards, is an annual awards ceremony presented by the Academy of Motion Picture Arts and Sciences. Films are presented awards in 24 different categories ranging from costume design to original song.
 
 ```{r}
 #| label: fig-oscar-wins-films
@@ -1322,7 +1324,7 @@ According to Britannica, the Oscars, also known as the Academy Awards, is an ann
   DT::datatable()
 ```
 
-As shown in @fig-oscar-wins-films, the film that has earned the greatest number of Oscar awards among the top movies released from 2007-2022 is "Everything Everywhere All at Once", with a whopping 7 Oscar awards. However, it is important to note that the Oscar variables contain a great number of missing values, and thus this may not be accurate and there could be another film with more Oscar wins. However, within the data that is present, "Everything Everywhere All at Once" has won significantly more Oscars than other films.
+As shown in @fig-oscar-wins-films, the film that has earned the greatest number of Oscar awards among the top movies released from 2007-2022 is "Everything Everywhere All at Once", with a whopping 7 Oscar awards. However, it is important to note that the Oscar variables contain a great number of missing values, and thus this may not be accurate; there could be another film with more Oscar wins. However, within the data that is present, "Everything Everywhere All at Once" has won significantly more Oscars than any other film.
 
 ```{r}
 #| label: fig-genre-script-type-oscars
@@ -1342,7 +1344,7 @@ genre_oscar_wins <- genre_oscar_counts |>
              fill = genre)) +
   geom_bar(stat = "identity") +
   labs(title = "Top 5 Movies with the Most Oscar Wins by Genre",
-       subtitle = "The biography & history genre combination has the most Oscars.",
+       subtitle = "The 'biography, history' genre combination has the most Oscars.",
        x = "Genre",
        y = "Number of Oscar Wins") +
   theme_minimal() +
@@ -1370,7 +1372,7 @@ script_type_oscar_wins <- script_type_oscar_counts |>
              fill = script_type)) +
   geom_bar(stat = "identity") +
   labs(title = "Top 5 Movies with the Most Oscar Wins by Script Type",
-       subtitle = "The original screenplay script type has the most Oscars.",
+       subtitle = "The 'original screenplay' script type has the most Oscars.",
        x = "Script Type",
        y = "Number of Oscar Wins") +
   theme_minimal() +
@@ -1400,8 +1402,9 @@ movie_data |>
   ggplot(aes(x = worldwide_gross_million, 
              y = oscar_winners)) +
   geom_boxplot() +
-  labs(title = "Worldwide Gross by Oscar Wins",
-       subtitle = "Oscar winning movies have a higher average worldwide gross.",
+  labs(title = "Distribution of Worldwide Gross for Oscar-winning Movies and Movies with 
+0 Oscar Wins",
+       subtitle = "Oscar-winning movies have a higher average worldwide gross.",
        x = "Worldwide Gross (millions of $)",
        y = "Oscar Winner") +
   theme_minimal() +
@@ -1409,7 +1412,7 @@ movie_data |>
         plot.title.position = "plot")
 ```
 
-@fig-oscars-ww-gross shows that Hollywood movies that have won at least one Oscar award have an average of worldwide gross earnings that is greater than movies that have not won any Oscars. This could suggest a link between these two variables in that movies that have won an Oscar also have a better worldwide box office revenue performance than movies that have not won any Oscars.
+@fig-oscars-ww-gross shows that Hollywood movies that have won at least one Oscar award have an average worldwide gross earning that is greater than movies that have not won any Oscars. This could suggest a link between these two variables, in that movies that have won an Oscar also have a better worldwide box office revenue performance than movies that have not won any Oscars.
 
 ```{r}
 #| label: fig-oscars-details-ratings
@@ -1425,7 +1428,7 @@ movie_data |>
   DT::datatable()
 ```
 
-@fig-oscars-details-ratings is a table consisting of the Oscar award category combinations for movies with the highest average critic and audience ratings. It reveals that the Oscar award of "Best Supporting Actress (Patricia Arquette) has the highest mean critic rating of 99. This corresponds to a single movie in the data set, titled"Boyhood". The Oscar awards of "Best Picture, Best Director, Best Original Screenplay and Best International Feature Film" have the highest mean audience rating of 91, and these awards were won by the movie "Parasite".
+@fig-oscars-details-ratings is a table consisting of the Oscar award category combinations for movies with the highest average critic and audience ratings. It reveals that the Oscar award for "Best Supporting Actress (Patricia Arquette) has the highest mean critic rating of 99. This corresponds to a single movie in the data set, "Boyhood". The Oscar awards of "Best Picture, Best Director, Best Original Screenplay, and Best International Feature Film" have the highest mean audience rating of 91, and these awards were won by the movie "Parasite".
 
 ```{r}
 #| label: fig-oscar-count-opening-wknd
