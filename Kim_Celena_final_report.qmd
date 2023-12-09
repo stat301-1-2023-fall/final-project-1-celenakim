@@ -1507,7 +1507,7 @@ by Oscar Award Count",
 oscar_count_dom_gross + oscar_count_for_gross
 ```
 
-@fig-oscar-count-opening-wknd displays the average domestic gross revenues and average foreign gross revenues among the possible numbers of Oscar awards won by Hollywood movies. Movies that have won 1 Oscar have both the highest average domestic and highest average foreign gross. Moreover, the two plots display similar patterns. This confirms the previous finding in @fig-gross-correlation of the correlation that exists between the domestic gross and foreign gross.
+@fig-oscar-count-gross displays the average domestic gross revenues and average foreign gross revenues among the possible numbers of Oscar awards won by Hollywood movies. Movies that have won 1 Oscar have both the highest average domestic and highest average foreign gross. Moreover, the two plots display similar patterns. This confirms the previous finding in @fig-gross-correlation of the correlation that exists between the domestic gross and foreign gross.
 
 ## Variable 6: Seasonal Release Date
 
@@ -1568,7 +1568,7 @@ average audience rating.",
 seasonal_critics_plot + seasonal_audience_plot
 ```
 
-@fig-seasonal_ratings shows a comparison between the average ratings for each season between the critic and audience rating groups. There appears to be a similar pattern for both rating groups' seasonal average critic numbers, with the highest ratings given for movies released in the Fall, and the lowest ratings given for movies released in the Winter. This reveals a similarity in the seasonal patterns of movie ratings for the two rating groups. However, the taller bar graphs in the plot on the right depict a disparity between the two groups' rating patterns in that the audience rating group gives out higher ratings than the critic rating group, as revealed in @fig-yearly-avg-ratings. @fig-seasonal_ratings stands to visualize a way in which the rating patterns for these two groups are similar, and confirm a previous finding of a way that their patterns differ. An overall conclusion can be made that movies released in the Fall have the highest ratings, while movies released in the Winter have the lowest ratings.
+@fig-seasonal_ratings shows a comparison between the average ratings for each season between the critic and audience rating groups. There appears to be a similar pattern for both rating groups' seasonal average critic numbers, with the highest ratings given for movies released in the Fall, and the lowest ratings given for movies released in the Winter. This reveals a similarity in the seasonal patterns of movie ratings for the two rating groups. However, the taller bars in the audience rating plot depict a disparity between the two groups' rating patterns in that the audience rating group gives out higher ratings than the critic rating group, as revealed in @fig-yearly-avg-ratings. @fig-seasonal_ratings visualizes a way in which the rating patterns for these two groups are similar, and confirms a previous finding of a way that their patterns differ. An overall conclusion can be made that movies released in the Fall have the highest ratings, while movies released in the Winter have the lowest ratings.
 
 ```{r}
 #| label: fig-seasonal_opening_wknd
@@ -1594,7 +1594,7 @@ movie_data |>
   theme(legend.position = "none")
 ```
 
-In @fig-seasonal_opening_wknd, it is clear that movies with the highest average opening weekend revenue were released in the Spring. This could suggest that movies that are released in the Spring are more successful in terms of generating more earnings during their first weekend in theaters than movies released in other seasons.
+In @fig-seasonal_opening_wknd, it is clear that movies released in the Spring have the highest average opening weekend revenue. This could suggest that movies that are released in the Spring are more successful in terms of generating more earnings during their first weekend in theaters than movies released in other seasons.
 
 ```{r}
 #| label: fig-seasonal_gross
@@ -1616,7 +1616,7 @@ movie_data |>
         legend.position = "none")
 ```
 
-@fig-seasonal_gross shows that movies released during the Summer months have the highest average worldwide gross. This could be due to the fact that in many countries around the world, kids are on summer vacation during these months, and thus families are more likely to go to the movies and contribute to increased ticket sales.
+@fig-seasonal_gross shows that movies released during the Summer months have the highest average worldwide gross. This could be due to the fact that in many countries around the world, kids are on summer vacation during these months, and thus families are more likely to go to the movies and contribute to increased ticket sales overall.
 
 ```{r}
 #| label: fig-seasonal_budget
@@ -1641,7 +1641,7 @@ movie_data |>
   theme(legend.position = "none")
 ```
 
-@fig-seasonal_budget shows that movies released in the Spring have the highest average movie budgets. This directly aligns with previous findings in the EDA. In @fig-opening-wknd-by-budget, it was concluded that there exists a positive association between a Hollywood movie's budget and its opening weeked earnings. Therefore, since @fig-seasonal_opening_wknd revealed that the season of movies released with the highest average opening weekend revenue was Spring, then the season of movies released with the highest average movie budgets should also be the Spring, and that is what we see in this plot. This supports our finding of the positive correlation that exists between a movie's budget and opening weekend revenue.
+@fig-seasonal_budget shows that movies released in the Spring have the highest average movie budgets. This directly aligns with previous findings in the EDA. In @fig-opening-wknd-by-budget, it was concluded that there exists a positive association between a Hollywood movie's budget and its opening weekend earnings. Therefore, since @fig-seasonal_opening_wknd revealed that the season of movies released with the highest average opening weekend revenue was Spring, then the season of movies released with the highest average movie budgets should also be Spring, and that is what we see in this plot. This supports the previous finding of the positive correlation that exists between a movie's budget and opening weekend revenue.
 
 ```{r}
 #| label: fig-seasonal-opening-wknd-by-budget
@@ -1656,7 +1656,7 @@ movie_data |>
               se = FALSE) +
   labs(title = "Relationship Between Movie Budget and Opening Weekend Revenue, 
 by Season",
-       subtitle = "Movies released in the Spring have the greatest correlation between the two variables.",
+       subtitle = "Movies released in the Spring have the steepest correlation between the two variables.",
        x = "Budget (millions of $)",
        y = "Opening Weekend Revenue (millions of $)",
        color = "Season") +
@@ -1665,7 +1665,7 @@ by Season",
         plot.title.position = "plot")
 ```
 
-In @fig-opening-wknd-by-budget, it was concluded that there exists is a clear positive association between a Hollywood movie's budget and its opening weekend revenue. @fig-seasonal-opening-wknd-by-budget again explores this relationship, this time by season. According to the graph, the season with the steepest correlation is "Spring". This suggests that for movies released in the Spring, as their production budget increases, their opening weekend revenue is earned at a higher rate than movies released in other seasons. This steep correlation for Spring in @fig-seasonal-opening-wknd-by-budget makes sense, as it was concluded in @fig-seasonal_budget that movies released in the Spring have the highest average movie budgets, and @fig-seasonal_opening_wknd displayed that movies released in the Spring have the highest average opening weekend revenue.
+In @fig-opening-wknd-by-budget, it was concluded that there exists is a clear positive association between a Hollywood movie's budget and its opening weekend revenue. @fig-seasonal-opening-wknd-by-budget again explores this relationship, this time by season. According to the graph, the season with the steepest correlation is "Spring". This suggests that for movies released in the Spring, as their production budget increases, their opening weekend revenue is earned at a higher rate than movies released in other seasons. This steep correlation for Spring makes sense, as it was concluded in @fig-seasonal_budget that movies released in the Spring have the highest average movie budgets, and @fig-seasonal_opening_wknd displayed that movies released in the Spring have the highest average opening weekend revenue.
 
 ```{r}
 #| label: fig-seasonal-oscars
@@ -1691,11 +1691,11 @@ movie_data |>
   theme(legend.position = "none")
 ```
 
-In @fig-seasonal-oscars, movies that were released in the Fall season won significantly more Oscars than movies released in other seasons. This is due to the fact that the Fall season is close to around the time when Oscar voting starts, and thus these films are more salient/relavent among the voters, but there is still enough time away from the start of voting for the films to gain enough popularity and traction before the awards are given out. From this, we can conclude that when defining a film's success solely defined by the number of Oscar wins, releasing the film during the Fall season will greatly increase its chances of being successful.
+In @fig-seasonal-oscars, movies that were released in the Fall season won significantly more Oscars than movies released in other seasons. This is due to the fact that the Fall season is close to around the time when Oscar voting starts, and thus these films are more salient/relavent among the voters, but there is still enough time away from the start of voting for the films to gain enough popularity and traction before the awards are given out. From this, we can conclude that when defining a film's success solely based on the number of Oscar wins, releasing the film during the Fall season will greatly increase its chances of being successful.
 
 ```{r}
 #| label: fig-seasonal-genre
-#| fig-cap: The distribution of genre categories of the movies that were released in each season.
+#| fig-cap: The distribution of genre categories for each movie release season.
 
 movie_data |> 
   filter(!is.na(primary_genre) & primary_genre != "") |> 
@@ -1713,7 +1713,7 @@ movie_data |>
         legend.position = "right")
 ```
 
-@fig-seasonal-genre visualizes the genre distribution of the movies released in each season. According to the graph, the "action" genre made up a majority of the movies released in the Spring, Summer, and Winter, but for movies with a release date in the Fall, a majority of them were of the "crime" genre.
+@fig-seasonal-genre visualizes the genre distribution of movies for each season. According to the graph, the "action" genre made up a majority of the movies released in the Spring, Summer, and Winter, but for movies with a release date in the Fall, a majority of them were of the "crime" genre.
 
 ```{r}
 #| label: fig-seasonal-script-type
@@ -1735,7 +1735,7 @@ movie_data |>
         legend.position = "right")
 ```
 
-@fig-seasonal-script-type displays the script type distribution of the movies released in each season. As can be seen in the graph, the "original screenplay" category makes up the majority of movies across all seasons. This could suggest that this particular script type is the most popular/common for films.
+@fig-seasonal-script-type displays the script type distribution of the movies released in each season. As can be seen in the graph, the "original screenplay" category makes up the majority of movies across all seasons. This could suggest that this particular script type is the most common for films.
 
 ## Conclusion
 
