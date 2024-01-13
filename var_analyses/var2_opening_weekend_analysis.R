@@ -3,6 +3,8 @@ library(scales)
 library(ggrepel)
 library(patchwork)
 
+movie_data <- read_csv("data/movie_data.csv")
+
 # Github link:
 # https://github.com/stat301-1-2023-fall/final-project-1-celenakim
 
